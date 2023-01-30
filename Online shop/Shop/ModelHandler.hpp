@@ -13,7 +13,9 @@ class ModelHandler : public QObject
 public:
     explicit ModelHandler(QObject *parent = nullptr);
 
-    void CreateModel(ModelStruct modelStruct);
+    void CreateModel( ModelStruct &modelStruct);
+
+    void CreateModels( QVector<ModelStruct>& modelsStructVec);
 
     QStandardItemModel* GetPlacesModels() const;
 
@@ -23,11 +25,13 @@ public:
 
 private:
 
+    QVector<ModelStruct> m_modelsStructVec;
+
     QStandardItemModel* m_placesModels;
 
-    QStandardItemModel* m_mainShop;
+    QStandardItemModel* m_tmpModel;
 
-    QVector<QStandardItemModel*> m_vecModels;
+    QMap<QString, QStandardItemModel*> m_mapModels;
 
     QVector<ModelStruct> m_vecRawData;
 };
