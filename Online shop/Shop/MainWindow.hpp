@@ -30,11 +30,13 @@ private slots:
 
     void on_actionAdd_row_triggered();
 
+    void on_comboBox_currentIndexChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
     ModelHandler m_modelHandler;
     Parser m_parser;
 
-    QSortFilterProxyModel *m_proxyModel;
+    QSortFilterProxyModel *m_currenttProxyModel;
 };
 #endif // MAINWINDOW_HPP

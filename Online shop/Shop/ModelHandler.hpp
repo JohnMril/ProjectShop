@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QAbstractItemModel>
 #include <QStandardItemModel>
+#include <QSortFilterProxyModel>
 
 #include "ModelStruct.hpp"
 
@@ -13,7 +14,9 @@ class ModelHandler : public QObject
 public:
     explicit ModelHandler(QObject *parent = nullptr);
 
-    void CreateModel( ModelStruct &modelStruct);
+    void CreateModel(const ModelStruct &modelStruct);
+
+    void AppendRowToPlacesModel(QVariant name, QVariant data);
 
     void CreateModels( QVector<ModelStruct>& modelsStructVec);
 
@@ -23,6 +26,13 @@ public:
 
     void RemoveRows(int row);
 
+    QMultiMap<QString, QStandardItemModel *> GetMapModelsRaw() const;
+
+    QMultiMap<QString, QSortFilterProxyModel *> GetMapOfProxyModels() const;
+
+signals:
+    void CreatedNewModel();
+
 private:
 
     QVector<ModelStruct> m_modelsStructVec;
@@ -31,7 +41,10 @@ private:
 
     QStandardItemModel* m_tmpModel;
 
-    QMap<QString, QStandardItemModel*> m_mapModels;
+
+    QMultiMap<QString, QStandardItemModel*> m_mapModels;
+
+    QMultiMap<QString, QSortFilterProxyModel*> m_mapOfProxy;
 
     QVector<ModelStruct> m_vecRawData;
 };

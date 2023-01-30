@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->menubar->setEnabled(false);
+    ui->tableView->setModel(m_modelHandler.GetPlacesModels());
 
 }
 
@@ -23,13 +24,15 @@ void MainWindow::on_pushButton_clicked()
 
     m_parser.ParsingFileToModel(file_name);
 
-    m_modelHandler.CreateModel(m_parser.GetVecModelStruct().first());
+    m_modelHandler.CreateModel(m_parser.GetLastModel());
 
-    m_proxyModel = new QSortFilterProxyModel(this);
-    m_proxyModel->setSourceModel(m_modelHandler.GetMainShop());
+    m_currenttProxyModel = m_modelHandler.GetMapOfProxyModels().last();
+
     ui->tableView->setModel(m_modelHandler.GetPlacesModels());
 
-    ui->tableView_2->setModel(m_proxyModel);
+    ui->tableView_2->setModel(m_currenttProxyModel);
+
+    ui->comboBox->setModel(m_modelHandler.GetPlacesModels());
 
     ui->menubar->setEnabled(true);
 }
@@ -39,20 +42,33 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_actionSort_triggered()
 {
 
-    m_proxyModel->sort( ui->tableView_2->selectionModel()->currentIndex().column()
-                        , Qt::AscendingOrder);
+    m_currenttProxyModel->sort( ui->tableView_2->selectionModel()->currentIndex().column()
+                                , Qt::AscendingOrder);
 }
 
 
 
 void MainWindow::on_actionRemove_row_triggered()
 {
-    m_proxyModel->removeRow(ui->tableView_2->selectionModel()->currentIndex().row());
+    m_currenttProxyModel->removeRow(ui->tableView_2->selectionModel()->currentIndex().row());
+//    m_currenttProxyModel->mapToSource(ui->tableView_2->selectionModel()->currentIndex());
 }
 
 
 
 void MainWindow::on_actionAdd_row_triggered()
 {
-    m_proxyModel->insertRow(ui->tableView_2->selectionModel()->currentIndex().row());
+    m_currenttProxyModel->insertRow(ui->tableView_2->selectionModel()->currentIndex().row());
+}
+
+
+
+void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
+{
+    if(m_modelHandler.GetMapOfProxyModels().contains(arg1))
+    {
+        m_currenttProxyModel = m_modelHandler.GetMapOfProxyModels().value(arg1);
+        ui->tableView_2->setModel(m_modelHandler.GetMapOfProxyModels().value(arg1));
+    }
+
 }

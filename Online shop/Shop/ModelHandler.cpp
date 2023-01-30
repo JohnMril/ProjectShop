@@ -2,21 +2,20 @@
 
 ModelHandler::ModelHandler(QObject *parent) : QObject(parent)
 {
-//    m_placesModels = new QStandardItemModel(0, 2, this);
-//    m_placesModels->setHeaderData(0, Qt::Horizontal, "Name", Qt::DisplayRole);
-//    m_placesModels->setHeaderData(1, Qt::Horizontal, "Date", Qt::DisplayRole);
+    //    m_placesModels = new QStandardItemModel(0, 2, this);
+    //    m_placesModels->setHeaderData(0, Qt::Horizontal, "Name", Qt::DisplayRole);
+    //    m_placesModels->setHeaderData(1, Qt::Horizontal, "Date", Qt::DisplayRole);
 
-
-}
-
-void ModelHandler::CreateModel( ModelStruct& modelStruct)
-{
-    m_placesModels = new QStandardItemModel(1, 2, this);
+    m_placesModels = new QStandardItemModel(0, 2, this);
     m_placesModels->setHeaderData(0, Qt::Horizontal, "Name", Qt::DisplayRole);
     m_placesModels->setHeaderData(1, Qt::Horizontal, "Date", Qt::DisplayRole);
+}
 
-    m_placesModels->setData(m_placesModels->index(0,0), modelStruct.shop);
-    m_placesModels->setData(m_placesModels->index(0,1), modelStruct.data);
+void ModelHandler::CreateModel(const ModelStruct &modelStruct)
+{
+    AppendRowToPlacesModel(modelStruct.shop, modelStruct.data);
+
+
 
     m_tmpModel = new QStandardItemModel (modelStruct.modelMap.size(), 10, this);
     m_tmpModel->setHeaderData(0, Qt::Horizontal, "№", Qt::DisplayRole);
@@ -46,11 +45,11 @@ void ModelHandler::CreateModel( ModelStruct& modelStruct)
         }
         if (element.contains("product_full_name"))
         {
-            m_tmpModel->setData(m_tmpModel->index(row, 3), element.value("product_full_name"), Qt::DisplayRole);
+            m_tmpModel->setData(m_tmpModel->index(row, 3), element.value("product_full_name").toString(), Qt::DisplayRole);
         }
         if (element.contains("product_description"))
         {
-            m_tmpModel->setData(m_tmpModel->index(row, 4), element.value("product_description"), Qt::DisplayRole);
+            m_tmpModel->setData(m_tmpModel->index(row, 4), element.value("product_description").toString(), Qt::DisplayRole);
         }
         if (element.contains("product_width"))
         {
@@ -65,7 +64,7 @@ void ModelHandler::CreateModel( ModelStruct& modelStruct)
             m_tmpModel->setData(m_tmpModel->index(row, 7), element.value("product_price_retail"), Qt::DisplayRole);
             if(element.contains("currency_name"))
             {
-                m_tmpModel->setData(m_tmpModel->index(row, 7), element.value("currency_name"), Qt::ToolTipRole);
+                m_tmpModel->setData(m_tmpModel->index(row, 7), element.value("currency_name").toString(), Qt::ToolTipRole);
             }
         }
         if (element.contains("category_id"))
@@ -79,7 +78,23 @@ void ModelHandler::CreateModel( ModelStruct& modelStruct)
         row++;
     }
 
-    m_mapModels.insert(modelStruct.data, m_tmpModel);
+    m_mapModels.insert(modelStruct.shop, m_tmpModel);
+    QSortFilterProxyModel* proxyModel = new QSortFilterProxyModel(this);
+    proxyModel->setSourceModel(m_tmpModel);
+    m_mapOfProxy.insert(modelStruct.shop, proxyModel);
+}
+
+void ModelHandler::AppendRowToPlacesModel(QVariant name, QVariant data)
+{
+    QList<QStandardItem*> row;
+
+    QStandardItem* itemName = new QStandardItem(name.toString());
+    QStandardItem* itemData = new QStandardItem(data.toString());
+
+    row.append(itemName);
+    row.append(itemData);
+
+    m_placesModels->appendRow(row);
 }
 
 
@@ -111,4 +126,14 @@ QStandardItemModel* ModelHandler::GetMainShop() const
 void ModelHandler::RemoveRows(int row)
 {
     m_tmpModel->removeRow(row);
+}
+
+QMultiMap<QString, QStandardItemModel *> ModelHandler::GetMapModelsRaw() const
+{
+    return m_mapModels;
+}
+
+QMultiMap<QString, QSortFilterProxyModel *> ModelHandler::GetMapOfProxyModels() const
+{
+    return m_mapOfProxy;
 }

@@ -24,6 +24,7 @@ public:
     void ParsingFileToModel(QString pathToFile);
     
     QVector<ModelStruct> GetVecModelStruct() const;
+    ModelStruct GetLastModel();
 
 private:
     void ReadingFile(const QJsonValue& value, QVariant keyOfValue);

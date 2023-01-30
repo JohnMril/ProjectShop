@@ -22,8 +22,9 @@ void Parser::ParsingFileToModel(QString pathToFile)
     if(!m_tmpModelVectorOfMap.isEmpty())
     {
         m_tmpModelStuct.modelMap = m_tmpModelVectorOfMap;
-        m_tmpModelStuct.shop = pathToFile.split("/").last().split(".").takeFirst();
         m_tmpModelStuct.data = QDateTime::currentDateTime().toString("dd.MM.yyyy HH:mm:ss");
+
+        m_tmpModelStuct.shop = pathToFile.split("/").last().split(".").takeFirst() +m_tmpModelStuct.data.split(":").last();
         m_tmpModelVectorOfMap.clear();
 
         m_vecModelStruct.append(m_tmpModelStuct);
@@ -121,7 +122,16 @@ void Parser::SplitingText( QString& text)
     }
 }
 
+
+
 QVector<ModelStruct> Parser::GetVecModelStruct() const
 {
     return m_vecModelStruct;
+}
+
+
+
+ModelStruct Parser::GetLastModel()
+{
+    return m_vecModelStruct.last();
 }
