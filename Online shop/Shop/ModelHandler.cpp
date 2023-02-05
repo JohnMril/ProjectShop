@@ -13,7 +13,7 @@ ModelHandler::ModelHandler(QObject *parent) : QObject(parent)
 
 void ModelHandler::CreateModel(const ModelStruct &modelStruct)
 {
-    AppendRowToPlacesModel(modelStruct.shop, modelStruct.data);
+    AppendRowToPlacesModel(modelStruct.shop, modelStruct.date);
 
 
 

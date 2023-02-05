@@ -1,7 +1,7 @@
 #ifndef PARSER_HPP
 #define PARSER_HPP
 
-#include "ModelStruct.hpp"
+#include "../Common/ModelStruct.hpp"
 
 #include <QVector>
 #include <QString>

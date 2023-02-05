@@ -22,9 +22,9 @@ void Parser::ParsingFileToModel(QString pathToFile)
     if(!m_tmpModelVectorOfMap.isEmpty())
     {
         m_tmpModelStuct.modelMap = m_tmpModelVectorOfMap;
-        m_tmpModelStuct.data = QDateTime::currentDateTime().toString("dd.MM.yyyy HH:mm:ss");
+        m_tmpModelStuct.date = QDateTime::currentDateTime().toString("dd.MM.yyyy HH:mm:ss");
 
-        m_tmpModelStuct.shop = pathToFile.split("/").last().split(".").takeFirst() +m_tmpModelStuct.data.split(":").last();
+        m_tmpModelStuct.shop = pathToFile.split("/").last().split(".").takeFirst() +m_tmpModelStuct.date.split(":").last();
         m_tmpModelVectorOfMap.clear();
 
         m_vecModelStruct.append(m_tmpModelStuct);
@@ -89,7 +89,7 @@ void Parser::SplitingText( QString& text)
 
                 if (dataParameter.last().contains("',") || dataParameter.last().contains("None"))
                 {
-                    value = dataParameter.last();
+                    value = dataParameter.last().toStdString().data();
                 }
                 else
                 {

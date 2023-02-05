@@ -17,20 +17,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     ModelHandler.cpp \
-    Parser.cpp \
-    ParserHolderWidget.cpp \
+    Parser/Parser.cpp \
+    Parser/ParserHolderWidget.cpp \
+    Parser/ParsingDialog.cpp \
+    Parser/SelectedParserElementWidget.cpp \
     main.cpp \
     MainWindow.cpp
 
 HEADERS += \
+    Common/EnumerationClass.hpp \
+    Common/ModelStruct.hpp \
     MainWindow.hpp \
     ModelHandler.hpp \
-    ModelStruct.hpp \
-    Parser.hpp \
-    ParserHolderWidget.hpp
+    Parser/Parser.hpp \
+    Parser/ParserHolderWidget.hpp \
+    Parser/ParsingDialog.hpp \ \
+    Parser/SelectedParserElementWidget.hpp
 
 FORMS += \
-    MainWindow.ui
+    Dialog.ui \
+    MainWindow.ui \
+    Parser/ParsingDialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

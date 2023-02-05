@@ -6,7 +6,7 @@
 #include <QStandardItemModel>
 #include <QSortFilterProxyModel>
 
-#include "ModelStruct.hpp"
+#include "Common/ModelStruct.hpp"
 
 class ModelHandler : public QObject
 {

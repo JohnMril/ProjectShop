@@ -51,7 +51,6 @@ void MainWindow::on_actionSort_triggered()
 void MainWindow::on_actionRemove_row_triggered()
 {
     m_currenttProxyModel->removeRow(ui->tableView_2->selectionModel()->currentIndex().row());
-//    m_currenttProxyModel->mapToSource(ui->tableView_2->selectionModel()->currentIndex());
 }
 
 

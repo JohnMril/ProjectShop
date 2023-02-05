@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QtWidgets>
 
-#include "Parser.hpp"
+#include "Parser/Parser.hpp"
 #include "ModelHandler.hpp"
 
 QT_BEGIN_NAMESPACE
