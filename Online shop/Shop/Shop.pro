@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    DataClass/DataClass.cpp \
     ModelHandler.cpp \
     Parser/Parser.cpp \
     Parser/ParserHolderWidget.cpp \
@@ -27,6 +28,7 @@ SOURCES += \
 HEADERS += \
     Common/EnumerationClass.hpp \
     Common/ModelStruct.hpp \
+    DataClass/DataClass.hpp \
     MainWindow.hpp \
     ModelHandler.hpp \
     Parser/Parser.hpp \
