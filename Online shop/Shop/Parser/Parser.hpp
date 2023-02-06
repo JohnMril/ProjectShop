@@ -21,17 +21,16 @@ class Parser
 public:
     Parser();
     
-    void ParsingFileToModel(QString pathToFile);
+    bool ParsingFileToModel(QString pathToFile);
     
-    QVector<ModelStruct> GetVecModelStruct() const;
-    ModelStruct GetLastModel();
+    ModelStruct GetModelStruct() const;
 
 private:
     void ReadingFile(const QJsonValue& value, QVariant keyOfValue);
 
     void SplitingText(QString& text);
     
-    QVector<ModelStruct> m_vecModelStruct;
+    ModelStruct m_lastModelStruct;
 
     QVector<QVariantMap> m_tmpModelVectorOfMap;
 

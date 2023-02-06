@@ -5,6 +5,7 @@
 #include <QtWidgets>
 
 #include "Parser/Parser.hpp"
+#include "Parser/ParserHolderWidget.hpp"
 #include "ModelHandler.hpp"
 
 QT_BEGIN_NAMESPACE
@@ -36,6 +37,8 @@ private:
     Ui::MainWindow *ui;
     ModelHandler m_modelHandler;
     Parser m_parser;
+
+    ParserHolderWidget* m_parserHolder;
 
     QSortFilterProxyModel *m_currenttProxyModel;
 };

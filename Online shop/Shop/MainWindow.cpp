@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->menubar->setEnabled(false);
     ui->tableView->setModel(m_modelHandler.GetPlacesModels());
 
+    m_parserHolder = new ParserHolderWidget(this);
+
 }
 
 MainWindow::~MainWindow()
@@ -19,22 +21,31 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    QString filter = "All File (*.*);; Text File (*.txt);; XML File (*.xml)";
-    QString file_name = QFileDialog::getOpenFileName(this, "Open file", "C://",filter);
+    m_parserHolder->AddNewFile();
 
-    m_parser.ParsingFileToModel(file_name);
+    //TODO Убрать перенести в вверх.
+//    QString filter = "All File (*.*);; Text File (*.txt);; XML File (*.xml)";
+//    QString file_name = QFileDialog::getOpenFileName(this, "Open file", "C://",filter);
 
-    m_modelHandler.CreateModel(m_parser.GetLastModel());
+//    if(file_name.isNull())
+//    {
+//        qDebug()<<"File not chosen";
+//        return;
+//    }
 
-    m_currenttProxyModel = m_modelHandler.GetMapOfProxyModels().last();
+//    m_parser.ParsingFileToModel(file_name);
 
-    ui->tableView->setModel(m_modelHandler.GetPlacesModels());
+//    m_modelHandler.CreateModel(m_parser.GetModelStruct());
 
-    ui->tableView_2->setModel(m_currenttProxyModel);
+//    m_currenttProxyModel = m_modelHandler.GetMapOfProxyModels().last();
 
-    ui->comboBox->setModel(m_modelHandler.GetPlacesModels());
+//    ui->tableView->setModel(m_modelHandler.GetPlacesModels());
 
-    ui->menubar->setEnabled(true);
+//    ui->tableView_2->setModel(m_currenttProxyModel);
+
+//    ui->comboBox->setModel(m_modelHandler.GetPlacesModels());
+
+//    ui->menubar->setEnabled(true);
 }
 
 

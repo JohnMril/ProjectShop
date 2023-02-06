@@ -7,14 +7,14 @@ Parser::Parser()
 
 }
 
-void Parser::ParsingFileToModel(QString pathToFile)
+bool Parser::ParsingFileToModel(QString pathToFile)
 {
     QFile file(pathToFile);
     
     if (!file.open(QIODevice::ReadOnly))
     {
         qDebug() << "File :"<< pathToFile<< " can't be read!!!"<<endl;
-        return;
+        return false;
     }
     QString jsonByteArray = file.readAll();
 
@@ -27,10 +27,17 @@ void Parser::ParsingFileToModel(QString pathToFile)
         m_tmpModelStuct.shop = pathToFile.split("/").last().split(".").takeFirst() +m_tmpModelStuct.date.split(":").last();
         m_tmpModelVectorOfMap.clear();
 
-        m_vecModelStruct.append(m_tmpModelStuct);
+        m_lastModelStruct = m_tmpModelStuct;
     }
     
     file.close();
+
+    return true;
+}
+
+ModelStruct Parser::GetModelStruct() const
+{
+    return m_lastModelStruct;
 }
 
 void Parser::ReadingFile(const QJsonValue& value, QVariant keyOfValue)
@@ -122,16 +129,3 @@ void Parser::SplitingText( QString& text)
     }
 }
 
-
-
-QVector<ModelStruct> Parser::GetVecModelStruct() const
-{
-    return m_vecModelStruct;
-}
-
-
-
-ModelStruct Parser::GetLastModel()
-{
-    return m_vecModelStruct.last();
-}
