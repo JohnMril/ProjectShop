@@ -37,6 +37,8 @@ void SelectedParserElementWidget::CreateWidgetBySource()
    m_keyNameLabel = new QLabel(m_source.keyName, this);
    m_gridLayout->addWidget(m_keyNameLabel, 2, 0);
 
+   m_keyNameLabel->setMinimumWidth(160);
+
    m_checkBox = new QCheckBox(this);
    connect(m_checkBox, &QCheckBox::clicked, this, &SelectedParserElementWidget::SwitchCheckBox);
    m_gridLayout->addWidget(m_checkBox, 2, 1);
