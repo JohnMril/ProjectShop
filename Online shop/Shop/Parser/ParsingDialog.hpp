@@ -14,8 +14,20 @@ class ParsingDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ParsingDialog(const ModelStruct& modelStruct,QWidget *parent = nullptr);
+    explicit ParsingDialog(const ModelStruct& GetModelStruct,QWidget *parent = nullptr);
     ~ParsingDialog();
+
+    ModelSettings GetSettings() const;
+
+    ModelStruct GetModelStruct() const;
+
+signals:
+    void okIsClicked();
+
+private slots:
+    void on_cancelButton_clicked();
+
+    void on_okButton_clicked();
 
 private:
 

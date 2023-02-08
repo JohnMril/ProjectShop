@@ -18,12 +18,12 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QTableView" name="tableView"/>
+       <widget class="QTableView" name="modelsView"/>
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QTableView" name="tableView_2"/>
+         <widget class="QTableView" name="currentModelView"/>
         </item>
         <item>
          <widget class="QComboBox" name="comboBox"/>

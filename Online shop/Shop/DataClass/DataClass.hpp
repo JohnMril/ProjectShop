@@ -13,19 +13,23 @@ class DataClass : public QObject
 public:
     explicit DataClass(QObject *parent = nullptr);
 
-    void Insert(const ModelSettings& settings);
+    void InsertModelSettings(const ModelSettings& settings);
 
     QSet<int> FindForSettings(const ModelStruct& modelStruct);
 
     void AppendNewModelStruct(const ModelStruct& model);
 
     QVector<ModelStruct> GetModelStructVec() const;
-    ModelStruct GetLastModelStruct() const;
+    ModelStruct* GetLastModelStruct() ;
     ModelStruct GetModelStructByName(const QString& shopName) const;
+    void AddModelPair(const ModelStruct &modelStruct, const ModelSettings &modelSettings);
+
+    ModelSettings* GetSettingsForModelStruct(ModelStruct* modelStructPtr);
 
 private:
     QVector<ModelSettings> m_settingsVec;
     QVector<ModelStruct> m_modelStructVec;
+    QMap<ModelStruct*,ModelSettings*> m_modelMap;
 
 
 };

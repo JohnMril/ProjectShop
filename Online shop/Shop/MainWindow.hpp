@@ -7,6 +7,7 @@
 #include "Parser/Parser.hpp"
 #include "Parser/ParserHolderWidget.hpp"
 #include "ModelHandler.hpp"
+#include "DataClass/DataClass.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -33,10 +34,15 @@ private slots:
 
     void on_comboBox_currentIndexChanged(const QString &arg1);
 
+    void AddNewModelViewElement();
+
+
 private:
     Ui::MainWindow *ui;
     ModelHandler m_modelHandler;
     Parser m_parser;
+
+    DataClass m_dataClass;
 
     ParserHolderWidget* m_parserHolder;
 

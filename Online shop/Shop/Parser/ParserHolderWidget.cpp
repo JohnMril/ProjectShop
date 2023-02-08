@@ -23,6 +23,7 @@ void ParserHolderWidget::AddNewFile()
     }
 
     m_parserDialog = new ParsingDialog(m_parser.GetModelStruct(),this);
+    connect(m_parserDialog, &ParsingDialog::okIsClicked, this, &ParserHolderWidget::DialogSuccess);
     m_parserDialog->show();
 
 }
@@ -53,4 +54,22 @@ void ParserHolderWidget::CallErorrMessageBox(QString text, QString title)
     //TODO переделать под messageBox
 
     qDebug() << text<< title;
+}
+
+
+
+void ParserHolderWidget::SetDataClass(DataClass *dataClass)
+{
+    m_dataClass = dataClass;
+}
+
+
+
+void ParserHolderWidget::DialogSuccess()
+{
+    m_dataClass->AddModelPair(m_parserDialog->GetModelStruct(), m_parserDialog->GetSettings());
+
+    m_parserDialog->close();
+
+    emit NewModelStructHasCreated();
 }

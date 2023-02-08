@@ -7,7 +7,7 @@ DataClass::DataClass(QObject *parent) : QObject(parent)
 
 
 
-void DataClass::Insert(const ModelSettings &settings)
+void DataClass::InsertModelSettings(const ModelSettings &settings)
 {
     m_settingsVec.append(settings);
 }
@@ -56,9 +56,12 @@ QVector<ModelStruct> DataClass::GetModelStructVec() const
 
 
 
-ModelStruct DataClass::GetLastModelStruct() const
+ModelStruct* DataClass::GetLastModelStruct()
 {
-    return m_modelStructVec.last();
+    if(!m_modelStructVec.isEmpty())
+    return &m_modelStructVec[m_modelStructVec.size()-1];
+
+    return nullptr;
 }
 
 
@@ -74,4 +77,29 @@ ModelStruct DataClass::GetModelStructByName(const QString &shopName) const
     }
 
     return ModelStruct();
+}
+
+
+
+void DataClass::AddModelPair(const ModelStruct &modelStruct, const ModelSettings &modelSettings)
+{
+    if(!m_modelStructVec.contains(modelStruct))
+    {
+        m_modelStructVec.append(modelStruct);
+    }
+
+    if(!m_settingsVec.contains(modelSettings))
+    {
+        m_settingsVec.append(modelSettings);
+    }
+ //FIXME chert
+    m_modelMap.insert(&m_modelStructVec[m_modelStructVec.indexOf(modelStruct)],
+            &m_settingsVec[m_settingsVec.indexOf(modelSettings)]);
+}
+
+
+
+ModelSettings *DataClass::GetSettingsForModelStruct(ModelStruct *modelStructPtr)
+{
+    return m_modelMap.value(modelStructPtr);
 }

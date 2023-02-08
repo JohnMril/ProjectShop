@@ -128,12 +128,84 @@ void ModelHandler::RemoveRows(int row)
     m_tmpModel->removeRow(row);
 }
 
+
+
 QMultiMap<QString, QStandardItemModel *> ModelHandler::GetMapModelsRaw() const
 {
     return m_mapModels;
 }
 
+
+
 QMultiMap<QString, QSortFilterProxyModel *> ModelHandler::GetMapOfProxyModels() const
 {
     return m_mapOfProxy;
+}
+
+
+
+void ModelHandler::SetDataClass(DataClass *dataClass)
+{
+    m_dataClass = dataClass;
+}
+
+
+
+QSortFilterProxyModel *ModelHandler::GetLastProxyModel() const
+{
+    return m_mapOfProxy.value(m_mapModels.key(m_tmpModel));
+}
+
+
+
+void ModelHandler::CreateNewModelFromDataClass()
+{
+   ModelStruct* tmpModelStruct = m_dataClass->GetLastModelStruct();
+   ModelSettings* tmpModelSettings = m_dataClass->GetSettingsForModelStruct(tmpModelStruct);
+
+   AppendRowToPlacesModel(tmpModelStruct->shop, tmpModelStruct->date);
+
+
+   QMultiMap<int, QString> multiMapHeaders;
+   for (auto key : tmpModelSettings->mapSettings)
+   {
+        if(key.enabled)
+        {
+            multiMapHeaders.insert(key.number, key.keyName);
+        }
+   }
+
+    m_tmpModel = new QStandardItemModel (tmpModelStruct->modelMap.size(), multiMapHeaders.size(), this);
+
+    int column = 0;
+    for(auto value : multiMapHeaders.values())
+    {
+        m_tmpModel->setHeaderData(column, Qt::Horizontal, tmpModelSettings->mapSettings.value(value).valueName, Qt::DisplayRole);
+        column++;
+    }
+
+    int row = 0;
+
+    QStringList keysOn = multiMapHeaders.values();
+
+    for (auto element :tmpModelStruct->modelMap)
+    {
+        for( auto key : keysOn)
+        {
+            if(element.contains(key))
+            {
+                m_tmpModel->setData(m_tmpModel->index(row, keysOn.indexOf(key)), element.value(key), Qt::DisplayRole);
+            }
+        }
+
+        row++;
+    }
+
+    m_mapModels.insert(tmpModelStruct->shop, m_tmpModel);
+    QSortFilterProxyModel* proxyModel = new QSortFilterProxyModel(this);
+    proxyModel->setSourceModel(m_tmpModel);
+    m_mapOfProxy.insert(tmpModelStruct->shop, proxyModel);
+
+    emit CreatedNewModel();
+
 }

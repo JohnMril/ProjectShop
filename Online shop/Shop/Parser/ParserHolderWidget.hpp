@@ -7,6 +7,7 @@
 
 #include "Parser.hpp"
 #include "ParsingDialog.hpp"
+#include "DataClass/DataClass.hpp"
 
 class ParserHolderWidget : public QWidget
 {
@@ -19,9 +20,14 @@ public:
 
 
 
+    void SetDataClass(DataClass *dataClass);
+
 signals:
 
     void NewModelStructHasCreated();
+
+private slots:
+    void DialogSuccess();
 
 private:
 
@@ -34,6 +40,8 @@ private:
     Parser m_parser;
 
     ParsingDialog* m_parserDialog;
+
+    DataClass* m_dataClass;
 
 
 

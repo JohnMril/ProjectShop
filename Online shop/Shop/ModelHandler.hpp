@@ -7,6 +7,7 @@
 #include <QSortFilterProxyModel>
 
 #include "Common/ModelStruct.hpp"
+#include "DataClass/DataClass.hpp"
 
 class ModelHandler : public QObject
 {
@@ -30,10 +31,20 @@ public:
 
     QMultiMap<QString, QSortFilterProxyModel *> GetMapOfProxyModels() const;
 
+    void SetDataClass(DataClass *dataClass);
+
+    QSortFilterProxyModel * GetLastProxyModel() const;
+
 signals:
     void CreatedNewModel();
 
+public slots:
+
+    void CreateNewModelFromDataClass();
+
 private:
+
+
 
     QVector<ModelStruct> m_modelsStructVec;
 
@@ -47,6 +58,8 @@ private:
     QMultiMap<QString, QSortFilterProxyModel*> m_mapOfProxy;
 
     QVector<ModelStruct> m_vecRawData;
+
+    DataClass* m_dataClass;
 };
 
 #endif // MODELHANDLER_HPP

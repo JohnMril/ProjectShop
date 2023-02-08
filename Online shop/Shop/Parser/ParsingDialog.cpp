@@ -36,3 +36,35 @@ void ParsingDialog::CreateSettingsWidget()
 
 
 }
+
+ModelStruct ParsingDialog::GetModelStruct() const
+{
+    return m_modelStruct;
+}
+
+ModelSettings ParsingDialog::GetSettings() const
+{
+    return m_settings;
+}
+
+
+
+void ParsingDialog::on_cancelButton_clicked()
+{
+    //TODO сделать messagebox
+
+    this->close();
+}
+
+
+
+void ParsingDialog::on_okButton_clicked()
+{
+    for( auto widget : m_widgetsSettingVec)
+    {
+        ElementSettings tmpSettings = widget->GetSource();
+        m_settings.mapSettings.insert(tmpSettings.keyName, tmpSettings);
+    }
+
+    emit okIsClicked();
+}
