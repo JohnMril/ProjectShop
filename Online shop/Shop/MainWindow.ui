@@ -63,11 +63,20 @@
     <addaction name="actionRemove_row"/>
     <addaction name="actionAdd_row"/>
    </widget>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+   </widget>
    <addaction name="menuSorting"/>
    <addaction name="menuEdit"/>
+   <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionSort">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Sort</string>
    </property>
@@ -80,6 +89,16 @@
   <action name="actionAdd_row">
    <property name="text">
     <string>Add row</string>
+   </property>
+  </action>
+  <action name="actionC1">
+   <property name="text">
+    <string>C1</string>
+   </property>
+  </action>
+  <action name="actionB1">
+   <property name="text">
+    <string>B1</string>
    </property>
   </action>
  </widget>

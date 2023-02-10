@@ -37,7 +37,6 @@ HEADERS += \
     Parser/SelectedParserElementWidget.hpp
 
 FORMS += \
-    Dialog.ui \
     MainWindow.ui \
     Parser/ParsingDialog.ui
 

@@ -32,6 +32,8 @@ void ParserHolderWidget::AddNewFile()
 
 QString ParserHolderWidget::EmitFileFinder()
 {
+    //TODO запоминать предыдущий путь.
+
 
     QString filter = "All File (*.*);; Text File (*.txt);; XML File (*.xml)";
     QString file_name = QFileDialog::getOpenFileName(this, "Open file", "C://",filter);

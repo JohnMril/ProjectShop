@@ -46,6 +46,6 @@ private:
 
     ParserHolderWidget* m_parserHolder;
 
-    QSortFilterProxyModel *m_currenttProxyModel;
+    QSortFilterProxyModel *m_currenttProxyModel = nullptr;
 };
 #endif // MAINWINDOW_HPP

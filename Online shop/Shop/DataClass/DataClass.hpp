@@ -32,6 +32,7 @@ private:
     QMap<ModelStruct*,ModelSettings*> m_modelMap;
 
 
+
 };
 
 #endif // DATACLASS_HPP

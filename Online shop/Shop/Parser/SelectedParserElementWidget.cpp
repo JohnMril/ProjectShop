@@ -62,6 +62,7 @@ void SelectedParserElementWidget::CreateWidgetBySource()
 
 void SelectedParserElementWidget::SaveToSource()
 {
+    m_source.enabled = m_checkBox->isChecked();
     m_source.valueName = m_lineEdit->text();
     m_source.number = m_spinBox->value();
     m_source.type = static_cast<ElementsType>(m_typeBox->currentIndex());
