@@ -103,3 +103,8 @@ ModelSettings *DataClass::GetSettingsForModelStruct(ModelStruct *modelStructPtr)
 {
     return m_modelMap.value(modelStructPtr);
 }
+
+QVector<ModelSettings> DataClass::GetSettingsVec() const
+{
+    return m_settingsVec;
+}

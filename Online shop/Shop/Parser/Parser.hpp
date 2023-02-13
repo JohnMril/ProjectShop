@@ -23,7 +23,7 @@ public:
     
     bool ParsingFileToModel(QString pathToFile);
     
-    ModelStruct GetModelStruct() const;
+    ModelStruct GetLastModelStruct() const;
 
 private:
     void ReadingFile(const QJsonValue& value, QVariant keyOfValue);

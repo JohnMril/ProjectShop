@@ -8,6 +8,7 @@
 #include "Parser.hpp"
 #include "ParsingDialog.hpp"
 #include "DataClass/DataClass.hpp"
+#include "ChoseSettingsDialog.hpp"
 
 class ParserHolderWidget : public QWidget
 {
@@ -29,7 +30,13 @@ signals:
 private slots:
     void DialogSuccess();
 
+    void ChooseSettings();
+
 private:
+
+    void SettingApply(const int& index);
+    void SettingEdit (const int& index);
+
 
     QString EmitFileFinder();
 
@@ -41,7 +48,11 @@ private:
 
     ParsingDialog* m_parserDialog;
 
+    ChoseSettingsDialog* m_chooseSettingsDialog;
+
     DataClass* m_dataClass;
+
+    QString m_lastFilePath = "C://";
 
 
 

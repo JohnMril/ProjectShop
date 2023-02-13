@@ -18,10 +18,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     DataClass/DataClass.cpp \
     ModelHandler.cpp \
+    Parser/ChoseSettingsDialog.cpp \
     Parser/Parser.cpp \
     Parser/ParserHolderWidget.cpp \
     Parser/ParsingDialog.cpp \
     Parser/SelectedParserElementWidget.cpp \
+    SortingsDialog/SortingDialog.cpp \
     main.cpp \
     MainWindow.cpp
 
@@ -31,14 +33,18 @@ HEADERS += \
     DataClass/DataClass.hpp \
     MainWindow.hpp \
     ModelHandler.hpp \
+    Parser/ChoseSettingsDialog.hpp \
     Parser/Parser.hpp \
     Parser/ParserHolderWidget.hpp \
     Parser/ParsingDialog.hpp \ \
-    Parser/SelectedParserElementWidget.hpp
+    Parser/SelectedParserElementWidget.hpp \
+    SortingsDialog/SortingDialog.hpp
 
 FORMS += \
     MainWindow.ui \
-    Parser/ParsingDialog.ui
+    Parser/ChoseSettingsDialog.ui \
+    Parser/ParsingDialog.ui \
+    SortingsDialog/SortingDialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -35,10 +35,14 @@ bool Parser::ParsingFileToModel(QString pathToFile)
     return true;
 }
 
-ModelStruct Parser::GetModelStruct() const
+
+
+ModelStruct Parser::GetLastModelStruct() const
 {
     return m_lastModelStruct;
 }
+
+
 
 void Parser::ReadingFile(const QJsonValue& value, QVariant keyOfValue)
 {

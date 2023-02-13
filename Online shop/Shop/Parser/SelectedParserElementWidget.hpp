@@ -18,7 +18,9 @@ class SelectedParserElementWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit SelectedParserElementWidget(QString key, int number, ElementsType type = ElementsType::UNKNOWN_TYPE,  QWidget *parent = nullptr);
+    explicit SelectedParserElementWidget(QString key, int number , QWidget *parent = nullptr,
+                                         ElementsType type = ElementsType::UNKNOWN_TYPE,
+                                         bool state = false, QString valueStr = "");
 
     ElementSettings GetSource();
 

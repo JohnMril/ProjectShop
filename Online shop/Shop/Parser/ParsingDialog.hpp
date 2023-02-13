@@ -15,6 +15,8 @@ class ParsingDialog : public QDialog
 
 public:
     explicit ParsingDialog(const ModelStruct& GetModelStruct,QWidget *parent = nullptr);
+
+    explicit ParsingDialog(const ModelSettings& modelSettings, const ModelStruct& modelStruct, QWidget* parent = nullptr);
     ~ParsingDialog();
 
     ModelSettings GetSettings() const;
@@ -32,6 +34,9 @@ private slots:
 private:
 
     void CreateSettingsWidget();
+
+    void CreateUsedSettingsWidget();
+
     Ui::ParsingDialog *ui;
 
     QVector<SelectedParserElementWidget*> m_widgetsSettingVec;

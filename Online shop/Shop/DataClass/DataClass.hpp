@@ -26,10 +26,16 @@ public:
 
     ModelSettings* GetSettingsForModelStruct(ModelStruct* modelStructPtr);
 
+    QVector<ModelSettings> GetSettingsVec() const;
+
 private:
     QVector<ModelSettings> m_settingsVec;
     QVector<ModelStruct> m_modelStructVec;
-    QMap<ModelStruct*,ModelSettings*> m_modelMap;
+    QMap<ModelStruct*, ModelSettings*> m_modelMap;
+
+
+
+    //TODO Сделать сохранение класса в файл
 
 
 

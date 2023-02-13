@@ -1,12 +1,17 @@
 #include "SelectedParserElementWidget.hpp"
 
 
-SelectedParserElementWidget::SelectedParserElementWidget(QString key, int number, ElementsType type, QWidget *parent)
+SelectedParserElementWidget::SelectedParserElementWidget(QString key, int number, QWidget *parent ,
+                                                         ElementsType type ,
+                                                         bool state , QString valueStr )
     : QWidget(parent)
 {
     m_source.keyName = key;
     m_source.number = number;
     m_source.type = type;
+    m_source.enabled = state;
+    m_source.valueName = valueStr;
+
 
     for (int i = 0; i <= static_cast<int>(ElementsType::UNKNOWN_TYPE); ++i)
     {
@@ -39,23 +44,27 @@ void SelectedParserElementWidget::CreateWidgetBySource()
 
    m_keyNameLabel->setMinimumWidth(160);
 
+   bool  state = m_source.enabled;
+
    m_checkBox = new QCheckBox(this);
+   m_checkBox->setChecked(state);
    connect(m_checkBox, &QCheckBox::clicked, this, &SelectedParserElementWidget::SwitchCheckBox);
    m_gridLayout->addWidget(m_checkBox, 2, 1);
 
    m_spinBox = new QSpinBox(this);
    m_spinBox->setValue(m_source.number);
    m_gridLayout->addWidget(m_spinBox, 2, 2);
-   m_spinBox->setEnabled(false);
+   m_spinBox->setEnabled(state);
 
-   m_lineEdit = new QLineEdit(this);
+   m_lineEdit = new QLineEdit(m_source.valueName, this);
    m_gridLayout->addWidget(m_lineEdit, 2, 3);
-   m_lineEdit->setEnabled(false);
+   m_lineEdit->setEnabled(state);
 
    m_typeBox = new QComboBox(this);
    m_typeBox->addItems(m_typeList);
+   m_typeBox->setCurrentIndex(m_source.type);
    m_gridLayout->addWidget(m_typeBox, 2, 4);
-   m_typeBox->setEnabled(false);
+   m_typeBox->setEnabled(state);
 }
 
 

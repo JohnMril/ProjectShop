@@ -22,9 +22,9 @@ void ParserHolderWidget::AddNewFile()
         return;
     }
 
-    m_parserDialog = new ParsingDialog(m_parser.GetModelStruct(),this);
-    connect(m_parserDialog, &ParsingDialog::okIsClicked, this, &ParserHolderWidget::DialogSuccess);
-    m_parserDialog->show();
+
+    ChooseSettings();
+
 
 }
 
@@ -32,11 +32,17 @@ void ParserHolderWidget::AddNewFile()
 
 QString ParserHolderWidget::EmitFileFinder()
 {
-    //TODO запоминать предыдущий путь.
-
-
     QString filter = "All File (*.*);; Text File (*.txt);; XML File (*.xml)";
-    QString file_name = QFileDialog::getOpenFileName(this, "Open file", "C://",filter);
+    QString file_name = QFileDialog::getOpenFileName(this, "Open file", m_lastFilePath,filter);
+
+    QStringList splitPath = file_name.split("/");
+    splitPath.takeLast();
+    m_lastFilePath.clear();
+    for (auto elem : splitPath)
+    {
+        m_lastFilePath.append(elem);
+        m_lastFilePath.append("/");
+    }
 
     return file_name;
 }
@@ -74,4 +80,60 @@ void ParserHolderWidget::DialogSuccess()
     m_parserDialog->close();
 
     emit NewModelStructHasCreated();
+}
+
+
+
+void ParserHolderWidget::ChooseSettings()
+{
+
+    QSet<int> foundedSettings = m_dataClass->FindForSettings(m_parser.GetLastModelStruct());
+
+    if(foundedSettings.isEmpty())
+    {
+        m_parserDialog = new ParsingDialog(m_parser.GetLastModelStruct(),this);
+
+        connect(m_parserDialog, &ParsingDialog::okIsClicked, this, &ParserHolderWidget::DialogSuccess);
+        m_parserDialog->show();
+    }
+    else
+    {
+        QVector<ModelSettings> modelSettings;
+        QVector<ModelSettings> tmpModelSettings = m_dataClass->GetSettingsVec();
+        for (auto index : foundedSettings)
+        {
+            modelSettings.append(tmpModelSettings.at(index));
+        }
+
+        m_chooseSettingsDialog = new ChoseSettingsDialog(modelSettings, this);
+        connect(m_chooseSettingsDialog, &ChoseSettingsDialog::ApplyClicked, this, &ParserHolderWidget::SettingApply);
+        connect(m_chooseSettingsDialog, &ChoseSettingsDialog::EdditClicked, this, &ParserHolderWidget::SettingEdit);
+    }
+
+}
+
+
+
+void ParserHolderWidget::SettingApply(const int &index)
+{
+    m_dataClass->AddModelPair(m_parser.GetLastModelStruct(), m_chooseSettingsDialog->GetVecSettings().at(index));
+
+    m_chooseSettingsDialog->close();
+    delete  m_chooseSettingsDialog;
+
+    emit NewModelStructHasCreated();
+}
+
+
+
+void ParserHolderWidget::SettingEdit(const int &index)
+{
+    m_parserDialog = new ParsingDialog(m_chooseSettingsDialog->GetVecSettings().at(index), m_parser.GetLastModelStruct(), this);
+
+    connect(m_parserDialog, &ParsingDialog::okIsClicked, this, &ParserHolderWidget::DialogSuccess);
+
+    m_chooseSettingsDialog->close();
+    delete  m_chooseSettingsDialog;
+
+    m_parserDialog->show();
 }
