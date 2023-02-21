@@ -19,7 +19,7 @@
      <item>
       <widget class="QLabel" name="mainText">
        <property name="text">
-        <string>TextLabel</string>
+        <string>Выберете существующую настройку</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

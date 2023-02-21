@@ -16,7 +16,7 @@ bool Parser::ParsingFileToModel(QString pathToFile)
         qDebug() << "File :"<< pathToFile<< " can't be read!!!"<<endl;
         return false;
     }
-    QString jsonByteArray = file.readAll();
+    QString jsonByteArray = QString::fromUtf8( file.readAll());
 
     SplitingText(jsonByteArray);
     if(!m_tmpModelVectorOfMap.isEmpty())

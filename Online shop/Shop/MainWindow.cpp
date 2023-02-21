@@ -18,7 +18,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(&m_modelHandler, &ModelHandler::CreatedNewModel, this, &MainWindow::AddNewModelViewElement);
 
+
+
 }
+
+
 
 MainWindow::~MainWindow()
 {
@@ -29,31 +33,6 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     m_parserHolder->AddNewFile();
-}
-
-
-
-void MainWindow::on_actionSort_triggered()
-{
-    if(m_currenttProxyModel)
-        m_currenttProxyModel->sort( ui->currentModelView->selectionModel()->currentIndex().column()
-                                    , Qt::AscendingOrder);
-}
-
-
-
-void MainWindow::on_actionRemove_row_triggered()
-{
-    if(m_currenttProxyModel)
-        m_currenttProxyModel->removeRow(ui->currentModelView->selectionModel()->currentIndex().row());
-}
-
-
-
-void MainWindow::on_actionAdd_row_triggered()
-{
-    if(m_currenttProxyModel)
-        m_currenttProxyModel->insertRow(ui->currentModelView->selectionModel()->currentIndex().row());
 }
 
 
@@ -72,4 +51,44 @@ void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
 void MainWindow::AddNewModelViewElement()
 {
     ui->comboBox->setModel(m_modelHandler.GetPlacesModels());
+}
+
+
+
+void MainWindow::on_actionAdd_row_2_triggered()
+{
+    if(m_currenttProxyModel)
+        m_currenttProxyModel->insertRow(ui->currentModelView->selectionModel()->currentIndex().row());
+}
+
+
+
+void MainWindow::on_actionRemove_row_2_triggered()
+{
+    if(m_currenttProxyModel)
+        m_currenttProxyModel->removeRow(ui->currentModelView->selectionModel()->currentIndex().row());
+}
+
+
+
+void MainWindow::on_actionSort_column_triggered()
+{
+
+    if(m_currenttProxyModel)
+        m_currenttProxyModel->sort( ui->currentModelView->selectionModel()->currentIndex().column()
+                                    , Qt::AscendingOrder);
+
+}
+
+
+
+void MainWindow::on_actionFinding_by_name_triggered()
+{
+    if(!m_sortingDialog)
+    {
+        m_sortingDialog = new SortingDialog(this);
+        m_sortingDialog->SetProxyModel(m_currenttProxyModel);
+        m_sortingDialog->show();
+
+    }
 }

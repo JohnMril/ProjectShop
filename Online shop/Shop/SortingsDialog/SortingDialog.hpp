@@ -2,6 +2,7 @@
 #define SORTINGDIALOG_HPP
 
 #include <QDialog>
+#include <QSortFilterProxyModel>
 
 namespace Ui {
 class SortingDialog;
@@ -15,7 +16,23 @@ public:
     explicit SortingDialog(QWidget *parent = nullptr);
     ~SortingDialog();
 
+
+
+    void SetProxyModel(QSortFilterProxyModel *proxyModel);
+
+private slots:
+    void filterRegExpChanged();
+    void filterColumnChanged();
+    void sortChanged();
+
+
 private:
+
+    void FillColumnBox();
+    QStringList m_columnList;
+
+    QSortFilterProxyModel* m_proxyModel = nullptr;
+
     Ui::SortingDialog *ui;
 };
 

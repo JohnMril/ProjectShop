@@ -194,7 +194,7 @@ void ModelHandler::CreateNewModelFromDataClass()
         {
             if(element.contains(key))
             {
-                m_tmpModel->setData(m_tmpModel->index(row, keysOn.indexOf(key)), element.value(key), Qt::DisplayRole);
+                m_tmpModel->setData(m_tmpModel->index(row, keysOn.indexOf(key)), element.value(key).toString(), Qt::DisplayRole);
             }
         }
 
