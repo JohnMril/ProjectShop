@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui sql xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,12 +17,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     DataClass/DataClass.cpp \
+    DataClass/SqlDataBase.cpp \
     ModelHandler.cpp \
     Parser/ChoseSettingsDialog.cpp \
     Parser/Parser.cpp \
     Parser/ParserHolderWidget.cpp \
     Parser/ParsingDialog.cpp \
+    Parser/RawDataParser/LanitParser.cpp \
+    Parser/RawDataParser/ParserRawDataInteface.cpp \
     Parser/SelectedParserElementWidget.cpp \
+    RequsterClass/RequestForSite.cpp \
+    RequsterClass/RequiestHandler.cpp \
     SortingsDialog/SortingDialog.cpp \
     main.cpp \
     MainWindow.cpp
@@ -31,19 +36,26 @@ HEADERS += \
     Common/EnumerationClass.hpp \
     Common/ModelStruct.hpp \
     DataClass/DataClass.hpp \
+    DataClass/SqlDataBase.hpp \
     MainWindow.hpp \
     ModelHandler.hpp \
     Parser/ChoseSettingsDialog.hpp \
     Parser/Parser.hpp \
     Parser/ParserHolderWidget.hpp \
     Parser/ParsingDialog.hpp \ \
+    Parser/RawDataParser/LanitParser.hpp \
+    Parser/RawDataParser/ParserRawDataInteface.hpp \
     Parser/SelectedParserElementWidget.hpp \
+    RequsterClass/RequestForSite.hpp \
+    RequsterClass/RequiestHandler.hpp \
     SortingsDialog/SortingDialog.hpp
 
 FORMS += \
     MainWindow.ui \
     Parser/ChoseSettingsDialog.ui \
     Parser/ParsingDialog.ui \
+    RequsterClass/RequestForSite.ui \
+    RequsterClass/RequiestHandler.ui \
     SortingsDialog/SortingDialog.ui
 
 # Default rules for deployment.

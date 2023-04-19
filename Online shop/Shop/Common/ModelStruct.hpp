@@ -6,6 +6,7 @@
 #include <QPair>
 #include <QVariantMap>
 #include <QMap>
+#include <QSet>
 
 #include "EnumerationClass.hpp"
 
@@ -15,6 +16,7 @@ struct ModelStruct
     QVector<QVariantMap> modelMap;
     QString date;
     QString shop;
+    QSet<QString> setAttributs;
 
     friend bool operator==(const ModelStruct& model0, const ModelStruct& model1)
     {

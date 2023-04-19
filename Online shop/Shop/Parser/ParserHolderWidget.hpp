@@ -19,8 +19,6 @@ public:
 
     void AddNewFile();
 
-
-
     void SetDataClass(DataClass *dataClass);
 
 signals:

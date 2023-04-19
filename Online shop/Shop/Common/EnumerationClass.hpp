@@ -14,6 +14,13 @@ enum ElementsType
     UNKNOWN_TYPE,
 };
 
+
+enum API : int
+{
+    LANIT,
+    ASBIS,
+};
+
 inline const QString  ConvertEnumToString(ElementsType type)
 {
     switch (type)
