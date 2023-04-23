@@ -8,7 +8,7 @@ class LanitParser : public ParserRawDataInteface
 public:
     LanitParser(QString vendorName, QString fileName, QObject *parent = nullptr);
 
-    void VParsing() override;
+    bool VParsing() override;
 };
 
 #endif // LANITPARSER_HPP

@@ -18,7 +18,7 @@ public:
 
     ModelStruct GetModelStruct();
 
-    virtual void VParsing() = 0;
+    virtual bool VParsing() = 0;
 
 
 

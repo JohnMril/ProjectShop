@@ -9,6 +9,8 @@
 #include "ParsingDialog.hpp"
 #include "DataClass/DataClass.hpp"
 #include "ChoseSettingsDialog.hpp"
+#include "RawDataParser/LanitParser.hpp"
+#include "RawDataParser/ParserRawDataInteface.hpp"
 
 class ParserHolderWidget : public QWidget
 {
@@ -20,6 +22,9 @@ public:
     void AddNewFile();
 
     void SetDataClass(DataClass *dataClass);
+
+    void DataLoaded(const int &apiEnum);
+
 
 signals:
 
@@ -44,6 +49,8 @@ private:
 
     Parser m_parser;
 
+    QMap<API, ParserRawDataInteface*> m_parserMap;
+
     ParsingDialog* m_parserDialog;
 
     ChoseSettingsDialog* m_chooseSettingsDialog;
@@ -52,6 +59,8 @@ private:
 
     QString m_lastFilePath = "C://";
 
+
+    ModelStruct m_lastModel;
 
 
 };

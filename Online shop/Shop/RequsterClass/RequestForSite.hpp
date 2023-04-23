@@ -4,9 +4,12 @@
 #include <QWidget>
 #include <QByteArray>
 #include <QFile>
+#include <QFileInfo>
 #include <QProcess>
 #include <QDateTime>
 #include <QDebug>
+#include <QTimer>
+
 
 #include "../Common/EnumerationClass.hpp"
 
@@ -41,6 +44,8 @@ public:
     void SetSiteName(const QString &siteName);
     void SetPathToFileExe(const QString &pathToFileExe);
 
+    void SetPathSourceFile(const QString &pathSourceFile);
+
 signals:
     void dataAccepted(const int &);
 
@@ -48,6 +53,8 @@ private slots:
     void emitSignals(int exitCode, QProcess::ExitStatus exitStatus);
 
 private:
+
+    void TimerSlot();
 
     bool IsTimeAccess();
 
@@ -60,7 +67,11 @@ private:
     QString m_dateTime;
     QString m_date;
     QString m_pathToFileExe;
+    QString m_pathSourceFile;
+    QString m_lastGettedDate;
 
+    QTimer* m_timer;
+    int     m_timerCounter = 0;
     /**
      * @brief m_periodTimeAccess Период получения данных в минутах
      */

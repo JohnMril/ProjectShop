@@ -1,41 +1,61 @@
 #include "RequiestHandler.hpp"
 #include "ui_RawDataHandler.h"
 
-RequstClassHandler::RequstClassHandler(QWidget *parent) :
+RequestClassHandler::RequestClassHandler(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::RawDataHandler)
 {
     m_pathToDir = QDir::currentPath()+"/rawData/";
     ui->setupUi(this);
+
+    FillWidgets();
 }
 
-RequstClassHandler::~RequstClassHandler()
+RequestClassHandler::~RequestClassHandler()
 {
     delete ui;
 }
 
-void RequstClassHandler::on_pushButtonGetAll_clicked()
+void RequestClassHandler::on_pushButtonGetAll_clicked()
 {
-
+    GetAllData();
 }
 
-void RequstClassHandler::FillWidgets()
+void RequestClassHandler::emitSignal(const int &enumApi)
+{
+    qDebug() << "RequstClassHandler accepted " << enumApi;
+    emit DataAccepted(enumApi);
+}
+
+void RequestClassHandler::FillWidgets()
 {
     m_gridList = new QGridLayout(ui->siteList);
     ui->siteList->setLayout(m_gridList);
 
     RequestClass* tmpWidget;
     tmpWidget = new RequestClass;
+    connect(tmpWidget, &RequestClass::dataAccepted, this, &RequestClassHandler::emitSignal);
     m_mapSubWidgets.insert(API::LANIT, tmpWidget);
 
     tmpWidget->SetApiEnum(API::LANIT);
     tmpWidget->SetSiteName("Lanit");
-    tmpWidget->SetPathToFileExe(m_pathToDir+"Lanit.exe");
+    tmpWidget->SetPathToFileExe(m_pathToDir+"startLanit.bat");
+    tmpWidget->SetPathSourceFile(m_pathToDir+"LanitProducts.txt");
+
+    m_gridList->addWidget(tmpWidget);
 
 
 }
 
-void RequstClassHandler::GetAllData()
+void RequestClassHandler::GetAllData()
 {
+     for (auto widget : m_mapSubWidgets)
+     {
+         if(widget->IsEnabled())
+         {
+            widget->StartGettingData();
+         }
+     }
 
+//     this->hide();
 }

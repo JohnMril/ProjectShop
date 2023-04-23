@@ -7,12 +7,16 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    m_requestHandler = new RequestClassHandler(this);
+    m_requestHandler->hide();
 
     m_parserHolder = new ParserHolderWidget(this);
     m_parserHolder->SetDataClass(&m_dataClass);
     m_modelHandler.SetDataClass(&m_dataClass);
 
     ui->modelsView->setModel(m_modelHandler.GetPlacesModels());
+
+    connect(m_requestHandler, &RequestClassHandler::DataAccepted, m_parserHolder, &ParserHolderWidget::DataLoaded);
 
     connect(m_parserHolder, &ParserHolderWidget::NewModelStructHasCreated, &m_modelHandler, &ModelHandler::CreateNewModelFromDataClass);
 
@@ -32,7 +36,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    m_parserHolder->AddNewFile();
+//    m_parserHolder->AddNewFile();
+    m_requestHandler->show();
 }
 
 
@@ -91,4 +96,9 @@ void MainWindow::on_actionFinding_by_name_triggered()
         m_sortingDialog->show();
 
     }
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    m_parserHolder->DataLoaded(API::LANIT);
 }

@@ -2,7 +2,7 @@
 
 ParserHolderWidget::ParserHolderWidget(QWidget *parent) : QWidget(parent)
 {
-
+    m_parserMap.insert(API::LANIT,new LanitParser("Lanit", "LanitProducts.txt", this));
 }
 
 
@@ -73,6 +73,22 @@ void ParserHolderWidget::SetDataClass(DataClass *dataClass)
 
 
 
+void ParserHolderWidget::DataLoaded(const int &apiEnum)
+{
+    API tmpApi = static_cast<API>(apiEnum);
+    if(m_parserMap.contains(tmpApi))
+    {
+        if(m_parserMap.value(tmpApi)->VParsing())
+        {
+           m_lastModel = m_parserMap.value(tmpApi)->GetModelStruct();
+           ChooseSettings();
+        }
+
+    }
+}
+
+
+
 void ParserHolderWidget::DialogSuccess()
 {
     m_dataClass->AddModelPair(m_parserDialog->GetModelStruct(), m_parserDialog->GetSettings());
@@ -87,11 +103,11 @@ void ParserHolderWidget::DialogSuccess()
 void ParserHolderWidget::ChooseSettings()
 {
 
-    QSet<int> foundedSettings = m_dataClass->FindForSettings(m_parser.GetLastModelStruct());
+    QSet<int> foundedSettings = m_dataClass->FindForSettings(m_lastModel);
 
     if(foundedSettings.isEmpty())
     {
-        m_parserDialog = new ParsingDialog(m_parser.GetLastModelStruct(),this);
+        m_parserDialog = new ParsingDialog(m_lastModel, this);
 
         connect(m_parserDialog, &ParsingDialog::okIsClicked, this, &ParserHolderWidget::DialogSuccess);
         m_parserDialog->show();
@@ -116,7 +132,7 @@ void ParserHolderWidget::ChooseSettings()
 
 void ParserHolderWidget::SettingApply(const int &index)
 {
-    m_dataClass->AddModelPair(m_parser.GetLastModelStruct(), m_chooseSettingsDialog->GetVecSettings().at(index));
+    m_dataClass->AddModelPair(m_lastModel, m_chooseSettingsDialog->GetVecSettings().at(index));
 
     m_chooseSettingsDialog->close();
     delete  m_chooseSettingsDialog;

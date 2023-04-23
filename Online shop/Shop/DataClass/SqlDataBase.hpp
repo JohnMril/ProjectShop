@@ -18,7 +18,6 @@ public:
 
     void InsertItems(QVector<QVariantList> itemList);
 
-    void GetDataBaseModel();
 
 
 signals:

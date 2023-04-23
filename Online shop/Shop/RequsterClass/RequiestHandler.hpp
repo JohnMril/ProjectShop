@@ -11,21 +11,24 @@ namespace Ui {
 class RawDataHandler;
 }
 
-class RequstClassHandler : public QWidget
+class RequestClassHandler : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit RequstClassHandler(QWidget *parent = nullptr);
-    ~RequstClassHandler();
+    explicit RequestClassHandler(QWidget *parent = nullptr);
+    ~RequestClassHandler();
 
 signals:
     void DataAccepted(const int &);
 
 private slots:
     void on_pushButtonGetAll_clicked();
+    void emitSignal(const int& enumApi);
 
 private:
+
+
     void FillWidgets();
 
     void GetAllData();
@@ -36,9 +39,6 @@ private:
     QString m_pathToDir;
 
     Ui::RawDataHandler *ui;
-
-
-
 };
 
 #endif // RAWDATAHANDLER_HPP

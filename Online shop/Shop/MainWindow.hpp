@@ -9,6 +9,7 @@
 #include "ModelHandler.hpp"
 #include "DataClass/DataClass.hpp"
 #include "SortingsDialog/SortingDialog.hpp"
+#include "RequsterClass/RequiestHandler.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -39,11 +40,14 @@ private slots:
 
     void on_actionFinding_by_name_triggered();
 
+    void on_pushButton_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     ModelHandler m_modelHandler;
     Parser m_parser;
 
+    RequestClassHandler*  m_requestHandler;
     DataClass m_dataClass;
 
     ParserHolderWidget* m_parserHolder;

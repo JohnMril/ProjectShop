@@ -7,14 +7,16 @@ LanitParser::LanitParser(QString vendorName, QString fileName, QObject *parent)
 
 }
 
-void LanitParser::VParsing()
+bool LanitParser::VParsing()
 {
+    qDebug() <<m_pathToFile;
     QFile file(m_pathToFile);
     QFileInfo fileInfo(file);
     QDateTime dateTime = fileInfo.birthTime();
     m_modelStruct.date = dateTime.toString();
 
-    if (file.open(QIODevice::ReadOnly)) {
+    if (file.open(QIODevice::ReadOnly))
+    {
         QXmlStreamReader reader(file.readAll());
         file.close();
         while(!reader.atEnd())
@@ -35,5 +37,10 @@ void LanitParser::VParsing()
             }
         }
         qDebug()<< "Reading file " << m_fileName << " has beenFinished";
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }
