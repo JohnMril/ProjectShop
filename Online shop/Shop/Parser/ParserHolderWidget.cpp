@@ -24,8 +24,6 @@ void ParserHolderWidget::AddNewFile()
 
 
     ChooseSettings();
-
-
 }
 
 

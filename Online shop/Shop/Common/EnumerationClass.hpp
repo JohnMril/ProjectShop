@@ -2,6 +2,7 @@
 #define ENUMERATIONCLASS_HPP
 
 #include <QString>
+#include <QMap>
 
 enum ElementsType
 {
@@ -34,7 +35,6 @@ inline const QString  ConvertEnumToString(ElementsType type)
     default: return  "UNKNOWN_TYPE";
     }
 }
-
 
 
 

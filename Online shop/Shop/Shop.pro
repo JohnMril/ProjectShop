@@ -20,14 +20,16 @@ SOURCES += \
     DataClass/SqlDataBase.cpp \
     ModelHandler.cpp \
     Parser/ChoseSettingsDialog.cpp \
+    Parser/FileSelector.cpp \
     Parser/Parser.cpp \
     Parser/ParserHolderWidget.cpp \
     Parser/ParsingDialog.cpp \
     Parser/RawDataParser/LanitParser.cpp \
     Parser/RawDataParser/ParserRawDataInteface.cpp \
     Parser/SelectedParserElementWidget.cpp \
-    RequsterClass/RequestForSite.cpp \
-    RequsterClass/RequiestHandler.cpp \
+    Parser/SelecterParsingFilesDialog.cpp \
+    RequsterClass/RequestClass.cpp \
+    RequsterClass/RequestClassHandler.cpp \
     SortingsDialog/SortingDialog.cpp \
     main.cpp \
     MainWindow.cpp
@@ -40,22 +42,26 @@ HEADERS += \
     MainWindow.hpp \
     ModelHandler.hpp \
     Parser/ChoseSettingsDialog.hpp \
+    Parser/FileSelector.hpp \
     Parser/Parser.hpp \
     Parser/ParserHolderWidget.hpp \
     Parser/ParsingDialog.hpp \ \
     Parser/RawDataParser/LanitParser.hpp \
     Parser/RawDataParser/ParserRawDataInteface.hpp \
     Parser/SelectedParserElementWidget.hpp \
-    RequsterClass/RequestForSite.hpp \
-    RequsterClass/RequiestHandler.hpp \
+    Parser/SelecterParsingFilesDialog.hpp \
+    RequsterClass/RequestClass.hpp \
+    RequsterClass/RequestClassHandler.hpp \
     SortingsDialog/SortingDialog.hpp
 
 FORMS += \
     MainWindow.ui \
     Parser/ChoseSettingsDialog.ui \
+    Parser/FileSelector.ui \
     Parser/ParsingDialog.ui \
-    RequsterClass/RequestForSite.ui \
-    RequsterClass/RequiestHandler.ui \
+    Parser/SelecterParsingFilesDialog.ui \
+    RequsterClass/RequestClass.ui \
+    RequsterClass/RequestClassHandler.ui \
     SortingsDialog/SortingDialog.ui
 
 # Default rules for deployment.

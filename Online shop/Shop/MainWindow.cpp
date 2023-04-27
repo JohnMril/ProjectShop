@@ -7,8 +7,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    m_requestHandler = new RequestClassHandler(this);
-    m_requestHandler->hide();
+
+    m_selectorFileDialog = new SelecterParsingFilesDialog(this);
+    m_selectorFileDialog->hide();
 
     m_parserHolder = new ParserHolderWidget(this);
     m_parserHolder->SetDataClass(&m_dataClass);
@@ -16,11 +17,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->modelsView->setModel(m_modelHandler.GetPlacesModels());
 
-    connect(m_requestHandler, &RequestClassHandler::DataAccepted, m_parserHolder, &ParserHolderWidget::DataLoaded);
-
     connect(m_parserHolder, &ParserHolderWidget::NewModelStructHasCreated, &m_modelHandler, &ModelHandler::CreateNewModelFromDataClass);
 
     connect(&m_modelHandler, &ModelHandler::CreatedNewModel, this, &MainWindow::AddNewModelViewElement);
+
+    connect(m_selectorFileDialog, &SelecterParsingFilesDialog::sourceDataSelected, m_parserHolder, &ParserHolderWidget::DataLoaded);
 
 
 
@@ -31,13 +32,6 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-
-void MainWindow::on_pushButton_clicked()
-{
-//    m_parserHolder->AddNewFile();
-    m_requestHandler->show();
 }
 
 
@@ -98,7 +92,16 @@ void MainWindow::on_actionFinding_by_name_triggered()
     }
 }
 
+
+
 void MainWindow::on_pushButton_2_clicked()
 {
     m_parserHolder->DataLoaded(API::LANIT);
+}
+
+
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    m_selectorFileDialog->show();
 }

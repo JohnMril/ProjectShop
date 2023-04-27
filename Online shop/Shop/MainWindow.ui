@@ -33,16 +33,16 @@
      </layout>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="pushButton_2">
       <property name="text">
-       <string>Добавить файл</string>
+       <string>lanit</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="pushButton_3">
       <property name="text">
-       <string>lanit</string>
+       <string>FileSelector</string>
       </property>
      </widget>
     </item>

@@ -9,7 +9,8 @@
 #include "ModelHandler.hpp"
 #include "DataClass/DataClass.hpp"
 #include "SortingsDialog/SortingDialog.hpp"
-#include "RequsterClass/RequiestHandler.hpp"
+#include "RequsterClass/RequestClassHandler.hpp"
+#include "Parser/SelecterParsingFilesDialog.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -25,7 +26,6 @@ public:
 
 
 private slots:
-    void on_pushButton_clicked();
 
     void on_comboBox_currentIndexChanged(const QString &arg1);
 
@@ -42,12 +42,13 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+    void on_pushButton_3_clicked();
+
 private:
     Ui::MainWindow *ui;
     ModelHandler m_modelHandler;
     Parser m_parser;
 
-    RequestClassHandler*  m_requestHandler;
     DataClass m_dataClass;
 
     ParserHolderWidget* m_parserHolder;
@@ -55,5 +56,7 @@ private:
     QSortFilterProxyModel *m_currenttProxyModel = nullptr;
 
     SortingDialog* m_sortingDialog = nullptr;
+
+    SelecterParsingFilesDialog* m_selectorFileDialog = nullptr;
 };
 #endif // MAINWINDOW_HPP

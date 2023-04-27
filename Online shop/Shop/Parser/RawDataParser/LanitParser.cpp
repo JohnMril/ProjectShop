@@ -7,12 +7,14 @@ LanitParser::LanitParser(QString vendorName, QString fileName, QObject *parent)
 
 }
 
+
+
 bool LanitParser::VParsing()
 {
     qDebug() <<m_pathToFile;
     QFile file(m_pathToFile);
     QFileInfo fileInfo(file);
-    QDateTime dateTime = fileInfo.birthTime();
+    QDateTime dateTime = fileInfo.lastModified();
     m_modelStruct.date = dateTime.toString();
 
     if (file.open(QIODevice::ReadOnly))
