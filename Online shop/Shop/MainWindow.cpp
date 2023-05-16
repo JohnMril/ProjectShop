@@ -8,6 +8,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
 
+    QString serverAdres ="(local)" ;
+    QString dataBaseName = "QTBD";
+    QString userName = "sa";
+    QString password = "1234";
+    m_sqlDataBase.MakeConection(serverAdres, dataBaseName, userName, password);
+
     m_selectorFileDialog = new SelecterParsingFilesDialog(this);
     m_selectorFileDialog->hide();
 
@@ -50,6 +56,15 @@ void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
 void MainWindow::AddNewModelViewElement()
 {
     ui->comboBox->setModel(m_modelHandler.GetPlacesModels());
+
+   ModelStruct* tmpModel =  m_dataClass.GetLastModelStruct();
+   bool state = true;
+   QVector<QVariantList> tmpVec =  m_dataClass.GetDataListToSql(tmpModel->shop, tmpModel->date, state);
+
+   if(state)
+   {
+       m_sqlDataBase.InsertItems(tmpVec);
+   }
 }
 
 

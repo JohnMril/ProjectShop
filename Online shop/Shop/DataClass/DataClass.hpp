@@ -28,6 +28,8 @@ public:
 
     QVector<ModelSettings> GetSettingsVec() const;
 
+    QVector<QVariantList> GetDataListToSql(QString shop, QString date, bool &state);
+
 private:
     QVector<ModelSettings> m_settingsVec;
     QVector<ModelStruct> m_modelStructVec;

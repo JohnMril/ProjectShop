@@ -91,12 +91,43 @@ void ParsingDialog::on_cancelButton_clicked()
 
 void ParsingDialog::on_okButton_clicked()
 {
+    bool state = true;
+
+    QMap<ElementsType, int> counterMap;
+    for (int i = 0; i < static_cast<int>(ElementsType::NOTHING); ++i)
+    {
+        counterMap.insert(static_cast<ElementsType>(i), 0);
+    }
+
+
     for( auto widget : m_widgetsSettingVec)
     {
         ElementSettings tmpSettings = widget->GetSource();
+
+        if(counterMap.contains(tmpSettings.type))
+        {
+            int &i = counterMap[tmpSettings.type];
+            i++;
+        }
+
         m_settings.mapSettings.insert(tmpSettings.keyName, tmpSettings);
     }
     m_settings.shop = m_modelStruct.shop;
 
-    emit okIsClicked();
+    for (auto element : counterMap)
+    {
+        if(element!=1)
+        {
+            state = false;
+        }
+    }
+
+    if(state)
+    {
+        emit okIsClicked();
+    }
+    else
+    {
+        qDebug()<< "settingsError";
+    }
 }

@@ -32,15 +32,16 @@ bool SqlDataBase::MakeConection(QString serverAdres, QString dataBaseName, QStri
 void SqlDataBase::InsertItems(QVector<QVariantList> itemList)
 {
     QSqlQuery query;
-    query.prepare("INSERT INTO employee (id, name, salary) "
-           "VALUES (?, ?, ?)");
+    query.prepare("INSERT INTO PRICE_LIST_TMP (    ClientPriceListID, ProductID, ClientPriceListTypeID, ClientProductID, ClientVendorCode, ClientBrandName, ClientProductName, ClientPriceString, ClientPriceRecString, ClientStorageMark"
+           "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     for (auto item  : itemList)
     {
         for (auto property : item)
         {
-            query.addBindValue(property.toString());
+            query.addBindValue(property);
         }
             query.exec();
+
     }
 }

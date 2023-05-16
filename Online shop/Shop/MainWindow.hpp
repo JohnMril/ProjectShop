@@ -8,6 +8,7 @@
 #include "Parser/ParserHolderWidget.hpp"
 #include "ModelHandler.hpp"
 #include "DataClass/DataClass.hpp"
+#include "DataClass/SqlDataBase.hpp"
 #include "SortingsDialog/SortingDialog.hpp"
 #include "RequsterClass/RequestClassHandler.hpp"
 #include "Parser/SelecterParsingFilesDialog.hpp"
@@ -52,6 +53,8 @@ private:
     DataClass m_dataClass;
 
     ParserHolderWidget* m_parserHolder;
+
+    SqlDataBase m_sqlDataBase;
 
     QSortFilterProxyModel *m_currenttProxyModel = nullptr;
 

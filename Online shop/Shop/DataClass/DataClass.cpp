@@ -104,7 +104,53 @@ ModelSettings *DataClass::GetSettingsForModelStruct(ModelStruct *modelStructPtr)
     return m_modelMap.value(modelStructPtr);
 }
 
+
+
 QVector<ModelSettings> DataClass::GetSettingsVec() const
 {
     return m_settingsVec;
+}
+
+
+
+QVector<QVariantList> DataClass::GetDataListToSql(QString shop, QString date, bool &state)
+{
+    QStringList keyList;
+    QVector<QVariantList> result;
+    for(auto &model : m_modelStructVec)
+    {
+        if((model.shop == shop)&&(model.date == date))
+        {
+            if(m_modelMap.contains(&model))
+            {
+                ModelSettings* tmpSettings = m_modelMap.value(&model);
+                for(int type = 0 ; type < ElementsType::NOTHING; type++)
+                {
+                    for(auto elememtSettings : tmpSettings->mapSettings)
+                    {
+                        if(elememtSettings.type == type)
+                        {
+                            keyList.append(elememtSettings.keyName);
+                        }
+                    }
+                }
+
+                for(auto productMap : model.modelMap)
+                {
+                    QVariantList tmpVariantList;
+                    for(auto key : keyList)
+                    {
+                        tmpVariantList.append(productMap.value(key));
+                    }
+                    result.append(tmpVariantList);
+                }
+            }
+        }
+    }
+
+    if(result.isEmpty())
+    {
+        state = false;
+    }
+    return result;
 }

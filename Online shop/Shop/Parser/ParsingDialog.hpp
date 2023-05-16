@@ -2,8 +2,14 @@
 #define PARSINGDIALOG_HPP
 
 #include <QDialog>
+#include <QDebug>
 #include "../Common/ModelStruct.hpp"
 #include "SelectedParserElementWidget.hpp"
+
+
+
+
+
 
 namespace Ui {
 class ParsingDialog;
