@@ -86,6 +86,16 @@ void ModelHandler::CreateModel(const ModelStruct &modelStruct)
 
 void ModelHandler::AppendRowToPlacesModel(QVariant name, QVariant data)
 {
+    for(int row = 0 ; row < m_placesModels->rowCount(); row++)
+    {
+        if(m_placesModels->data(m_placesModels->index(row, 0)).toString().contains(name.toString()))
+        {
+            m_placesModels->setData(m_placesModels->index(row, 1), data);
+
+            return;
+        }
+    }
+
     QList<QStandardItem*> row;
 
     QStandardItem* itemName = new QStandardItem(name.toString());
@@ -154,6 +164,42 @@ void ModelHandler::SetDataClass(DataClass *dataClass)
 QSortFilterProxyModel *ModelHandler::GetLastProxyModel() const
 {
     return m_mapOfProxy.value(m_mapModels.key(m_tmpModel));
+}
+
+
+
+void ModelHandler::CreateModel_1(const ModelStruct &modelStruct)
+{
+    QStandardItemModel* itemModel = new QStandardItemModel(modelStruct.rowCount(), modelStruct.columnCount(), this);
+
+    int column = 0;
+    for(const QString& headerName : modelStruct.setAttributs)
+    {
+        itemModel->setHeaderData(column, Qt::Horizontal, headerName, Qt::DisplayRole);
+        column++;
+    }
+
+
+    for(uint row = 0; row < modelStruct.rowCount(); row++)
+    {
+        column = 0;
+        for(const QString& keyName : modelStruct.setAttributs)
+        {
+            QModelIndex index = itemModel->index(row, column);
+            if(modelStruct.modelMap.at(row).contains(keyName))
+            {
+                itemModel->setData(index, modelStruct.modelMap.at(row).value(keyName));
+            }
+
+            column++;
+        }
+    }
+
+    m_mapModels.insert(modelStruct.shop, itemModel);
+
+    AppendRowToPlacesModel(modelStruct.shop, modelStruct.date);
+
+    emit CreatedNewModel();
 }
 
 

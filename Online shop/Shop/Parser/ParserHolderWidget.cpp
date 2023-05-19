@@ -80,6 +80,7 @@ void ParserHolderWidget::DataLoaded(const int &apiEnum)
         {
            m_lastModel = m_parserMap.value(tmpApi)->GetModelStruct();
            ChooseSettings();
+
         }
 
     }

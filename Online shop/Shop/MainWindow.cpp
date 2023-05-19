@@ -28,9 +28,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&m_modelHandler, &ModelHandler::CreatedNewModel, this, &MainWindow::AddNewModelViewElement);
 
     connect(m_selectorFileDialog, &SelecterParsingFilesDialog::sourceDataSelected, m_parserHolder, &ParserHolderWidget::DataLoaded);
-
-
-
 }
 
 
@@ -44,6 +41,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
 {
+//    if(m_viewEditorDialog != nullptr)
+//    {
+//        m_viewEditorDialog->close();
+//        delete m_viewEditorDialog;
+//    }
+
+
     if(m_modelHandler.GetMapOfProxyModels().contains(arg1))
     {
         m_currenttProxyModel = m_modelHandler.GetMapOfProxyModels().value(arg1);
@@ -57,14 +61,14 @@ void MainWindow::AddNewModelViewElement()
 {
     ui->comboBox->setModel(m_modelHandler.GetPlacesModels());
 
-   ModelStruct* tmpModel =  m_dataClass.GetLastModelStruct();
-   bool state = true;
-   QVector<QVariantList> tmpVec =  m_dataClass.GetDataListToSql(tmpModel->shop, tmpModel->date, state);
+//   ModelStruct* tmpModel =  m_dataClass.GetLastModelStruct();
+//   bool state = true;
+//   QVector<QVariantList> tmpVec =  m_dataClass.GetDataListToSql(tmpModel->shop, tmpModel->date, state);
 
-   if(state)
-   {
-       m_sqlDataBase.InsertItems(tmpVec);
-   }
+//   if(state)
+//   {
+//       m_sqlDataBase.InsertItems(tmpVec);
+//   }
 }
 
 
@@ -119,4 +123,17 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_pushButton_3_clicked()
 {
     m_selectorFileDialog->show();
+}
+
+
+
+void MainWindow::on_editViewPushButton_clicked()
+{
+    //TODO сделать сообщение что модели нет
+    if(ui->currentModelView->model() == nullptr)
+    {
+        return;
+    }
+    m_viewEditorDialog = new ViewEditorDialog(ui->currentModelView, this);
+    m_viewEditorDialog->show();
 }

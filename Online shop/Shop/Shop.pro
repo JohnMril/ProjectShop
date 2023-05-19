@@ -31,6 +31,8 @@ SOURCES += \
     RequsterClass/RequestClass.cpp \
     RequsterClass/RequestClassHandler.cpp \
     SortingsDialog/SortingDialog.cpp \
+    ViewEditorDialog/ViewEditorDialog.cpp \
+    ViewEditorDialog/ViewSelectorWidgetForm.cpp \
     main.cpp \
     MainWindow.cpp
 
@@ -52,7 +54,9 @@ HEADERS += \
     Parser/SelecterParsingFilesDialog.hpp \
     RequsterClass/RequestClass.hpp \
     RequsterClass/RequestClassHandler.hpp \
-    SortingsDialog/SortingDialog.hpp
+    SortingsDialog/SortingDialog.hpp \ \
+    ViewEditorDialog/ViewEditorDialog.hpp \
+    ViewEditorDialog/ViewSelectorWidgetForm.hpp
 
 FORMS += \
     MainWindow.ui \
@@ -62,7 +66,9 @@ FORMS += \
     Parser/SelecterParsingFilesDialog.ui \
     RequsterClass/RequestClass.ui \
     RequsterClass/RequestClassHandler.ui \
-    SortingsDialog/SortingDialog.ui
+    SortingsDialog/SortingDialog.ui \
+    ViewEditorDialog/ViewEditorDialog.ui \
+    ViewEditorDialog/ViewSelectorWidgetForm.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

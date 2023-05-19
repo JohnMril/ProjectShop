@@ -20,7 +20,17 @@ struct ModelStruct
 
     friend bool operator==(const ModelStruct& model0, const ModelStruct& model1)
     {
-        return (model0.shop == model1.shop);
+        return ((model0.shop == model1.shop)&&(model0.date==model1.date));
+    }
+
+    uint columnCount() const
+    {
+        return setAttributs.size();
+    }
+
+    uint rowCount() const
+    {
+        return modelMap.size();
     }
 };
 

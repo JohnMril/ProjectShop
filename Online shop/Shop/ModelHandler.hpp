@@ -35,6 +35,9 @@ public:
 
     QSortFilterProxyModel * GetLastProxyModel() const;
 
+
+    void CreateModel_1(const ModelStruct& modelStruct);
+
 signals:
     void CreatedNewModel();
 
@@ -53,13 +56,16 @@ private:
     QStandardItemModel* m_tmpModel;
 
 
-    QMultiMap<QString, QStandardItemModel*> m_mapModels;
+    QMap<QString, QStandardItemModel*> m_mapModels;
 
-    QMultiMap<QString, QSortFilterProxyModel*> m_mapOfProxy;
+    QMap<QString, QSortFilterProxyModel*> m_mapOfProxy;
 
     QVector<ModelStruct> m_vecRawData;
 
     DataClass* m_dataClass;
 };
+
+
+
 
 #endif // MODELHANDLER_HPP
