@@ -11,6 +11,7 @@ LanitParser::LanitParser(QString vendorName, QString fileName, QObject *parent)
 
 bool LanitParser::VParsing()
 {
+    m_modelStruct = ModelStruct();
     qDebug() <<m_pathToFile;
     QFile file(m_pathToFile);
     QFileInfo fileInfo(file);

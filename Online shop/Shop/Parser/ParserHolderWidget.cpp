@@ -57,9 +57,10 @@ void ParserHolderWidget::DataLoaded(const int &apiEnum)
     API tmpApi = static_cast<API>(apiEnum);
     if(m_parserMap.contains(tmpApi))
     {
+        //FIXME утечка
         if(m_parserMap.value(tmpApi)->VParsing())
         {
-           m_lastModel = m_parserMap.value(tmpApi)->GetModelStruct();
+           ModelStruct m_lastModel = m_parserMap.value(tmpApi)->GetModelStruct();
            m_dataClass->AddModelStruct(m_lastModel);
            emit NewModelLoaded(m_lastModel.shop);
         }

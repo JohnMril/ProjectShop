@@ -55,7 +55,7 @@ private:
     QString m_lastFilePath = "C://";
 
 
-    ModelStruct m_lastModel;
+
 
 
 };

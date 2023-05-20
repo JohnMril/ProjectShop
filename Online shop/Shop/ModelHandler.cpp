@@ -184,6 +184,7 @@ void ModelHandler::CreateModelByString(QString modelName)
 
 void ModelHandler::CreateModel_1(const ModelStruct &modelStruct)
 {
+    //FIXME memleak
     QStandardItemModel* itemModel = new QStandardItemModel(modelStruct.rowCount(), modelStruct.columnCount(), this);
 
     int column = 0;

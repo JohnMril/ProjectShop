@@ -24,7 +24,7 @@ public:
 
 signals:
 
-    protected:
+protected:
     QString     m_vendorName;
     QString     m_pathToFile;
     QString     m_fileName;
