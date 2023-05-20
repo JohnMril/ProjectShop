@@ -2,7 +2,7 @@
 
 ParserHolderWidget::ParserHolderWidget(QWidget *parent) : QWidget(parent)
 {
-    m_parserMap.insert(API::LANIT,new LanitParser("Lanit", "LanitProducts.txt", this));
+
 }
 
 
@@ -54,15 +54,20 @@ void ParserHolderWidget::SetDataClass(DataClass *dataClass)
 
 void ParserHolderWidget::DataLoaded(const int &apiEnum)
 {
+    m_parserMap.insert(API::LANIT,new LanitParser("Lanit", "LanitProducts.txt", this));
+
     API tmpApi = static_cast<API>(apiEnum);
     if(m_parserMap.contains(tmpApi))
     {
         //FIXME утечка
         if(m_parserMap.value(tmpApi)->VParsing())
         {
+
            ModelStruct m_lastModel = m_parserMap.value(tmpApi)->GetModelStruct();
            m_dataClass->AddModelStruct(m_lastModel);
+           delete m_parserMap.value(tmpApi);
            emit NewModelLoaded(m_lastModel.shop);
+
         }
     }
 }

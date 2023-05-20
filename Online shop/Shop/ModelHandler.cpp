@@ -15,6 +15,12 @@ ModelHandler::ModelHandler(QObject *parent) : QObject(parent)
 
 void ModelHandler::CreateModel(const ModelStruct &modelStruct)
 {
+
+    if(m_mapModels.contains(modelStruct.shop))
+    {
+       delete m_mapOfProxy.value(modelStruct.shop);
+       delete m_mapModels.value(modelStruct.shop);
+    }
     AppendRowToPlacesModel(modelStruct.shop, modelStruct.date);
 
 
@@ -184,6 +190,11 @@ void ModelHandler::CreateModelByString(QString modelName)
 
 void ModelHandler::CreateModel_1(const ModelStruct &modelStruct)
 {
+    if(m_mapModels.contains(modelStruct.shop))
+    {
+       delete m_mapOfProxy.value(modelStruct.shop);
+       delete m_mapModels.value(modelStruct.shop);
+    }
     //FIXME memleak
     QStandardItemModel* itemModel = new QStandardItemModel(modelStruct.rowCount(), modelStruct.columnCount(), this);
 
