@@ -7,25 +7,6 @@ ParserHolderWidget::ParserHolderWidget(QWidget *parent) : QWidget(parent)
 
 
 
-void ParserHolderWidget::AddNewFile()
-{
-    QString pathString = EmitFileFinder();
-
-    if(pathString.isNull())
-    {
-        return;
-    }
-
-    if (!ParseByFilePath(pathString))
-    {
-        CallErorrMessageBox("File can't be read!!!", "file error");
-        return;
-    }
-
-
-    ChooseSettings();
-}
-
 
 
 QString ParserHolderWidget::EmitFileFinder()
@@ -83,71 +64,4 @@ void ParserHolderWidget::DataLoaded(const int &apiEnum)
            emit NewModelLoaded(m_lastModel.shop);
         }
     }
-}
-
-
-
-void ParserHolderWidget::DialogSuccess()
-{
-    m_dataClass->AddModelPair(m_parserDialog->GetModelStruct(), m_parserDialog->GetSettings());
-
-    m_parserDialog->close();
-
-    emit NewModelStructHasCreated();
-}
-
-
-
-void ParserHolderWidget::ChooseSettings()
-{
-
-    QSet<int> foundedSettings = m_dataClass->FindForSettings(m_lastModel);
-
-    if(foundedSettings.isEmpty())
-    {
-        m_parserDialog = new ParsingDialog(m_lastModel, this);
-
-        connect(m_parserDialog, &ParsingDialog::okIsClicked, this, &ParserHolderWidget::DialogSuccess);
-        m_parserDialog->show();
-    }
-    else
-    {
-        QVector<ModelSettings> modelSettings;
-        QVector<ModelSettings> tmpModelSettings = m_dataClass->GetSettingsVec();
-        for (auto index : foundedSettings)
-        {
-            modelSettings.append(tmpModelSettings.at(index));
-        }
-
-        m_chooseSettingsDialog = new ChoseSettingsDialog(modelSettings, this);
-        connect(m_chooseSettingsDialog, &ChoseSettingsDialog::ApplyClicked, this, &ParserHolderWidget::SettingApply);
-        connect(m_chooseSettingsDialog, &ChoseSettingsDialog::EdditClicked, this, &ParserHolderWidget::SettingEdit);
-    }
-
-}
-
-
-
-void ParserHolderWidget::SettingApply(const int &index)
-{
-    m_dataClass->AddModelPair(m_lastModel, m_chooseSettingsDialog->GetVecSettings().at(index));
-
-    m_chooseSettingsDialog->close();
-    delete  m_chooseSettingsDialog;
-
-    emit NewModelStructHasCreated();
-}
-
-
-
-void ParserHolderWidget::SettingEdit(const int &index)
-{
-    m_parserDialog = new ParsingDialog(m_chooseSettingsDialog->GetVecSettings().at(index), m_parser.GetLastModelStruct(), this);
-
-    connect(m_parserDialog, &ParsingDialog::okIsClicked, this, &ParserHolderWidget::DialogSuccess);
-
-    m_chooseSettingsDialog->close();
-    delete  m_chooseSettingsDialog;
-
-    m_parserDialog->show();
 }

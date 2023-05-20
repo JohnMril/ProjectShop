@@ -19,7 +19,6 @@ public:
     explicit ParserHolderWidget(QWidget *parent = nullptr);
 
 
-    void AddNewFile();
 
     void SetDataClass(DataClass *dataClass);
 
@@ -32,14 +31,9 @@ signals:
     void NewModelLoaded(const QString&);
 
 private slots:
-    void DialogSuccess();
 
-    void ChooseSettings();
 
 private:
-
-    void SettingApply(const int& index);
-    void SettingEdit (const int& index);
 
 
     QString EmitFileFinder();

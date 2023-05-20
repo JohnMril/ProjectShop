@@ -47,13 +47,9 @@ public slots:
 
     void CreateModelByString( QString modelName);
 
-    void CreateNewModelFromDataClass();
 
 private:
 
-
-
-    QVector<ModelStruct> m_modelsStructVec;
 
     QStandardItemModel* m_placesModels;
 
@@ -64,7 +60,6 @@ private:
 
     QMap<QString, QSortFilterProxyModel*> m_mapOfProxy;
 
-    QVector<ModelStruct> m_vecRawData;
 
     DataClass* m_dataClass;
 };

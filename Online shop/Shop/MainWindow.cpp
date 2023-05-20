@@ -22,7 +22,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->modelsView->setModel(m_modelHandler.GetPlacesModels());
 
-    connect(m_parserHolder, &ParserHolderWidget::NewModelStructHasCreated, &m_modelHandler, &ModelHandler::CreateNewModelFromDataClass);
 
     connect(&m_modelHandler, &ModelHandler::CreatedNewModel, this, &MainWindow::AddNewModelViewElement);
 
