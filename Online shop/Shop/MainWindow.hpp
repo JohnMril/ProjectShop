@@ -13,6 +13,9 @@
 #include "RequsterClass/RequestClassHandler.hpp"
 #include "Parser/SelecterParsingFilesDialog.hpp"
 #include "ViewEditorDialog/ViewEditorDialog.hpp"
+#include "SqlDataBase/SqlDatabseHandler.hpp"
+#include "SqlDataBase/AuthorizationDialog.hpp"
+#include "SqlDataBase/PushButtonSender.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -31,7 +34,9 @@ private slots:
 
     void on_comboBox_currentIndexChanged(const QString &arg1);
 
-    void AddNewModelViewElement();
+    void AddNewModelViewElement(const QString &modelName);
+
+    void EmitAuthSql();
 
 
     void on_actionAdd_row_2_triggered();
@@ -49,6 +54,9 @@ private slots:
     void on_editViewPushButton_clicked();
 
 private:
+
+    void PreapareToSendData(QString name);
+
     Ui::MainWindow *ui;
     ModelHandler m_modelHandler;
     Parser m_parser;
@@ -66,5 +74,13 @@ private:
     SelecterParsingFilesDialog* m_selectorFileDialog = nullptr;
 
     ViewEditorDialog* m_viewEditorDialog  = nullptr;
+    //Sql
+    SqlDatabaseHandler* m_sqlDataBaseHandler;
+    AuthorizationDialog* m_sqlAuthDialog;
+
+    QVector<PushButtonSender*> m_senderButtonVector;
+
+
+
 };
 #endif // MAINWINDOW_HPP

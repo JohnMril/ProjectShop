@@ -45,7 +45,7 @@ struct ElementSettings
     ElementsType type;
     friend bool operator==(const ElementSettings& model0, const ElementSettings& model1)
     {
-        return (model0.keyName == model1.keyName) && (model0.valueName == model1.valueName);
+        return (model0.keyName == model1.keyName) && (model0.type == model1.type);
     }
 };
 
@@ -54,11 +54,16 @@ struct ElementSettings
 struct ModelSettings
 {
     QString shop;
+    QString date;
+    //TODO убрать потом в файл настроек
+    int clientPriceListID;
     QMap<QString, ElementSettings> mapSettings;
+
+    QMap<ElementsType, QString> elementTypeMap;
 
     friend bool operator==(const ModelSettings& model0, const ModelSettings& model1)
     {
-        return (model0.mapSettings == model1.mapSettings);
+        return (model0.elementTypeMap == model1.elementTypeMap);
     }
 };
 

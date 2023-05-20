@@ -9,7 +9,7 @@ DataClass::DataClass(QObject *parent) : QObject(parent)
 
 void DataClass::InsertModelSettings(const ModelSettings &settings)
 {
-    m_settingsVec.append(settings);
+    m_settingMap.insert(settings.shop, settings);
 }
 
 
@@ -66,17 +66,27 @@ ModelStruct* DataClass::GetLastModelStruct()
 
 
 
-ModelStruct DataClass::GetModelStructByName(const QString &shopName) const
+ModelStruct DataClass::GetModelStructByName(const QString &shopName, bool& state) const
 {
-    for(auto model : m_modelStructVec)
+    if(m_modelMapNew.contains(shopName))
     {
-        if (model.shop == shopName)
-        {
-            return model;
-        }
+        state = true;
+        return m_modelMapNew.value(shopName);
     }
-
+    state = false;
     return ModelStruct();
+}
+
+ModelSettings DataClass::GetModelSettingsByName(const QString &shopName, bool &state) const
+{
+    if(m_settingMap.contains(shopName))
+    {
+        state = true;
+        return m_settingMap.value(shopName);
+    }
+    state = false;
+    return ModelSettings();
+
 }
 
 
@@ -153,4 +163,47 @@ QVector<QVariantList> DataClass::GetDataListToSql(QString shop, QString date, bo
         state = false;
     }
     return result;
+}
+
+QVector<QVariantList> DataClass::GetDataListToSqlDb(QString shop, bool &state)
+{
+    if(!m_modelMapNew.contains(shop))
+    {
+        state = false;
+        qDebug()<< "ModelStruct not founded by name:"<< shop;
+    }
+    if(!m_settingMap.contains(shop))
+    {
+        state = false;
+
+        qDebug()<< "ModelSettings not founded by name:"<< shop;
+    }
+
+
+
+
+}
+
+bool DataClass::IsSettingsExcist(QString shopName)
+{
+    return m_settingMap.contains(shopName);
+}
+
+bool DataClass::IsModelExcist(QString shopName)
+{
+    return m_modelMapNew.contains(shopName);
+}
+
+
+
+void DataClass::AddModelStruct(const ModelStruct &modelStruct)
+{
+    m_modelMapNew.insert(modelStruct.shop, modelStruct);
+}
+
+
+
+void DataClass::AddModelSettings(const ModelSettings &modelSettings)
+{
+    m_settingMap.insert(modelSettings.shop, modelSettings);
 }

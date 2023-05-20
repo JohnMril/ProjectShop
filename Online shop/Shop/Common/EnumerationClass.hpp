@@ -18,7 +18,7 @@ enum ElementsType : int
     ClientPriceRecString varchar(200),
     ClientStorageMark varchar(500)
     */
-    ClientPriceListID,
+   // ClientPriceListID,
     ProductID,
     ClientPriceListTypeID,
     ClientProductID,
@@ -45,7 +45,7 @@ inline const QString  ConvertEnumToString(ElementsType type)
     switch (type)
     {
 
-    case ElementsType::ClientPriceListID: return "ClientPriceListID";
+//    case ElementsType::ClientPriceListID: return "ClientPriceListID";
     case ElementsType::ProductID: return "ProductID";
     case ElementsType::ClientPriceListTypeID: return "ClientPriceListTypeID";
     case ElementsType::ClientProductID: return "ClientProductID";

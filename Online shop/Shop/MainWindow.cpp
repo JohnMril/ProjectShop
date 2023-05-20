@@ -7,12 +7,11 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    m_sqlDataBaseHandler = new SqlDatabaseHandler(&m_dataClass, this);
+    m_sqlAuthDialog = new AuthorizationDialog(m_sqlDataBaseHandler, this);
+    m_sqlDataBaseHandler->hide();
 
-    QString serverAdres ="(local)" ;
-    QString dataBaseName = "QTBD";
-    QString userName = "sa";
-    QString password = "1234";
-    m_sqlDataBase.MakeConection(serverAdres, dataBaseName, userName, password);
+    connect(m_sqlDataBaseHandler, &SqlDatabaseHandler::NeedToConnect, this, &MainWindow::EmitAuthSql);
 
     m_selectorFileDialog = new SelecterParsingFilesDialog(this);
     m_selectorFileDialog->hide();
@@ -28,6 +27,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&m_modelHandler, &ModelHandler::CreatedNewModel, this, &MainWindow::AddNewModelViewElement);
 
     connect(m_selectorFileDialog, &SelecterParsingFilesDialog::sourceDataSelected, m_parserHolder, &ParserHolderWidget::DataLoaded);
+
+    connect(m_parserHolder, &ParserHolderWidget::NewModelLoaded, &m_modelHandler, &ModelHandler::CreateModelByString);
 }
 
 
@@ -41,13 +42,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
 {
-//    if(m_viewEditorDialog != nullptr)
-//    {
-//        m_viewEditorDialog->close();
-//        delete m_viewEditorDialog;
-//    }
-
-
     if(m_modelHandler.GetMapOfProxyModels().contains(arg1))
     {
         m_currenttProxyModel = m_modelHandler.GetMapOfProxyModels().value(arg1);
@@ -57,18 +51,26 @@ void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
 
 
 
-void MainWindow::AddNewModelViewElement()
+void MainWindow::AddNewModelViewElement(const QString& modelName)
 {
     ui->comboBox->setModel(m_modelHandler.GetPlacesModels());
 
-//   ModelStruct* tmpModel =  m_dataClass.GetLastModelStruct();
-//   bool state = true;
-//   QVector<QVariantList> tmpVec =  m_dataClass.GetDataListToSql(tmpModel->shop, tmpModel->date, state);
+    QMap<QString, QSortFilterProxyModel*> tmpMap = m_modelHandler.GetMapOfProxyModels();
+    if(tmpMap.contains(modelName))
+    {
+        ui->currentModelView->setModel(tmpMap.value(modelName));
 
-//   if(state)
-//   {
-//       m_sqlDataBase.InsertItems(tmpVec);
-//   }
+        PushButtonSender* button = new PushButtonSender(modelName, this);
+        connect(button, &PushButtonSender::Clicked, this, &MainWindow::PreapareToSendData);
+
+        ui->modelsView->setIndexWidget(m_modelHandler.GetIndexOfPlacesModelByName(modelName), button);
+
+    }
+}
+
+void MainWindow::EmitAuthSql()
+{
+    m_sqlAuthDialog->show();
 }
 
 
@@ -136,4 +138,10 @@ void MainWindow::on_editViewPushButton_clicked()
     }
     m_viewEditorDialog = new ViewEditorDialog(ui->currentModelView, this);
     m_viewEditorDialog->show();
+}
+
+void MainWindow::PreapareToSendData(QString name)
+{
+    qDebug()<<"Pressed" <<name;
+    m_sqlDataBaseHandler->PrepareToSend(name);
 }

@@ -79,10 +79,9 @@ void ParserHolderWidget::DataLoaded(const int &apiEnum)
         if(m_parserMap.value(tmpApi)->VParsing())
         {
            m_lastModel = m_parserMap.value(tmpApi)->GetModelStruct();
-           ChooseSettings();
-
+           m_dataClass->AddModelStruct(m_lastModel);
+           emit NewModelLoaded(m_lastModel.shop);
         }
-
     }
 }
 

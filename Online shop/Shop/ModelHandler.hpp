@@ -27,9 +27,9 @@ public:
 
     void RemoveRows(int row);
 
-    QMultiMap<QString, QStandardItemModel *> GetMapModelsRaw() const;
+    QMap<QString, QStandardItemModel *> GetMapModelsRaw() const;
 
-    QMultiMap<QString, QSortFilterProxyModel *> GetMapOfProxyModels() const;
+    QMap<QString, QSortFilterProxyModel *> GetMapOfProxyModels() const;
 
     void SetDataClass(DataClass *dataClass);
 
@@ -38,10 +38,14 @@ public:
 
     void CreateModel_1(const ModelStruct& modelStruct);
 
+    QModelIndex GetIndexOfPlacesModelByName(QString shopName);
+
 signals:
-    void CreatedNewModel();
+    void CreatedNewModel(const QString&);
 
 public slots:
+
+    void CreateModelByString( QString modelName);
 
     void CreateNewModelFromDataClass();
 

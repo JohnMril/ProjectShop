@@ -24,7 +24,6 @@ signals:
 
 private:
 
-    QSqlTableModel* m_tableModelSql;
     QSqlDatabase m_dataBase;
 
 };

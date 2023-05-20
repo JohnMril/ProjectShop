@@ -6,9 +6,11 @@ ModelHandler::ModelHandler(QObject *parent) : QObject(parent)
     //    m_placesModels->setHeaderData(0, Qt::Horizontal, "Name", Qt::DisplayRole);
     //    m_placesModels->setHeaderData(1, Qt::Horizontal, "Date", Qt::DisplayRole);
 
-    m_placesModels = new QStandardItemModel(0, 2, this);
+    m_placesModels = new QStandardItemModel(0, 3, this);
     m_placesModels->setHeaderData(0, Qt::Horizontal, "Name", Qt::DisplayRole);
     m_placesModels->setHeaderData(1, Qt::Horizontal, "Date", Qt::DisplayRole);
+    m_placesModels->setHeaderData(2, Qt::Horizontal, "SqlSend", Qt::DisplayRole);
+
 }
 
 void ModelHandler::CreateModel(const ModelStruct &modelStruct)
@@ -140,14 +142,14 @@ void ModelHandler::RemoveRows(int row)
 
 
 
-QMultiMap<QString, QStandardItemModel *> ModelHandler::GetMapModelsRaw() const
+QMap<QString, QStandardItemModel *> ModelHandler::GetMapModelsRaw() const
 {
     return m_mapModels;
 }
 
 
 
-QMultiMap<QString, QSortFilterProxyModel *> ModelHandler::GetMapOfProxyModels() const
+QMap<QString, QSortFilterProxyModel *> ModelHandler::GetMapOfProxyModels() const
 {
     return m_mapOfProxy;
 }
@@ -164,6 +166,18 @@ void ModelHandler::SetDataClass(DataClass *dataClass)
 QSortFilterProxyModel *ModelHandler::GetLastProxyModel() const
 {
     return m_mapOfProxy.value(m_mapModels.key(m_tmpModel));
+}
+
+
+
+void ModelHandler::CreateModelByString(QString modelName)
+{
+    bool state;
+    ModelStruct model = m_dataClass->GetModelStructByName(modelName, state);
+    if(state)
+    {
+        CreateModel_1(model);
+    }
 }
 
 
@@ -197,9 +211,25 @@ void ModelHandler::CreateModel_1(const ModelStruct &modelStruct)
 
     m_mapModels.insert(modelStruct.shop, itemModel);
 
+    QSortFilterProxyModel* tmpProxy = new QSortFilterProxyModel(this);
+    tmpProxy->setSourceModel(itemModel);
+
+    m_mapOfProxy.insert(modelStruct.shop, tmpProxy);
+
     AppendRowToPlacesModel(modelStruct.shop, modelStruct.date);
 
-    emit CreatedNewModel();
+    emit CreatedNewModel(modelStruct.shop);
+}
+
+QModelIndex ModelHandler::GetIndexOfPlacesModelByName(QString shopName)
+{
+    for(int row = 0 ; row < m_placesModels->rowCount(); row++)
+    {
+        if(m_placesModels->data(m_placesModels->index(row, 0)).toString().contains(shopName))
+        {
+            return m_placesModels->index(row, 2);
+        }
+    }
 }
 
 
@@ -252,6 +282,5 @@ void ModelHandler::CreateNewModelFromDataClass()
     proxyModel->setSourceModel(m_tmpModel);
     m_mapOfProxy.insert(tmpModelStruct->shop, proxyModel);
 
-    emit CreatedNewModel();
 
 }

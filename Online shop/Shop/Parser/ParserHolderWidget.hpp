@@ -29,6 +29,7 @@ public:
 signals:
 
     void NewModelStructHasCreated();
+    void NewModelLoaded(const QString&);
 
 private slots:
     void DialogSuccess();

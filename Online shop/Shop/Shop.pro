@@ -31,6 +31,12 @@ SOURCES += \
     RequsterClass/RequestClass.cpp \
     RequsterClass/RequestClassHandler.cpp \
     SortingsDialog/SortingDialog.cpp \
+    SqlDataBase/AskToUseSettingsDialog.cpp \
+    SqlDataBase/AuthorizationDialog.cpp \
+    SqlDataBase/PushButtonSender.cpp \
+    SqlDataBase/SenderDataDialog.cpp \
+    SqlDataBase/SqlDatabseHandler.cpp \
+    SqlDataBase/SqlElement.cpp \
     ViewEditorDialog/ViewEditorDialog.cpp \
     ViewEditorDialog/ViewSelectorWidgetForm.cpp \
     main.cpp \
@@ -55,6 +61,12 @@ HEADERS += \
     RequsterClass/RequestClass.hpp \
     RequsterClass/RequestClassHandler.hpp \
     SortingsDialog/SortingDialog.hpp \ \
+    SqlDataBase/AskToUseSettingsDialog.hpp \
+    SqlDataBase/AuthorizationDialog.hpp \
+    SqlDataBase/PushButtonSender.hpp \
+    SqlDataBase/SenderDataDialog.hpp \
+    SqlDataBase/SqlDatabseHandler.hpp \
+    SqlDataBase/SqlElement.hpp \
     ViewEditorDialog/ViewEditorDialog.hpp \
     ViewEditorDialog/ViewSelectorWidgetForm.hpp
 
@@ -67,6 +79,10 @@ FORMS += \
     RequsterClass/RequestClass.ui \
     RequsterClass/RequestClassHandler.ui \
     SortingsDialog/SortingDialog.ui \
+    SqlDataBase/AskToUseSettingsDialog.ui \
+    SqlDataBase/AuthorizationDialog.ui \
+    SqlDataBase/SenderDataDialog.ui \
+    SqlDataBase/SqlElement.ui \
     ViewEditorDialog/ViewEditorDialog.ui \
     ViewEditorDialog/ViewSelectorWidgetForm.ui
 
