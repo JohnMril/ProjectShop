@@ -9,7 +9,9 @@ DataClass::DataClass(QObject *parent) : QObject(parent)
 
 void DataClass::InsertModelSettings(const ModelSettings &settings)
 {
+
     m_settingMap.insert(settings.shop, settings);
+    emit NewSettingAdded();
 }
 
 
@@ -61,4 +63,15 @@ void DataClass::AddModelStruct(const ModelStruct &modelStruct)
 void DataClass::AddModelSettings(const ModelSettings &modelSettings)
 {
     m_settingMap.insert(modelSettings.shop, modelSettings);
+    emit NewSettingAdded();
+}
+
+QMap<QString, ModelSettings> DataClass::GetSettingMap() const
+{
+    return m_settingMap;
+}
+
+void DataClass::SetSettingMap(const QMap<QString, ModelSettings> &settingMap)
+{
+    m_settingMap = settingMap;
 }

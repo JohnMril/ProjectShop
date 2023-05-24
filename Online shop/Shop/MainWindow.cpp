@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    m_settingHandler = new SettingHandler(&m_dataClass, this);
+
     m_sqlDataBaseHandler = new SqlDatabaseHandler(&m_dataClass, this);
     m_sqlAuthDialog = new AuthorizationDialog(m_sqlDataBaseHandler, this);
     m_sqlDataBaseHandler->hide();
@@ -28,6 +30,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_selectorFileDialog, &SelecterParsingFilesDialog::sourceDataSelected, m_parserHolder, &ParserHolderWidget::DataLoaded);
 
     connect(m_parserHolder, &ParserHolderWidget::NewModelLoaded, &m_modelHandler, &ModelHandler::CreateModelByString);
+
+    //setting
+    connect(&m_dataClass, &DataClass::NewSettingAdded, m_settingHandler, &SettingHandler::SettingSave);
+
+    m_settingHandler->SettingDownload();
 }
 
 

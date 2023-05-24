@@ -126,8 +126,9 @@ void SqlDatabaseHandler::SendDataToSqlServer(const QString &shopName)
     }
 
 
-    EmitSqlScript();
+//    EmitSqlScript();
 
+    ClearSqlTable();
 
 
 

@@ -31,6 +31,12 @@ public:
     void AddModelStruct(const ModelStruct& modelStruct);
     void AddModelSettings(const ModelSettings& modelSettings);
 
+    QMap<QString, ModelSettings> GetSettingMap() const;
+    void SetSettingMap(const QMap<QString, ModelSettings> &GetSettingMap);
+
+signals:
+    void NewSettingAdded();
+
 private:
 
     QMap<QString, ModelStruct> m_modelMapNew;

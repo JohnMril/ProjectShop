@@ -30,6 +30,7 @@ SOURCES += \
     Parser/SelecterParsingFilesDialog.cpp \
     RequsterClass/RequestClass.cpp \
     RequsterClass/RequestClassHandler.cpp \
+    SettingHandler.cpp \
     SortingsDialog/SortingDialog.cpp \
     SqlDataBase/AskToUseSettingsDialog.cpp \
     SqlDataBase/AuthorizationDialog.cpp \
@@ -60,6 +61,7 @@ HEADERS += \
     Parser/SelecterParsingFilesDialog.hpp \
     RequsterClass/RequestClass.hpp \
     RequsterClass/RequestClassHandler.hpp \
+    SettingHandler.hpp \
     SortingsDialog/SortingDialog.hpp \ \
     SqlDataBase/AskToUseSettingsDialog.hpp \
     SqlDataBase/AuthorizationDialog.hpp \

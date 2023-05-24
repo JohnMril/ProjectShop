@@ -7,6 +7,7 @@
 #include "Parser/Parser.hpp"
 #include "Parser/ParserHolderWidget.hpp"
 #include "ModelHandler.hpp"
+#include "SettingHandler.hpp"
 #include "DataClass/DataClass.hpp"
 #include "DataClass/SqlDataBase.hpp"
 #include "SortingsDialog/SortingDialog.hpp"
@@ -59,6 +60,9 @@ private:
 
     Ui::MainWindow *ui;
     ModelHandler m_modelHandler;
+
+    SettingHandler* m_settingHandler;
+
     Parser m_parser;
 
     DataClass m_dataClass;
