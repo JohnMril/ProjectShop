@@ -31,6 +31,11 @@ private slots:
 
     void EmitSenderDialog(const QString&  shop);
 
+    int CheckSqlTableRows();
+    bool EmitSqlScript();
+
+    bool ClearSqlTable();
+
 private:
 
 

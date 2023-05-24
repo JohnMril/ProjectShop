@@ -8,8 +8,8 @@ AuthorizationDialog::AuthorizationDialog(SqlDatabaseHandler *dataBase, QWidget *
 {
     ui->setupUi(this);
 
-    QString serverAdres ="(local)" ;
-    QString dataBaseName = "QTBD";
+    QString serverAdres ="DESKTOP-FLRPPRB\\SQLEXPRESS19" ;
+    QString dataBaseName = "unicomps";
     QString userName = "sa";
     QString password = "1234";
 

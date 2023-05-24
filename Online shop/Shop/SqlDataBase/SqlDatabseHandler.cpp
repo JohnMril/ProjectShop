@@ -109,21 +109,28 @@ void SqlDatabaseHandler::SendDataToSqlServer(const QString &shopName)
     }
 
 
-        QSqlQuery query;
-        query.prepare("INSERT INTO PRICE_LIST_TMP ( ClientPriceListID, ProductID, ClientPriceListTypeID, ClientProductID, ClientVendorCode, ClientBrandName, ClientProductName, ClientPriceString, ClientPriceRecString, ClientStorageMark)"
-                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+    QSqlQuery query;
+    query.prepare("INSERT INTO PRICE_LIST_TMP ( ClientPriceListID, ProductID, ClientPriceListTypeID, ClientProductID, ClientVendorCode, ClientBrandName, ClientProductName, ClientPriceString, ClientPriceRecString, ClientStorageMark)"
+                  "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 
-        for (auto item  : itemList)
+    for (auto item  : itemList)
+    {
+        for (auto property : item)
         {
-            for (auto property : item)
-            {
-                query.addBindValue(property.toInt());
-            }
-            if(!query.exec())
-            {
-                qDebug() <<"Error "<< query.lastError();
-            }
+            query.addBindValue(property.toInt());
         }
+        if(!query.exec())
+        {
+            qDebug() <<"Error "<< query.lastError();
+        }
+    }
+
+
+    EmitSqlScript();
+
+
+
+
 }
 
 void SqlDatabaseHandler::EmitSenderDialog(const QString &shop)
@@ -136,5 +143,66 @@ void SqlDatabaseHandler::EmitSenderDialog(const QString &shop)
     m_senderDataDialog->show();
 
     connect(m_senderDataDialog, &SenderDataDialog::SetingsHasCreated, this, &SqlDatabaseHandler::SendDataToSqlServer);
+
+}
+
+
+
+int SqlDatabaseHandler::CheckSqlTableRows()
+{
+    //TODO переделать
+    QSqlQuery query;
+    query.prepare("SELECT COUNT(*) FROM PRICE_LIST_TMP");
+    qDebug() << "Start row count";
+    bool state = query.exec();
+    if(state)
+    {
+        qDebug() << " HasFinished Success";
+    }
+    else
+    {
+        qDebug() << " HasFinished with Error"<< query.lastError();
+    }
+
+    qDebug() << "Number of Rows: " << query.value(0).toInt();
+    return query.value(0).toInt();
+}
+
+bool SqlDatabaseHandler::EmitSqlScript()
+{
+    //USE [unicomps]  EXEC [dbo].[ClientPriceLists_import_test]
+    QSqlQuery query;
+    query.prepare("USE [unicomps]  EXEC [dbo].[ClientPriceLists_import_test]");
+
+    qDebug() << "Start sql script";
+    bool state = query.exec();
+    if(state)
+    {
+        qDebug() << " HasFinished Success";
+    }
+    else
+    {
+        qDebug() << " HasFinished with Error"<< query.lastError();
+    }
+
+    return state;
+}
+
+bool SqlDatabaseHandler::ClearSqlTable()
+{
+    QSqlQuery query;
+    query.prepare("USE [unicomps]  DELETE FROM [dbo].[PRICE_LIST_TMP]");
+    qDebug() << "Start clear";
+    bool state = query.exec();
+    if(state)
+    {
+        qDebug() << " HasFinished Success";
+    }
+    else
+    {
+        qDebug() << " HasFinished with Error"<< query.lastError();
+    }
+
+    return state;
 
 }

@@ -16,13 +16,14 @@ ModelHandler::ModelHandler(QObject *parent) : QObject(parent)
 void ModelHandler::CreateModel(const ModelStruct &modelStruct)
 {
 
+
+    AppendRowToPlacesModel(modelStruct.shop, modelStruct.date);
+
     if(m_mapModels.contains(modelStruct.shop))
     {
        delete m_mapOfProxy.value(modelStruct.shop);
        delete m_mapModels.value(modelStruct.shop);
     }
-    AppendRowToPlacesModel(modelStruct.shop, modelStruct.date);
-
 
 
     m_tmpModel = new QStandardItemModel (modelStruct.modelMap.size(), 10, this);
@@ -190,6 +191,10 @@ void ModelHandler::CreateModelByString(QString modelName)
 
 void ModelHandler::CreateModel_1(const ModelStruct &modelStruct)
 {
+
+
+    AppendRowToPlacesModel(modelStruct.shop, modelStruct.date);
+
     if(m_mapModels.contains(modelStruct.shop))
     {
        delete m_mapOfProxy.value(modelStruct.shop);
@@ -228,7 +233,6 @@ void ModelHandler::CreateModel_1(const ModelStruct &modelStruct)
 
     m_mapOfProxy.insert(modelStruct.shop, tmpProxy);
 
-    AppendRowToPlacesModel(modelStruct.shop, modelStruct.date);
 
     emit CreatedNewModel(modelStruct.shop);
 }
