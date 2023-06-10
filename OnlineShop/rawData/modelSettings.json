@@ -1,0 +1,33 @@
+{
+    "SettingArray": [
+        {
+            "Date": "Сб июн 10 01:54:12 2023",
+            "ShopName": "Asbis",
+            "clientPriceListID": 1008167,
+            "settingMap": {
+                "0": "WIC",
+                "1": "VENDOR_ID",
+                "2": "VENDOR_NAME",
+                "3": "DESCRIPTION",
+                "4": "RETAIL_PRICE",
+                "5": "AVAIL"
+            }
+        },
+        {
+            "Date": "Чт май 25 01:38:08 2023",
+            "ShopName": "Lanit",
+            "clientPriceListID": 3214,
+            "settingMap": {
+                "0": "currency",
+                "1": "isTraceable",
+                "2": "id",
+                "3": "freenom",
+                "4": "recommendedcurrency",
+                "5": "AddInfo",
+                "6": "vendor",
+                "7": "multiplicity",
+                "8": "price"
+            }
+        }
+    ]
+}
