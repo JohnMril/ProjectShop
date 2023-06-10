@@ -1,1 +1,0 @@
-START /W Lanit.exe
