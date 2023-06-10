@@ -2,7 +2,9 @@
 #define AUTHORIZATIONDIALOG_HPP
 
 #include <QDialog>
+#include <QMessageBox>
 #include "SqlDatabseHandler.hpp"
+
 
 namespace Ui {
 class AuthorizationDialog;

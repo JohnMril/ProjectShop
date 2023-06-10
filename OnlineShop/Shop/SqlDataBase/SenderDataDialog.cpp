@@ -44,12 +44,19 @@ void SenderDataDialog::on_sendPushButton_clicked()
     {
         if(counter.second > 1)
         {
-            qDebug()<< ConvertEnumToString(counter.first)<<" chosen more than once";
+            QString error =ConvertEnumToString(counter.first);
+            QMessageBox::warning(this, tr("Setting error"),
+                                             QString( error + " chosen more than once"));
+            qDebug()<< error <<" chosen more than once";
             state = false;
         }
         if(counter.second == 0)
         {
-            qDebug()<< ConvertEnumToString(counter.first)<<"not chosen";
+
+            QString error =ConvertEnumToString(counter.first);
+            QMessageBox::warning(this, tr("Setting error"),
+                                             QString( error + " not chosen"));
+            qDebug()<< error<<"not chosen";
             state = false;
         }
     }

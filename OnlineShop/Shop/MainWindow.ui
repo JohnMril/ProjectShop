@@ -25,7 +25,7 @@
         <item>
          <widget class="QPushButton" name="pushButton_3">
           <property name="text">
-           <string>FileSelector</string>
+           <string>Load data</string>
           </property>
          </widget>
         </item>

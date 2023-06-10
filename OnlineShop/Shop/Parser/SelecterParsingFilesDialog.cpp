@@ -41,7 +41,10 @@ void SelecterParsingFilesDialog::acceptSignal(QString text)
 {
     qDebug() <<"fileName "<< text;
 
-    emit sourceDataSelected(m_enumMap.key(text));
+    if(m_enumMap.values().contains(text))
+    {
+        emit sourceDataSelected(m_enumMap.key(text));
+    }
 
 }
 

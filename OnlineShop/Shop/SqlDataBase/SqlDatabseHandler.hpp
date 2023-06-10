@@ -6,6 +6,7 @@
 #include <QtSql>
 #include <QDebug>
 #include <QSqlTableModel>
+#include <QMessageBox>
 
 #include "DataClass/DataClass.hpp"
 #include "SenderDataDialog.hpp"

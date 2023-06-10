@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QDateTime>
+#include <QMessageBox>
 
 #include "DataClass/DataClass.hpp"
 #include "SqlElement.hpp"

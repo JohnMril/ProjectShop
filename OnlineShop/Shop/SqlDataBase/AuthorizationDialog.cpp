@@ -33,10 +33,12 @@ AuthorizationDialog::AuthorizationDialog(SqlDatabaseHandler *dataBase, QWidget *
     if(dataBase->isConnected())
     {
         ui->connectPushButton->setText("Connected to server");
+
     }
     else
     {
         ui->connectPushButton->setText("Connect to server");
+
     }
 }
 
@@ -68,9 +70,15 @@ void AuthorizationDialog::on_connectPushButton_clicked()
         settingMap.insert("userName", ui->loginLineEdit->text());
         settingMap.insert("password", ui->passwordLineEdit->text());
         m_sqlDataBaseHandler->GetDataClassEntity()->SetSqlConnectionSettings(settingMap);
+
+        QMessageBox::information(this, tr("Sql connection to server"),
+                                         tr("Succes connection"));
+        this->hide();
     }
     else
     {
         ui->connectPushButton->setText("Connect to server");
+        QMessageBox::warning(this, tr("Sql connection to server"),
+                                         tr("Error connection"));
     }
 }

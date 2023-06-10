@@ -39,14 +39,14 @@
    <item>
     <widget class="QPushButton" name="pushButton">
      <property name="text">
-      <string>Search</string>
+      <string>Update</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QPushButton" name="loadPushButton">
      <property name="text">
-      <string>Load</string>
+      <string>Load files from API</string>
      </property>
     </widget>
    </item>
