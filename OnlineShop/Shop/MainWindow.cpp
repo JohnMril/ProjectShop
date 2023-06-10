@@ -7,7 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    m_settingHandler = new SettingHandler(&m_dataClass, this);
+    m_settingHandler = new SettingHandler(&m_dataClass, this);    
+    m_settingHandler->SettingDownload();
 
     m_sqlDataBaseHandler = new SqlDatabaseHandler(&m_dataClass, this);
     m_sqlAuthDialog = new AuthorizationDialog(m_sqlDataBaseHandler, this);
@@ -34,7 +35,6 @@ MainWindow::MainWindow(QWidget *parent)
     //setting
     connect(&m_dataClass, &DataClass::NewSettingAdded, m_settingHandler, &SettingHandler::SettingSave);
 
-    m_settingHandler->SettingDownload();
 }
 
 
@@ -70,6 +70,7 @@ void MainWindow::AddNewModelViewElement(const QString& modelName)
         connect(button, &PushButtonSender::Clicked, this, &MainWindow::PreapareToSendData);
 
         ui->modelsView->setIndexWidget(m_modelHandler.GetIndexOfPlacesModelByName(modelName), button);
+        ui->modelsView->resizeColumnsToContents();
 
     }
 }
@@ -117,13 +118,6 @@ void MainWindow::on_actionFinding_by_name_triggered()
         m_sortingDialog->show();
 
     }
-}
-
-
-
-void MainWindow::on_pushButton_2_clicked()
-{
-    m_parserHolder->DataLoaded(API::LANIT);
 }
 
 

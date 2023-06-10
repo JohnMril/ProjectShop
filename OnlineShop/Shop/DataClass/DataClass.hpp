@@ -34,6 +34,9 @@ public:
     QMap<QString, ModelSettings> GetSettingMap() const;
     void SetSettingMap(const QMap<QString, ModelSettings> &GetSettingMap);
 
+    QVariantMap GetSqlConnectionSettings() const;
+    void SetSqlConnectionSettings(const QVariantMap &GetSqlConnectionSettings);
+
 signals:
     void NewSettingAdded();
 
@@ -41,6 +44,8 @@ private:
 
     QMap<QString, ModelStruct> m_modelMapNew;
     QMap<QString, ModelSettings> m_settingMap;
+
+    QVariantMap m_sqlConnectionSettings;
 
 
     //TODO Сделать сохранение класса в файл

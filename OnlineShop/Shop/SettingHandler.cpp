@@ -36,6 +36,15 @@ bool SettingHandler::SettingSave()
 
     QJsonObject rootObj;
     rootObj.insert("SettingArray", settingArray);
+
+    QJsonObject settingsObj;
+
+    for(auto settingElem : m_dataClass->GetSqlConnectionSettings().toStdMap())
+    {
+        settingsObj.insert(settingElem.first, settingElem.second.toString());
+    }
+    rootObj.insert("SqlConnection",settingsObj);
+
     QJsonDocument jDoc(rootObj);
 
     QFile file(m_settingDir.absolutePath() + "/modelSettings.json");
@@ -101,6 +110,14 @@ bool SettingHandler::SettingDownload()
     }
 
     m_dataClass->SetSettingMap(result);
+
+
+    QJsonObject sqlSettings = jDoc.object().value("SqlConnection").toObject();
+
+    QVariantMap sqlMap =sqlSettings.toVariantMap();
+
+    m_dataClass->SetSqlConnectionSettings(sqlMap);
+
 
     return true;
 }

@@ -22,6 +22,8 @@ public:
 
     void PrepareToSend(QString shopName);
 
+    DataClass* GetDataClassEntity();
+
 signals:
     void NeedToConnect();
     void SendData(QString);

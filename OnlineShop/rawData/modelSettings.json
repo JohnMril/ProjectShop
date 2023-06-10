@@ -29,5 +29,11 @@
                 "8": "price"
             }
         }
-    ]
+    ],
+    "SqlConnection": {
+        "dataBaseName": "unicomps",
+        "password": "1234",
+        "serverAdres": "DESKTOP-FLRPPRB\\SQLEXPRESS19",
+        "userName": "sa"
+    }
 }

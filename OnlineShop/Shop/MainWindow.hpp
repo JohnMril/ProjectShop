@@ -48,8 +48,6 @@ private slots:
 
     void on_actionFinding_by_name_triggered();
 
-    void on_pushButton_2_clicked();
-
     void on_pushButton_3_clicked();
 
     void on_editViewPushButton_clicked();

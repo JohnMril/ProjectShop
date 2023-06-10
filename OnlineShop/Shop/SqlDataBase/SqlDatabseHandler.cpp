@@ -61,6 +61,13 @@ void SqlDatabaseHandler::PrepareToSend(QString shopName)
 
 
 
+DataClass *SqlDatabaseHandler::GetDataClassEntity()
+{
+    return m_dataClass;
+}
+
+
+
 void SqlDatabaseHandler::SendDataToSqlServer(const QString &shopName)
 {
 

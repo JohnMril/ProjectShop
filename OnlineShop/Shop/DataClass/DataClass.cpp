@@ -66,12 +66,31 @@ void DataClass::AddModelSettings(const ModelSettings &modelSettings)
     emit NewSettingAdded();
 }
 
+
+
 QMap<QString, ModelSettings> DataClass::GetSettingMap() const
 {
     return m_settingMap;
 }
 
+
+
 void DataClass::SetSettingMap(const QMap<QString, ModelSettings> &settingMap)
 {
     m_settingMap = settingMap;
+}
+
+
+
+QVariantMap DataClass::GetSqlConnectionSettings() const
+{
+    return m_sqlConnectionSettings;
+}
+
+
+
+void DataClass::SetSqlConnectionSettings(const QVariantMap &sqlConnectionSettings)
+{
+    m_sqlConnectionSettings = sqlConnectionSettings;
+    emit NewSettingAdded();
 }

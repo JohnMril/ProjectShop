@@ -8,10 +8,22 @@ AuthorizationDialog::AuthorizationDialog(SqlDatabaseHandler *dataBase, QWidget *
 {
     ui->setupUi(this);
 
+    QVariantMap sqlSettings = m_sqlDataBaseHandler->GetDataClassEntity()->GetSqlConnectionSettings();
+
+
     QString serverAdres ="DESKTOP-FLRPPRB\\SQLEXPRESS19" ;
     QString dataBaseName = "unicomps";
     QString userName = "sa";
     QString password = "1234";
+
+
+    if(!sqlSettings.isEmpty())
+    {
+        serverAdres = sqlSettings.value("serverAdres").toString();
+        dataBaseName = sqlSettings.value("dataBaseName").toString();
+        userName = sqlSettings.value("userName").toString();
+        password = sqlSettings.value("password").toString();
+    }
 
     ui->serverAddressLineEdit->setText(serverAdres);
     ui->dataBaseLineEdit->setText(dataBaseName);
@@ -50,6 +62,12 @@ void AuthorizationDialog::on_connectPushButton_clicked()
                                            ui->loginLineEdit->text(), ui->passwordLineEdit->text()))
     {
         ui->connectPushButton->setText("Connected to server");
+        QVariantMap settingMap;
+        settingMap.insert("serverAdres", ui->serverAddressLineEdit->text());
+        settingMap.insert("dataBaseName", ui->dataBaseLineEdit->text());
+        settingMap.insert("userName", ui->loginLineEdit->text());
+        settingMap.insert("password", ui->passwordLineEdit->text());
+        m_sqlDataBaseHandler->GetDataClassEntity()->SetSqlConnectionSettings(settingMap);
     }
     else
     {
