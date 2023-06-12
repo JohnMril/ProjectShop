@@ -41,6 +41,9 @@ void ParserHolderWidget::CallErorrMessageBox(QString text, QString title)
     //TODO переделать под messageBox
 
     qDebug() << text<< title;
+
+    QMessageBox::warning(this, title,
+                                     text);
 }
 
 
@@ -56,11 +59,11 @@ void ParserHolderWidget::DataLoaded(const int &apiEnum)
 {
     m_parserMap.insert(API::LANIT,new LanitParser("Lanit", "LanitProducts.txt", this));
     m_parserMap.insert(API::ASBIS, new AsbisParser("Asbis", "asbisProducts.txt", this));
+    m_parserMap.insert(API::MARVEL, new MarvelParser("Marvel", "MarvelProducts.txt", this));
 
     API tmpApi = static_cast<API>(apiEnum);
     if(m_parserMap.contains(tmpApi))
     {
-        //FIXME утечка
         if(m_parserMap.value(tmpApi)->VParsing())
         {
 
@@ -70,5 +73,10 @@ void ParserHolderWidget::DataLoaded(const int &apiEnum)
            emit NewModelLoaded(m_lastModel.shop);
 
         }
+        else
+        {
+            CallErorrMessageBox(m_parserMap.value(tmpApi)->GetErrorMessage());
+        }
+
     }
 }

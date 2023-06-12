@@ -26,6 +26,7 @@ SOURCES += \
     Parser/ParsingDialog.cpp \
     Parser/RawDataParser/AsbisParser.cpp \
     Parser/RawDataParser/LanitParser.cpp \
+    Parser/RawDataParser/MarvelParser.cpp \
     Parser/RawDataParser/ParserRawDataInteface.cpp \
     Parser/SelectedParserElementWidget.cpp \
     Parser/SelecterParsingFilesDialog.cpp \
@@ -39,6 +40,7 @@ SOURCES += \
     SqlDataBase/SenderDataDialog.cpp \
     SqlDataBase/SqlDatabseHandler.cpp \
     SqlDataBase/SqlElement.cpp \
+    ViewEditorDialog/ModelViewDialog.cpp \
     ViewEditorDialog/ViewEditorDialog.cpp \
     ViewEditorDialog/ViewSelectorWidgetForm.cpp \
     main.cpp \
@@ -58,6 +60,7 @@ HEADERS += \
     Parser/ParsingDialog.hpp \ \
     Parser/RawDataParser/AsbisParser.hpp \
     Parser/RawDataParser/LanitParser.hpp \
+    Parser/RawDataParser/MarvelParser.hpp \
     Parser/RawDataParser/ParserRawDataInteface.hpp \
     Parser/SelectedParserElementWidget.hpp \
     Parser/SelecterParsingFilesDialog.hpp \
@@ -71,6 +74,7 @@ HEADERS += \
     SqlDataBase/SenderDataDialog.hpp \
     SqlDataBase/SqlDatabseHandler.hpp \
     SqlDataBase/SqlElement.hpp \
+    ViewEditorDialog/ModelViewDialog.hpp \
     ViewEditorDialog/ViewEditorDialog.hpp \
     ViewEditorDialog/ViewSelectorWidgetForm.hpp
 
@@ -87,6 +91,7 @@ FORMS += \
     SqlDataBase/AuthorizationDialog.ui \
     SqlDataBase/SenderDataDialog.ui \
     SqlDataBase/SqlElement.ui \
+    ViewEditorDialog/ModelViewDialog.ui \
     ViewEditorDialog/ViewEditorDialog.ui \
     ViewEditorDialog/ViewSelectorWidgetForm.ui
 

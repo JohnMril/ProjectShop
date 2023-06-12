@@ -8,6 +8,8 @@ ViewEditorDialog::ViewEditorDialog(QTableView *view, QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->setAttribute(Qt::WA_DeleteOnClose);
+
     FillLayout();
 
 }

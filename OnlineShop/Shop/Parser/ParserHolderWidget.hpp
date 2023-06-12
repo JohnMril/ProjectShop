@@ -11,6 +11,7 @@
 #include "ChoseSettingsDialog.hpp"
 #include "RawDataParser/LanitParser.hpp"
 #include "RawDataParser/AsbisParser.hpp"
+#include "RawDataParser/MarvelParser.hpp"
 #include "RawDataParser/ParserRawDataInteface.hpp"
 
 class ParserHolderWidget : public QWidget
@@ -37,11 +38,13 @@ private slots:
 private:
 
 
+
+
     QString EmitFileFinder();
 
     bool ParseByFilePath(QString path);
 
-    void CallErorrMessageBox(QString text, QString title);
+    void CallErorrMessageBox(QString text, QString title ="error reading");
 
     Parser m_parser;
 

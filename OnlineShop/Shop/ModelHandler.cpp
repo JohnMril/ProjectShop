@@ -6,10 +6,12 @@ ModelHandler::ModelHandler(QObject *parent) : QObject(parent)
     //    m_placesModels->setHeaderData(0, Qt::Horizontal, "Name", Qt::DisplayRole);
     //    m_placesModels->setHeaderData(1, Qt::Horizontal, "Date", Qt::DisplayRole);
 
-    m_placesModels = new QStandardItemModel(0, 3, this);
+    m_placesModels = new QStandardItemModel(0, 4, this);
     m_placesModels->setHeaderData(0, Qt::Horizontal, "Name", Qt::DisplayRole);
     m_placesModels->setHeaderData(1, Qt::Horizontal, "Date", Qt::DisplayRole);
-    m_placesModels->setHeaderData(2, Qt::Horizontal, "SqlSend", Qt::DisplayRole);
+    m_placesModels->setHeaderData(2, Qt::Horizontal, "Sql Send", Qt::DisplayRole);
+    m_placesModels->setHeaderData(3, Qt::Horizontal, "Show Data", Qt::DisplayRole);
+
 
 }
 
@@ -183,7 +185,11 @@ void ModelHandler::CreateModelByString(QString modelName)
     ModelStruct model = m_dataClass->GetModelStructByName(modelName, state);
     if(state)
     {
-        CreateModel_1(model);
+
+        AppendRowToPlacesModel(model.shop, model.date);
+//        CreateModel_1(model);
+
+        emit CreatedNewModel(modelName);
     }
 }
 
@@ -193,7 +199,6 @@ void ModelHandler::CreateModel_1(const ModelStruct &modelStruct)
 {
 
 
-    AppendRowToPlacesModel(modelStruct.shop, modelStruct.date);
 
     if(m_mapModels.contains(modelStruct.shop))
     {
@@ -237,16 +242,71 @@ void ModelHandler::CreateModel_1(const ModelStruct &modelStruct)
     emit CreatedNewModel(modelStruct.shop);
 }
 
-QModelIndex ModelHandler::GetIndexOfPlacesModelByName(QString shopName)
+
+
+QStandardItemModel *ModelHandler::CreateTmpMOdel(QString modelName)
+{
+    bool state;
+    ModelStruct modelStruct = m_dataClass->GetModelStructByName(modelName, state);
+    if(!state)
+    {
+        return nullptr;
+    }
+
+    QStandardItemModel* itemModel = new QStandardItemModel(modelStruct.rowCount(), modelStruct.columnCount(), this);
+
+    int column = 0;
+    for(const QString& headerName : modelStruct.setAttributs)
+    {
+        itemModel->setHeaderData(column, Qt::Horizontal, headerName, Qt::DisplayRole);
+        column++;
+    }
+
+
+    for(uint row = 0; row < modelStruct.rowCount(); row++)
+    {
+        column = 0;
+        for(const QString& keyName : modelStruct.setAttributs)
+        {
+            QModelIndex index = itemModel->index(row, column);
+            if(modelStruct.modelMap.at(row).contains(keyName))
+            {
+                itemModel->setData(index, modelStruct.modelMap.at(row).value(keyName));
+            }
+
+            column++;
+        }
+    }
+
+    return itemModel;
+}
+
+
+
+QModelIndex ModelHandler::GetIndexOfPlacesModelByName(QString shopName, int column)
 {
     for(int row = 0 ; row < m_placesModels->rowCount(); row++)
     {
         if(m_placesModels->data(m_placesModels->index(row, 0)).toString().contains(shopName))
         {
-            return m_placesModels->index(row, 2);
+            return m_placesModels->index(row, column);
         }
     }
     return QModelIndex();
+}
+
+
+
+QStandardItemModel *ModelHandler::GetModel(QString modelName)
+{
+    if(m_mapModels.contains(modelName))
+    {
+        return m_mapModels.value(modelName);
+    }
+    else
+    {
+        return nullptr;
+    }
 }
 
 

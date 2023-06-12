@@ -37,8 +37,11 @@ public:
 
 
     void CreateModel_1(const ModelStruct& modelStruct);
+    QStandardItemModel* CreateTmpMOdel (QString modelName);
 
-    QModelIndex GetIndexOfPlacesModelByName(QString shopName);
+    QModelIndex GetIndexOfPlacesModelByName(QString shopName, int column = 2);
+
+    QStandardItemModel* GetModel(QString modelName);
 
 signals:
     void CreatedNewModel(const QString&);

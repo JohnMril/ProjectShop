@@ -38,6 +38,7 @@ enum API : int
 {
     LANIT,
     ASBIS,
+    MARVEL
 };
 
 inline const QString  ConvertEnumToString(ElementsType type)

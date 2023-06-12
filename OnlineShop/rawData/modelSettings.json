@@ -28,6 +28,19 @@
                 "7": "multiplicity",
                 "8": "price"
             }
+        },
+        {
+            "Date": "Вс июн 11 00:17:23 2023",
+            "ShopName": "Marvel",
+            "clientPriceListID": 1000916,
+            "settingMap": {
+                "0": "TaxPackagingCount",
+                "1": "APIReservedQty",
+                "2": "AvailableForB2BOrderQtyInMSK",
+                "3": "TotalInventQty",
+                "4": "BaseWarePriceCurrency",
+                "5": "PromoId"
+            }
         }
     ],
     "SqlConnection": {

@@ -18,3 +18,8 @@ ModelStruct ParserRawDataInteface::GetModelStruct()
 {
     return m_modelStruct;
 }
+
+QString ParserRawDataInteface::GetErrorMessage() const
+{
+    return m_errorMessage;
+}

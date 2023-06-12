@@ -1,7 +1,6 @@
-#include "AsbisParser.hpp"
+#include "MarvelParser.hpp"
 
-
-AsbisParser::AsbisParser(QString vendorName, QString fileName, QObject *parent)
+MarvelParser::MarvelParser(QString vendorName, QString fileName, QObject *parent)
     :ParserRawDataInteface(vendorName, fileName, parent)
 {
 
@@ -9,7 +8,7 @@ AsbisParser::AsbisParser(QString vendorName, QString fileName, QObject *parent)
 
 
 
-bool AsbisParser::VParsing()
+bool MarvelParser::VParsing()
 {
     qDebug() <<m_pathToFile;
     QFile file(m_pathToFile);
@@ -27,13 +26,27 @@ bool AsbisParser::VParsing()
     QVariantMap tmpMap;
 
     bool start = false;
+    bool hasError = false;
 
     while(!reader.atEnd())
     {
         reader.readNext();
         if (reader.isStartElement())
         {
-            if (reader.name() == "PRICE")
+            if(reader.name() == "Code")
+            {
+                if(reader.readElementText().toInt() != 0)
+                {
+                    hasError = true;
+                }
+            }
+            if((reader.name() == "Message")&&(hasError))
+            {
+                m_errorMessage = reader.readElementText();
+                return false;
+            }
+
+            if (reader.name() == "CategoryItem")
             {
                if(!tmpMap.isEmpty())
                {
@@ -44,7 +57,7 @@ bool AsbisParser::VParsing()
             }
             else if (start)
             {
-                tmpMap.insert(reader.name().toString(), reader.readElementText());
+                tmpMap.insert(reader.name().toString(), reader.readElementText(QXmlStreamReader::IncludeChildElements));
                 m_modelStruct.setAttributs.insert(reader.name().toString());
             }
         }

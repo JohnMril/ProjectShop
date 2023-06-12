@@ -18,16 +18,21 @@ public:
 
     ModelStruct GetModelStruct();
 
+
     virtual bool VParsing() = 0;
 
 
 
+    QString GetErrorMessage() const;
+
 signals:
+
 
 protected:
     QString     m_vendorName;
     QString     m_pathToFile;
     QString     m_fileName;
+    QString     m_errorMessage = "Error at reading!";
     ModelStruct m_modelStruct;
 
 

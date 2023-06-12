@@ -35,6 +35,8 @@ MainWindow::MainWindow(QWidget *parent)
     //setting
     connect(&m_dataClass, &DataClass::NewSettingAdded, m_settingHandler, &SettingHandler::SettingSave);
 
+    this->resize(525, 350);
+
 }
 
 
@@ -46,31 +48,27 @@ MainWindow::~MainWindow()
 
 
 
-void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
-{
-    if(m_modelHandler.GetMapOfProxyModels().contains(arg1))
-    {
-        m_currenttProxyModel = m_modelHandler.GetMapOfProxyModels().value(arg1);
-        ui->currentModelView->setModel(m_modelHandler.GetMapOfProxyModels().value(arg1));
-    }
-}
-
-
-
 void MainWindow::AddNewModelViewElement(const QString& modelName)
 {
-    ui->comboBox->setModel(m_modelHandler.GetPlacesModels());
+//    ui->comboBox->setModel(m_modelHandler.GetPlacesModels());
 
-    QMap<QString, QSortFilterProxyModel*> tmpMap = m_modelHandler.GetMapOfProxyModels();
-    if(tmpMap.contains(modelName))
+//    QMap<QString, QSortFilterProxyModel*> tmpMap = m_modelHandler.GetMapOfProxyModels();
+//    if(tmpMap.contains(modelName))
+        if(true)
     {
-        ui->currentModelView->setModel(tmpMap.value(modelName));
+//        ui->currentModelView->setModel(tmpMap.value(modelName));
 
         PushButtonSender* button = new PushButtonSender(modelName, this);
         connect(button, &PushButtonSender::Clicked, this, &MainWindow::PreapareToSendData);
-
         ui->modelsView->setIndexWidget(m_modelHandler.GetIndexOfPlacesModelByName(modelName), button);
+
+        PushButtonSender* button0 = new PushButtonSender(modelName, this);
+        connect(button0, &PushButtonSender::Clicked, this, &MainWindow::EmitModelViewDialog);
+        ui->modelsView->setIndexWidget(m_modelHandler.GetIndexOfPlacesModelByName(modelName, 3), button0);
+
+
         ui->modelsView->resizeColumnsToContents();
+
 
     }
 }
@@ -82,46 +80,6 @@ void MainWindow::EmitAuthSql()
 
 
 
-void MainWindow::on_actionAdd_row_2_triggered()
-{
-    if(m_currenttProxyModel)
-        m_currenttProxyModel->insertRow(ui->currentModelView->selectionModel()->currentIndex().row());
-}
-
-
-
-void MainWindow::on_actionRemove_row_2_triggered()
-{
-    if(m_currenttProxyModel)
-        m_currenttProxyModel->removeRow(ui->currentModelView->selectionModel()->currentIndex().row());
-}
-
-
-
-void MainWindow::on_actionSort_column_triggered()
-{
-
-    if(m_currenttProxyModel)
-        m_currenttProxyModel->sort( ui->currentModelView->selectionModel()->currentIndex().column()
-                                    , Qt::AscendingOrder);
-
-}
-
-
-
-void MainWindow::on_actionFinding_by_name_triggered()
-{
-    if(!m_sortingDialog)
-    {
-        m_sortingDialog = new SortingDialog(this);
-        m_sortingDialog->SetProxyModel(m_currenttProxyModel);
-        m_sortingDialog->show();
-
-    }
-}
-
-
-
 void MainWindow::on_pushButton_3_clicked()
 {
     m_selectorFileDialog->show();
@@ -129,15 +87,16 @@ void MainWindow::on_pushButton_3_clicked()
 
 
 
-void MainWindow::on_editViewPushButton_clicked()
+void MainWindow::EmitModelViewDialog(QString modelName)
 {
-    //TODO сделать сообщение что модели нет
-    if(ui->currentModelView->model() == nullptr)
+
+    QStandardItemModel* model = m_modelHandler.CreateTmpMOdel(modelName);
+    if(model != nullptr)
     {
-        return;
+
+        m_viewDialog = new ModelViewDialog(model, this);
+        m_viewDialog->show();
     }
-    m_viewEditorDialog = new ViewEditorDialog(ui->currentModelView, this);
-    m_viewEditorDialog->show();
 }
 
 void MainWindow::PreapareToSendData(QString name)
