@@ -71,6 +71,8 @@ DataClass *SqlDatabaseHandler::GetDataClassEntity()
 void SqlDatabaseHandler::SendDataToSqlServer(const QString &shopName)
 {
 
+
+
     if(m_askDialog != nullptr)
     {
         m_askDialog->close();
@@ -90,6 +92,7 @@ void SqlDatabaseHandler::SendDataToSqlServer(const QString &shopName)
     }
 
 
+    ClearSqlTable();
 
     QList<QString> keyList = settings.elementTypeMap.values();
 
@@ -98,8 +101,8 @@ void SqlDatabaseHandler::SendDataToSqlServer(const QString &shopName)
     for(auto products : modelStruct.modelMap)
     {
         QVariantList productList;
-        productList.append(QVariant());
-        productList.append(QVariant());
+        productList.append(0);
+        productList.append(0);
         productList.append(settings.clientPriceListID);
         for(int i = 0; i < ElementsType::NOTHING; i++)
         {
@@ -114,7 +117,7 @@ void SqlDatabaseHandler::SendDataToSqlServer(const QString &shopName)
             }
 
         }
-        productList.insert(productList.size()-1, QVariant());
+        productList.insert(productList.size()-1, 0);
         itemList.append(productList);
     }
 
@@ -127,7 +130,7 @@ void SqlDatabaseHandler::SendDataToSqlServer(const QString &shopName)
     {
         for (auto property : item)
         {
-            query.addBindValue(property.toInt());
+            query.addBindValue(property);
         }
         if(!query.exec())
         {
@@ -138,7 +141,6 @@ void SqlDatabaseHandler::SendDataToSqlServer(const QString &shopName)
 
     EmitSqlScript();
 
-    ClearSqlTable();
 
 
 

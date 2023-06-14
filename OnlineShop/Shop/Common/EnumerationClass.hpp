@@ -19,9 +19,9 @@ enum ElementsType : int
     ClientStorageMark varchar(500)
     */
    // ClientPriceListID,
-    ProductID,
+//    ProductID,
 //    ClientPriceListTypeID,
-//    ClientProductID,
+    ClientProductID,
     ClientVendorCode,
     ClientBrandName,
     ClientProductName,
@@ -47,9 +47,9 @@ inline const QString  ConvertEnumToString(ElementsType type)
     {
 
 //    case ElementsType::ClientPriceListID: return "ClientPriceListID";
-    case ElementsType::ProductID: return "ProductID";
+//    case ElementsType::ProductID: return "ProductID";
 //    case ElementsType::ClientPriceListTypeID: return "ClientPriceListTypeID";
-//    case ElementsType::ClientProductID: return "ClientProductID";
+    case ElementsType::ClientProductID: return "ClientProductID";
     case ElementsType::ClientVendorCode: return "ClientVendorCode";
     case ElementsType::ClientBrandName: return "ClientBrandName";
     case ElementsType::ClientProductName: return "ClientProductName";

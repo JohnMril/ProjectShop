@@ -14,7 +14,7 @@
             }
         },
         {
-            "Date": "Чт май 25 01:38:08 2023",
+            "Date": "Ср июн 14 23:06:13 2023",
             "ShopName": "Lanit",
             "clientPriceListID": 3214,
             "settingMap": {
@@ -23,10 +23,7 @@
                 "2": "id",
                 "3": "freenom",
                 "4": "recommendedcurrency",
-                "5": "AddInfo",
-                "6": "vendor",
-                "7": "multiplicity",
-                "8": "price"
+                "5": "AddInfo"
             }
         },
         {
