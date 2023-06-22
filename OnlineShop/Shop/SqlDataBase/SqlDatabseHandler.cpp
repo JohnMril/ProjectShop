@@ -192,19 +192,19 @@ bool SqlDatabaseHandler::EmitSqlScript()
     if(state)
     {
         qDebug() << " HasFinished Success";
-//        QMessageBox::information(this, tr("Sql connection to server"),
-//                                         "Data has been sended");
+        QMessageBox::information(this, tr("Sql connection to server"),
+                                         "Data has been sended");
     }
     else
     {
         qDebug() << " HasFinished with Error"<< query.lastError().text();
-//        QMessageBox::warning(this, tr("Sql connection to server"),
-//                                         query.lastError().text());
+        QMessageBox::warning(this, tr("Sql connection to server"),
+                                         query.lastError().text());
     }
 
-    qDebug() << " HasFinished with"<< query.lastError().text();
-    QMessageBox::information(this, tr("Sql connection to server"),
-                                     query.lastError().text());
+//    qDebug() << " HasFinished with"<< query.lastError().text();
+//    QMessageBox::information(this, tr("Sql connection to server"),
+//                                     query.lastError().text());
 
     return state;
 }

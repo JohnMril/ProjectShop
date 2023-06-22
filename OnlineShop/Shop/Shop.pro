@@ -43,6 +43,7 @@ SOURCES += \
     ViewEditorDialog/ModelViewDialog.cpp \
     ViewEditorDialog/ViewEditorDialog.cpp \
     ViewEditorDialog/ViewSelectorWidgetForm.cpp \
+    WaitingDialog.cpp \
     main.cpp \
     MainWindow.cpp
 
@@ -76,7 +77,8 @@ HEADERS += \
     SqlDataBase/SqlElement.hpp \
     ViewEditorDialog/ModelViewDialog.hpp \
     ViewEditorDialog/ViewEditorDialog.hpp \
-    ViewEditorDialog/ViewSelectorWidgetForm.hpp
+    ViewEditorDialog/ViewSelectorWidgetForm.hpp \
+    WaitingDialog.hpp
 
 FORMS += \
     MainWindow.ui \
@@ -93,7 +95,8 @@ FORMS += \
     SqlDataBase/SqlElement.ui \
     ViewEditorDialog/ModelViewDialog.ui \
     ViewEditorDialog/ViewEditorDialog.ui \
-    ViewEditorDialog/ViewSelectorWidgetForm.ui
+    ViewEditorDialog/ViewSelectorWidgetForm.ui \
+    WaitingDialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

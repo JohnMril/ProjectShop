@@ -14,36 +14,23 @@
             }
         },
         {
-            "Date": "Ср июн 14 23:06:13 2023",
+            "Date": "Ср июн 14 20:40:20 2023",
             "ShopName": "Lanit",
-            "clientPriceListID": 3214,
+            "clientPriceListID": 170,
             "settingMap": {
-                "0": "currency",
-                "1": "isTraceable",
-                "2": "id",
-                "3": "freenom",
-                "4": "recommendedcurrency",
-                "5": "AddInfo"
-            }
-        },
-        {
-            "Date": "Вс июн 11 00:17:23 2023",
-            "ShopName": "Marvel",
-            "clientPriceListID": 1000916,
-            "settingMap": {
-                "0": "TaxPackagingCount",
-                "1": "APIReservedQty",
-                "2": "AvailableForB2BOrderQtyInMSK",
-                "3": "TotalInventQty",
-                "4": "BaseWarePriceCurrency",
-                "5": "PromoId"
+                "0": "vendor-id",
+                "1": "id",
+                "2": "vendor",
+                "3": "name",
+                "4": "price",
+                "5": "freenom"
             }
         }
     ],
     "SqlConnection": {
         "dataBaseName": "unicomps",
-        "password": "1234",
-        "serverAdres": "DESKTOP-FLRPPRB\\SQLEXPRESS19",
-        "userName": "sa"
+        "password": "evgeny",
+        "serverAdres": "127.0.0.1",
+        "userName": "evgeny"
     }
 }
