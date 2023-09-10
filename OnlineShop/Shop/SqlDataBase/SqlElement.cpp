@@ -11,7 +11,7 @@ SqlElement::SqlElement(QString keyName, ElementsType type, QWidget *parent) :
     ui->keyLabel->setText(keyName);
 
     QStringList typeList;
-    for (int i = 0; i <= ElementsType::NOTHING; i++)
+    for (int i = 0; i <= ElementsType::LAST_TYPE; i++)
     {
         typeList.append(ConvertEnumToString(static_cast<ElementsType>(i)));
     }

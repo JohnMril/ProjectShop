@@ -34,6 +34,8 @@ public:
 
 private slots:
 
+    void ShowMainWindow();
+
     void AddNewModelViewElement(const QString &modelName);
 
     void EmitAuthSql();
@@ -47,6 +49,10 @@ private slots:
 
     void on_pushButton_3_clicked();
 
+
+    void on_loadAllButton_clicked();
+
+    void on_sqlScript_clicked();
 
 private:
 

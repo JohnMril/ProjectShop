@@ -20,6 +20,7 @@ class RequestClassHandler : public QDialog
 public:
     explicit RequestClassHandler(QWidget *parent = nullptr);
     ~RequestClassHandler();
+        void GetAllData();
 
 
 private slots:
@@ -30,7 +31,7 @@ private:
 
     void FillWidgets();
 
-    void GetAllData();
+
 
     QVector<RequestClass*> m_widgetVec;
     QGridLayout* m_gridList;

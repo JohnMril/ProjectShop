@@ -13,7 +13,7 @@ SelectedParserElementWidget::SelectedParserElementWidget(QString key, int number
     m_source.valueName = valueStr;
 
 
-    for (int i = 0; i <= static_cast<int>(ElementsType::NOTHING); ++i)
+    for (int i = 0; i <= static_cast<int>(ElementsType::LAST_TYPE); ++i)
     {
         m_typeList.append(ConvertEnumToString(static_cast<ElementsType>(i)));
     }

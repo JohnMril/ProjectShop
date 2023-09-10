@@ -25,21 +25,30 @@ public:
 
     DataClass* GetDataClassEntity();
 
+
+
 signals:
     void NeedToConnect();
     void SendData(QString);
+    void ShowMainWindow();
 
-private slots:
+public slots:
     void SendDataToSqlServer(const QString& shopName);
 
     void EmitSenderDialog(const QString&  shop);
 
+    void SendAllDataToSqlServer();
+
     int CheckSqlTableRows();
-    bool EmitSqlScript();
+    bool EmitSqlScript(QString shopName = "", bool switchKey = true);
+    bool EmitSqlRecount();
 
     bool ClearSqlTable();
 
 private:
+
+    QVector<QVariantList> PrepareListData(ModelStruct &modelStruct, ModelSettings& settings);
+
 
 
     bool m_isConnected = false;

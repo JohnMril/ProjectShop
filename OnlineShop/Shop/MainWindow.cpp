@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_sqlDataBaseHandler->hide();
 
     connect(m_sqlDataBaseHandler, &SqlDatabaseHandler::NeedToConnect, this, &MainWindow::EmitAuthSql);
+    connect(m_sqlDataBaseHandler, &SqlDatabaseHandler::ShowMainWindow, this, &MainWindow::ShowMainWindow);
+
 
     m_selectorFileDialog = new SelecterParsingFilesDialog(this);
     m_selectorFileDialog->hide();
@@ -24,13 +26,16 @@ MainWindow::MainWindow(QWidget *parent)
     m_modelHandler.SetDataClass(&m_dataClass);
 
     ui->modelsView->setModel(m_modelHandler.GetPlacesModels());
-
+    ui->modelsView->resizeColumnsToContents();
 
     connect(&m_modelHandler, &ModelHandler::CreatedNewModel, this, &MainWindow::AddNewModelViewElement);
 
     connect(m_selectorFileDialog, &SelecterParsingFilesDialog::sourceDataSelected, m_parserHolder, &ParserHolderWidget::DataLoaded);
+    connect(m_selectorFileDialog, &SelecterParsingFilesDialog::allDataLoaded, m_sqlDataBaseHandler, &SqlDatabaseHandler::SendAllDataToSqlServer);
 
     connect(m_parserHolder, &ParserHolderWidget::NewModelLoaded, &m_modelHandler, &ModelHandler::CreateModelByString);
+
+
 
     //setting
     connect(&m_dataClass, &DataClass::NewSettingAdded, m_settingHandler, &SettingHandler::SettingSave);
@@ -44,6 +49,11 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::ShowMainWindow()
+{
+    this->show();
 }
 
 
@@ -99,8 +109,40 @@ void MainWindow::EmitModelViewDialog(QString modelName)
     }
 }
 
+
+
 void MainWindow::PreapareToSendData(QString name)
 {
     qDebug()<<"Pressed" <<name;
     m_sqlDataBaseHandler->PrepareToSend(name);
+}
+
+
+
+void MainWindow::on_loadAllButton_clicked()
+{
+    if(!m_sqlDataBaseHandler->isConnected())
+    {
+        EmitAuthSql();
+    }
+    else
+    {
+        this->hide();
+        m_selectorFileDialog->LoadAllData();
+
+    }
+}
+
+void MainWindow::on_sqlScript_clicked()
+{
+    if(!m_sqlDataBaseHandler->isConnected())
+    {
+        EmitAuthSql();
+    }
+    else
+    {
+
+        this->hide();
+        m_sqlDataBaseHandler->EmitSqlRecount();
+    }
 }

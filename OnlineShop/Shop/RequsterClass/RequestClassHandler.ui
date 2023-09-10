@@ -39,7 +39,7 @@
    <item>
     <widget class="QPushButton" name="pushButtonGetAll">
      <property name="text">
-      <string>GET ALL</string>
+      <string>Загрузить всё</string>
      </property>
     </widget>
    </item>

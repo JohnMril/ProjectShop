@@ -8,7 +8,7 @@
 #include <QMap>
 #include <QSet>
 
-#include "EnumerationClass.hpp"
+#include "Common/EnumerationClass.hpp"
 
 
 struct ModelStruct
@@ -55,6 +55,7 @@ struct ModelSettings
 {
     QString shop;
     QString date;
+    bool    isSuccess = false;
     //TODO убрать потом в файл настроек
     int clientPriceListID;
     QMap<QString, ElementSettings> mapSettings;

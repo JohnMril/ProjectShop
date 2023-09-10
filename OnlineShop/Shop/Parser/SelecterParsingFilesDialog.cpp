@@ -52,6 +52,81 @@ void SelecterParsingFilesDialog::acceptSignal(QString text)
 
 
 
+void SelecterParsingFilesDialog::LoadAllData()
+{
+
+    QFileInfoList fileList = m_currentDir.entryInfoList();
+    for(auto fileInfo : fileList)
+    {
+        if(!fileInfo.fileName().contains("Products.txt"))
+        {
+            fileList.removeOne(fileInfo);
+        }
+    }
+    for(auto fileInfo : fileList)
+    {
+        if(!fileInfo.fileName().contains("Products.txt"))
+        {
+            fileList.removeOne(fileInfo);
+        }
+    }
+
+    m_requstHandler->GetAllData();
+
+    bool switchKey = true;
+
+    while (switchKey)
+    {
+        bool state = true;
+        m_currentDir.setPath(m_pathToDir);
+        QFileInfoList tmpfileList = m_currentDir.entryInfoList();
+        for(auto fileInfo : tmpfileList)
+        {
+            if(!fileInfo.fileName().contains("Products.txt"))
+            {
+                tmpfileList.removeOne(fileInfo);
+            }
+        }
+        for(auto fileInfo : tmpfileList)
+        {
+            if(!fileInfo.fileName().contains("Products.txt"))
+            {
+                tmpfileList.removeOne(fileInfo);
+            }
+        }
+
+        for(auto file0 : tmpfileList)
+        {
+            for(auto file1 : fileList)
+            {
+                if(file0.fileName() == file1.fileName())
+                {
+                    if(file0.lastModified().toString() == file1.lastModified().toString())
+                    {
+                        state = false;
+                    }
+                }
+            }
+        }
+
+        if(state)
+        {
+            switchKey = false;
+        }
+    }
+
+    on_pushButton_clicked();
+    for (auto widget : m_fileSelectorVec)
+    {
+        widget->on_pushButton_clicked();
+    }
+    emit allDataLoaded();
+    qDebug() << "AllDataLoaded";
+
+}
+
+
+
 void SelecterParsingFilesDialog::on_pushButton_clicked()
 {
     for (auto widget : m_fileSelectorVec)
@@ -64,8 +139,6 @@ void SelecterParsingFilesDialog::on_pushButton_clicked()
     m_currentFileList = m_currentDir.entryInfoList();
 
     FileSelector* tmpWidget;
-
-
     for (auto file : m_currentFileList)
     {
         if(file.fileName().contains("Products.txt"))

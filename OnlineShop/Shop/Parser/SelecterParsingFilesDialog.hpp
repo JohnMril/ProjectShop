@@ -25,8 +25,11 @@ public:
 
     void acceptSignal(QString text);
 
+    void LoadAllData();
+
 signals:
     void sourceDataSelected(int);
+    void allDataLoaded();
 
 private slots:
     void on_pushButton_clicked();

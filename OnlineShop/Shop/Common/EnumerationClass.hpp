@@ -21,16 +21,18 @@ enum ElementsType : int
    // ClientPriceListID,
 //    ProductID,
 //    ClientPriceListTypeID,
-    ClientProductID,
+
     ClientVendorCode,
     ClientBrandName,
     ClientProductName,
     ClientPriceString,
-//    ClientPriceRecString,
     ClientStorageMark,
+    ClinentCurrencyType,
+//    ClientProductID,
+//    ClientPriceRecString,
 
 
-    NOTHING,
+    LAST_TYPE,
 };
 
 
@@ -49,13 +51,14 @@ inline const QString  ConvertEnumToString(ElementsType type)
 //    case ElementsType::ClientPriceListID: return "ClientPriceListID";
 //    case ElementsType::ProductID: return "ProductID";
 //    case ElementsType::ClientPriceListTypeID: return "ClientPriceListTypeID";
-    case ElementsType::ClientProductID: return "ClientProductID";
-    case ElementsType::ClientVendorCode: return "ClientVendorCode";
-    case ElementsType::ClientBrandName: return "ClientBrandName";
-    case ElementsType::ClientProductName: return "ClientProductName";
-    case ElementsType::ClientPriceString: return "ClientPriceString";
+//    case ElementsType::ClientProductID: return "ClientProductID";
+    case ElementsType::ClientVendorCode: return "Код вендора";
+    case ElementsType::ClientBrandName: return "Наименования бренда";
+    case ElementsType::ClientProductName: return "Наименование товара";
+    case ElementsType::ClientPriceString: return "Цена";
 //    case ElementsType::ClientPriceRecString: return "ClientPriceRecString";
-    case ElementsType::ClientStorageMark: return "ClientStorageMark";
+    case ElementsType::ClientStorageMark: return "Кол-во на складе";
+    case ElementsType::ClinentCurrencyType: return "Валюта";
 
     default: return  "";
     }

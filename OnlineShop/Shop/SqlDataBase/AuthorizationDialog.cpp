@@ -33,12 +33,10 @@ AuthorizationDialog::AuthorizationDialog(SqlDatabaseHandler *dataBase, QWidget *
     if(dataBase->isConnected())
     {
         ui->connectPushButton->setText("Connected to server");
-
     }
     else
     {
         ui->connectPushButton->setText("Connect to server");
-
     }
 }
 

@@ -22,6 +22,8 @@ bool SettingHandler::SettingSave()
 
          tmpSettingObject.insert("ShopName", setting.shop);
          tmpSettingObject.insert("Date", setting.date);
+
+         tmpSettingObject.insert("isSuccess", setting.isSuccess);
          tmpSettingObject.insert("clientPriceListID", setting.clientPriceListID);
 
          QJsonObject tmpElementsMap;
@@ -96,6 +98,7 @@ bool SettingHandler::SettingDownload()
 
         tmpSetting.shop =  settingObj.value("ShopName").toString();
         tmpSetting.date =  settingObj.value("Date").toString();
+        tmpSetting.isSuccess = settingObj.value("isSuccess").toBool();
         tmpSetting.clientPriceListID =  settingObj.value("clientPriceListID").toInt();
         QJsonObject elementsMap = settingObj.value("settingMap").toObject();
 

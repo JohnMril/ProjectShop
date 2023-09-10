@@ -96,35 +96,13 @@ void SqlDatabaseHandler::SendDataToSqlServer(const QString &shopName)
 
     QList<QString> keyList = settings.elementTypeMap.values();
 
-    QVector<QVariantList> itemList;
+    QVector<QVariantList> itemList = PrepareListData(modelStruct, settings);
 
-    for(auto products : modelStruct.modelMap)
-    {
-        QVariantList productList;
-        productList.append(0);
-        productList.append(0);
-        productList.append(settings.clientPriceListID);
-        for(int i = 0; i < ElementsType::NOTHING; i++)
-        {
-            ElementsType tmpType = static_cast<ElementsType>(i);
-            if(products.contains(settings.elementTypeMap.value(tmpType)))
-            {
-                productList.append( products.value(settings.elementTypeMap.value(tmpType)) );
-            }
-            else
-            {
-                productList.append("");
-            }
-
-        }
-        productList.insert(productList.size()-1, 0);
-        itemList.append(productList);
-    }
 
 
     QSqlQuery query;
-    query.prepare("INSERT INTO PRICE_LIST_TMP ( ClientPriceListID, ProductID, ClientPriceListTypeID, ClientProductID, ClientVendorCode, ClientBrandName, ClientProductName, ClientPriceString, ClientPriceRecString, ClientStorageMark)"
-                  "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+        query.prepare("INSERT INTO PRICE_LIST_TMP ( ClientID, ClientProductID, ClientVendorCode, ClientBrandName, ClientProductName, ClientPriceString, ClientPriceRecString, ClientStorageMark, CurrencyNameString)"
+                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
 
     for (auto item  : itemList)
     {
@@ -139,11 +117,13 @@ void SqlDatabaseHandler::SendDataToSqlServer(const QString &shopName)
     }
 
 
-    EmitSqlScript();
+    bool success = EmitSqlScript();
 
-
-
-
+    if(success)
+    {
+        settings.isSuccess = success;
+        m_dataClass->InsertModelSettings(settings);
+    }
 }
 
 void SqlDatabaseHandler::EmitSenderDialog(const QString &shop)
@@ -157,6 +137,60 @@ void SqlDatabaseHandler::EmitSenderDialog(const QString &shop)
 
     connect(m_senderDataDialog, &SenderDataDialog::SetingsHasCreated, this, &SqlDatabaseHandler::SendDataToSqlServer);
 
+}
+
+void SqlDatabaseHandler::SendAllDataToSqlServer()
+{
+    QStringList shopList = m_dataClass->GetSettingMap().keys();
+
+    for(auto shopName : shopList )
+    {
+        bool state;
+
+        ModelSettings settings = m_dataClass->GetModelSettingsByName(shopName, state);
+        if(!state)
+        {
+            continue;
+        }
+        if(!settings.isSuccess)
+        {
+            continue;
+        }
+
+        ModelStruct modelStruct = m_dataClass->GetModelStructByName(shopName, state);
+        if(!state)
+        {
+            continue;
+        }
+
+
+        ClearSqlTable();
+
+        QList<QString> keyList = settings.elementTypeMap.values();
+
+        QVector<QVariantList> itemList = PrepareListData(modelStruct, settings);
+
+
+        QSqlQuery query;
+        query.prepare("INSERT INTO PRICE_LIST_TMP ( ClientID, ClientProductID, ClientVendorCode, ClientBrandName, ClientProductName, ClientPriceString, ClientPriceRecString, ClientStorageMark, CurrencyNameString)"
+                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
+
+        for (auto item  : itemList)
+        {
+            for (auto property : item)
+            {
+                query.addBindValue(property);
+            }
+            if(!query.exec())
+            {
+                qDebug() <<"Error "<< query.lastError();
+            }
+        }
+            EmitSqlScript(settings.shop, false);
+    }
+    emit ShowMainWindow();
+    QMessageBox::information(this, tr("Sql connection to server"),
+                                     "Data has been sended ");
 }
 
 
@@ -181,7 +215,7 @@ int SqlDatabaseHandler::CheckSqlTableRows()
     return query.value(0).toInt();
 }
 
-bool SqlDatabaseHandler::EmitSqlScript()
+bool SqlDatabaseHandler::EmitSqlScript(QString shopName, bool switchKey)
 {
     //USE [unicomps]  EXEC [dbo].[ClientPriceLists_import_test]
     QSqlQuery query;
@@ -189,11 +223,17 @@ bool SqlDatabaseHandler::EmitSqlScript()
 
     qDebug() << "Start sql script";
     bool state = query.exec();
+
+
     if(state)
     {
+        if(!switchKey)
+        {
+            return state;
+        }
         qDebug() << " HasFinished Success";
         QMessageBox::information(this, tr("Sql connection to server"),
-                                         "Data has been sended");
+                                         "Data has been sended "+shopName);
     }
     else
     {
@@ -206,6 +246,34 @@ bool SqlDatabaseHandler::EmitSqlScript()
 //    QMessageBox::information(this, tr("Sql connection to server"),
 //                                     query.lastError().text());
 
+    return state;
+
+}
+
+bool SqlDatabaseHandler::EmitSqlRecount()
+{
+    // dbo.ClientPriceLists_recount_full
+    QSqlQuery query;
+    query.prepare("USE [unicomps]  EXEC [dbo].[ClientPriceLists_recount_full]");
+
+    qDebug() << "Start sql script";
+    bool state = query.exec();
+
+
+    if(state)
+    {
+
+        qDebug() << " HasFinished Success";
+        QMessageBox::information(this, tr("Sql connection to server"),
+                                         "ClientPriceLists_recount_full finished success!");
+    }
+    else
+    {
+        qDebug() << " HasFinished with Error"<< query.lastError().text();
+        QMessageBox::warning(this, tr("Sql connection to server"),
+                                         query.lastError().text());
+    }
+    emit ShowMainWindow();
     return state;
 }
 
@@ -225,5 +293,38 @@ bool SqlDatabaseHandler::ClearSqlTable()
     }
 
     return state;
+
+}
+
+QVector<QVariantList> SqlDatabaseHandler::PrepareListData(ModelStruct& modelStruct, ModelSettings& settings)
+{
+    QVector<QVariantList> itemList;
+
+    for(auto products : modelStruct.modelMap)
+    {
+        QVariantList productList;
+
+        productList.append(settings.clientPriceListID);
+        productList.append(0);
+
+        for(int i = 0; i < ElementsType::LAST_TYPE; i++)
+        {
+            ElementsType tmpType = static_cast<ElementsType>(i);
+            if(products.contains(settings.elementTypeMap.value(tmpType)))
+            {
+                productList.append( products.value(settings.elementTypeMap.value(tmpType)) );
+            }
+            else
+            {
+                productList.append("");
+            }
+
+        }
+        productList.insert(productList.size()-2, 0);
+
+        itemList.append(productList);
+    }
+
+    return itemList;
 
 }

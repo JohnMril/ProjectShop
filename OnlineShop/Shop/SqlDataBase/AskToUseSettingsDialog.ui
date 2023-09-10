@@ -37,14 +37,14 @@
      <item>
       <widget class="QPushButton" name="ApplyPushButton">
        <property name="text">
-        <string>Apply</string>
+        <string>Отправить</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="EditPushButton">
        <property name="text">
-        <string>Edit</string>
+        <string>Редактировать настройки</string>
        </property>
       </widget>
      </item>

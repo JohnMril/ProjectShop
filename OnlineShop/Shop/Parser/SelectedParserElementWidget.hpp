@@ -19,7 +19,7 @@ class SelectedParserElementWidget : public QWidget
     Q_OBJECT
 public:
     explicit SelectedParserElementWidget(QString key, int number , QWidget *parent = nullptr,
-                                         ElementsType type = ElementsType::NOTHING,
+                                         ElementsType type = ElementsType::LAST_TYPE,
                                          bool state = false, QString valueStr = "");
 
     ElementSettings GetSource();

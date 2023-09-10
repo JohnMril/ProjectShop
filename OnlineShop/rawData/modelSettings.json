@@ -1,36 +1,39 @@
 {
     "SettingArray": [
         {
-            "Date": "Сб июн 10 01:54:12 2023",
+            "Date": "Пн июл 17 19:49:48 2023",
             "ShopName": "Asbis",
             "clientPriceListID": 1008167,
+            "isSuccess": false,
             "settingMap": {
                 "0": "WIC",
                 "1": "VENDOR_ID",
                 "2": "VENDOR_NAME",
                 "3": "DESCRIPTION",
                 "4": "RETAIL_PRICE",
-                "5": "AVAIL"
+                "5": "AVAIL",
+                "6": "CURRENCY_CODE"
             }
         },
         {
-            "Date": "Ср июн 14 20:40:20 2023",
+            "Date": "Вс авг 6 19:16:19 2023",
             "ShopName": "Lanit",
-            "clientPriceListID": 170,
+            "clientPriceListID": 1000943,
+            "isSuccess": true,
             "settingMap": {
-                "0": "vendor-id",
-                "1": "id",
-                "2": "vendor",
-                "3": "name",
-                "4": "price",
-                "5": "freenom"
+                "0": "articul",
+                "1": "vendor",
+                "2": "name",
+                "3": "price",
+                "4": "freenom",
+                "5": "currency"
             }
         }
     ],
     "SqlConnection": {
         "dataBaseName": "unicomps",
-        "password": "evgeny",
-        "serverAdres": "127.0.0.1",
-        "userName": "evgeny"
+        "password": "1234",
+        "serverAdres": "DESKTOP-FLRPPRB\\SQLEXPRESS19",
+        "userName": "sa"
     }
 }

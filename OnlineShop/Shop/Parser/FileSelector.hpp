@@ -20,7 +20,7 @@ public:
 signals:
     void fileSelected(QString);
 
-private slots:
+public slots:
     void on_pushButton_clicked();
 
 

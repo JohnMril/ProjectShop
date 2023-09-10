@@ -24,7 +24,7 @@ void SenderDataDialog::on_sendPushButton_clicked()
     bool state = true;
 
     QMap<ElementsType, int> counterMap;
-    for (int i = 0; i < static_cast<int>(ElementsType::NOTHING); ++i)
+    for (int i = 0; i < static_cast<int>(ElementsType::LAST_TYPE); ++i)
     {
         counterMap.insert(static_cast<ElementsType>(i), 0);
         elementsTypeMap.insert(static_cast<ElementsType>(i), 0);
@@ -99,7 +99,7 @@ void SenderDataDialog::FillWidgetByElements()
 
     for(auto keyName : model.setAttributs)
     {
-        ElementsType keyType = ElementsType::NOTHING;
+        ElementsType keyType = ElementsType::LAST_TYPE;
         if(stateSettings)
         {
             if(settings.elementTypeMap.values().contains(keyName))

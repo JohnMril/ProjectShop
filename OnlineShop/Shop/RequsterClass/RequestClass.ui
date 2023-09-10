@@ -31,7 +31,7 @@
    <item>
     <widget class="QPushButton" name="getPushButton">
      <property name="text">
-      <string>Get Data</string>
+      <string>Загрузить</string>
      </property>
     </widget>
    </item>

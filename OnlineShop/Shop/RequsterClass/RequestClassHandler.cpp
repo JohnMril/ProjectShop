@@ -31,7 +31,7 @@ void RequestClassHandler::FillWidgets()
 
     for (auto fileInfo : fileList)
     {
-        if((fileInfo.fileName().contains(".bat"))|| (fileInfo.fileName().contains(".cmd")))
+        if(/*(fileInfo.fileName().contains(".bat"))|| */(fileInfo.fileName().contains(".cmd")))
         {
             tmpWidget = new RequestClass(fileInfo);
             m_widgetVec.push_back(tmpWidget);

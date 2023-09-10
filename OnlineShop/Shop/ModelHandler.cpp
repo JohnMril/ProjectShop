@@ -7,10 +7,10 @@ ModelHandler::ModelHandler(QObject *parent) : QObject(parent)
     //    m_placesModels->setHeaderData(1, Qt::Horizontal, "Date", Qt::DisplayRole);
 
     m_placesModels = new QStandardItemModel(0, 4, this);
-    m_placesModels->setHeaderData(0, Qt::Horizontal, "Name", Qt::DisplayRole);
-    m_placesModels->setHeaderData(1, Qt::Horizontal, "Date", Qt::DisplayRole);
-    m_placesModels->setHeaderData(2, Qt::Horizontal, "Sql Send", Qt::DisplayRole);
-    m_placesModels->setHeaderData(3, Qt::Horizontal, "Show Data", Qt::DisplayRole);
+    m_placesModels->setHeaderData(0, Qt::Horizontal, "Поставщик", Qt::DisplayRole);
+    m_placesModels->setHeaderData(1, Qt::Horizontal, "Дата скачивания", Qt::DisplayRole);
+    m_placesModels->setHeaderData(2, Qt::Horizontal, "Отправить на сервер", Qt::DisplayRole);
+    m_placesModels->setHeaderData(3, Qt::Horizontal, "Показать данные", Qt::DisplayRole);
 
 
 }

@@ -94,7 +94,7 @@ void ParsingDialog::on_okButton_clicked()
     bool state = true;
 
     QMap<ElementsType, int> counterMap;
-    for (int i = 0; i < static_cast<int>(ElementsType::NOTHING); ++i)
+    for (int i = 0; i < static_cast<int>(ElementsType::LAST_TYPE); ++i)
     {
         counterMap.insert(static_cast<ElementsType>(i), 0);
     }
