@@ -60,6 +60,14 @@ void ParserHolderWidget::DataLoaded(const int &apiEnum)
     m_parserMap.insert(API::LANIT,new LanitParser("Lanit", "LanitProducts.txt", this));
     m_parserMap.insert(API::ASBIS, new AsbisParser("Asbis", "asbisProducts.txt", this));
     m_parserMap.insert(API::MARVEL, new MarvelParser("Marvel", "MarvelProducts.txt", this));
+    m_parserMap.insert(API::RRC, new RRCParser("RRC", "RRCProducts.txt", this));
+    m_parserMap.insert(API::INLINE, new InlineParser("Inline", "InlineProducts.txt", this));
+    m_parserMap.insert(API::PRONET, new ProNetParser("ProNet", "PronetProducts.txt", this));
+    m_parserMap.insert(API::TRADEONLINE, new TradeOnlineParser("TradeOnline", "TradeOnlineProducts.txt", this));
+
+
+
+
 
     API tmpApi = static_cast<API>(apiEnum);
     if(m_parserMap.contains(tmpApi))

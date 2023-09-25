@@ -7,6 +7,10 @@
 #include <QXmlStreamReader>
 #include <QSet>
 #include <QDateTime>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonObject>
 
 #include "Common/ModelStruct.hpp"
 

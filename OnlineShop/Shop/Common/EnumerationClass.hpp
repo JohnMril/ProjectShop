@@ -40,7 +40,11 @@ enum API : int
 {
     LANIT,
     ASBIS,
-    MARVEL
+    MARVEL,
+    INLINE,
+    RRC,
+    PRONET,
+    TRADEONLINE,
 };
 
 inline const QString  ConvertEnumToString(ElementsType type)

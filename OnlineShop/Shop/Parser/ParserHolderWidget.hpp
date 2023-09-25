@@ -13,6 +13,11 @@
 #include "RawDataParser/AsbisParser.hpp"
 #include "RawDataParser/MarvelParser.hpp"
 #include "RawDataParser/ParserRawDataInteface.hpp"
+#include "RawDataParser/InlineParser.hpp"
+#include "RawDataParser/ProNetParser.hpp"
+#include "RawDataParser/RRCParser.hpp"
+#include "RawDataParser/TradeOnline.hpp"
+
 
 class ParserHolderWidget : public QWidget
 {

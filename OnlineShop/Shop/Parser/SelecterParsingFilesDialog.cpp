@@ -23,6 +23,10 @@ SelecterParsingFilesDialog::SelecterParsingFilesDialog(QWidget *parent) :
     m_enumMap.insert(API::LANIT, "LanitProducts.txt");
     m_enumMap.insert(API::ASBIS, "asbisProducts.txt");
     m_enumMap.insert(API::MARVEL, "MarvelProducts.txt");
+    m_enumMap.insert(API::RRC,"RRCProducts.txt");
+    m_enumMap.insert(API::INLINE,"InlineProducts.txt");
+    m_enumMap.insert(API::PRONET,"PronetProducts.txt");
+    m_enumMap.insert(API::TRADEONLINE, "TradeOnlineProducts.txt");
 
 
 

@@ -25,9 +25,13 @@ SOURCES += \
     Parser/ParserHolderWidget.cpp \
     Parser/ParsingDialog.cpp \
     Parser/RawDataParser/AsbisParser.cpp \
+    Parser/RawDataParser/InlineParser.cpp \
     Parser/RawDataParser/LanitParser.cpp \
     Parser/RawDataParser/MarvelParser.cpp \
     Parser/RawDataParser/ParserRawDataInteface.cpp \
+    Parser/RawDataParser/ProNetParser.cpp \
+    Parser/RawDataParser/RRCParser.cpp \
+    Parser/RawDataParser/TradeOnline.cpp \
     Parser/SelectedParserElementWidget.cpp \
     Parser/SelecterParsingFilesDialog.cpp \
     RequsterClass/RequestClass.cpp \
@@ -60,9 +64,13 @@ HEADERS += \
     Parser/ParserHolderWidget.hpp \
     Parser/ParsingDialog.hpp \ \
     Parser/RawDataParser/AsbisParser.hpp \
+    Parser/RawDataParser/InlineParser.hpp \
     Parser/RawDataParser/LanitParser.hpp \
     Parser/RawDataParser/MarvelParser.hpp \
     Parser/RawDataParser/ParserRawDataInteface.hpp \
+    Parser/RawDataParser/ProNetParser.hpp \
+    Parser/RawDataParser/RRCParser.hpp \
+    Parser/RawDataParser/TradeOnline.hpp \
     Parser/SelectedParserElementWidget.hpp \
     Parser/SelecterParsingFilesDialog.hpp \
     RequsterClass/RequestClass.hpp \
