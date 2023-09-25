@@ -28,6 +28,20 @@
                 "4": "freenom",
                 "5": "currency"
             }
+        },
+        {
+            "Date": "Ср сен 13 00:10:27 2023",
+            "ShopName": "TradeOnline",
+            "clientPriceListID": 1006620,
+            "isSuccess": false,
+            "settingMap": {
+                "0": "VendorCode",
+                "1": "BrandName",
+                "2": "Name",
+                "3": "PriceMSK_RUR",
+                "4": "SkladMSK",
+                "5": "currency"
+            }
         }
     ],
     "SqlConnection": {
