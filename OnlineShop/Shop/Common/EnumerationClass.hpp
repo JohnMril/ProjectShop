@@ -45,6 +45,9 @@ enum API : int
     RRC,
     PRONET,
     TRADEONLINE,
+    OCS,
+    NETLAB,
+    MICS,
 };
 
 inline const QString  ConvertEnumToString(ElementsType type)

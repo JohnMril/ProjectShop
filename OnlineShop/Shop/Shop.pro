@@ -28,6 +28,9 @@ SOURCES += \
     Parser/RawDataParser/InlineParser.cpp \
     Parser/RawDataParser/LanitParser.cpp \
     Parser/RawDataParser/MarvelParser.cpp \
+    Parser/RawDataParser/MicsParser.cpp \
+    Parser/RawDataParser/NetLabParser.cpp \
+    Parser/RawDataParser/OcsParser.cpp \
     Parser/RawDataParser/ParserRawDataInteface.cpp \
     Parser/RawDataParser/ProNetParser.cpp \
     Parser/RawDataParser/RRCParser.cpp \
@@ -67,6 +70,9 @@ HEADERS += \
     Parser/RawDataParser/InlineParser.hpp \
     Parser/RawDataParser/LanitParser.hpp \
     Parser/RawDataParser/MarvelParser.hpp \
+    Parser/RawDataParser/MicsParser.hpp \
+    Parser/RawDataParser/NetLabParser.hpp \
+    Parser/RawDataParser/OcsParser.hpp \
     Parser/RawDataParser/ParserRawDataInteface.hpp \
     Parser/RawDataParser/ProNetParser.hpp \
     Parser/RawDataParser/RRCParser.hpp \

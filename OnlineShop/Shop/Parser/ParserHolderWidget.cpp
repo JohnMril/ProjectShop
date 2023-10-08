@@ -43,7 +43,7 @@ void ParserHolderWidget::CallErorrMessageBox(QString text, QString title)
     qDebug() << text<< title;
 
     QMessageBox::warning(this, title,
-                                     text);
+                         text);
 }
 
 
@@ -64,7 +64,9 @@ void ParserHolderWidget::DataLoaded(const int &apiEnum)
     m_parserMap.insert(API::INLINE, new InlineParser("Inline", "InlineProducts.txt", this));
     m_parserMap.insert(API::PRONET, new ProNetParser("ProNet", "PronetProducts.txt", this));
     m_parserMap.insert(API::TRADEONLINE, new TradeOnlineParser("TradeOnline", "TradeOnlineProducts.txt", this));
-
+    m_parserMap.insert(API::OCS, new OcsParser("Ocs", "OcsProducts.txt", this));
+    m_parserMap.insert(API::MICS, new MicsParser("Mics", "MicsProducts.txt", this));
+    m_parserMap.insert(API::NETLAB, new NetLabParser("NetLab", "NetLabProducts.txt", this));
 
 
 
@@ -75,10 +77,10 @@ void ParserHolderWidget::DataLoaded(const int &apiEnum)
         if(m_parserMap.value(tmpApi)->VParsing())
         {
 
-           ModelStruct m_lastModel = m_parserMap.value(tmpApi)->GetModelStruct();
-           m_dataClass->AddModelStruct(m_lastModel);
-           delete m_parserMap.value(tmpApi);
-           emit NewModelLoaded(m_lastModel.shop);
+            ModelStruct m_lastModel = m_parserMap.value(tmpApi)->GetModelStruct();
+            m_dataClass->AddModelStruct(m_lastModel);
+            delete m_parserMap.value(tmpApi);
+            emit NewModelLoaded(m_lastModel.shop);
 
         }
         else

@@ -17,6 +17,9 @@
 #include "RawDataParser/ProNetParser.hpp"
 #include "RawDataParser/RRCParser.hpp"
 #include "RawDataParser/TradeOnline.hpp"
+#include "RawDataParser/OcsParser.hpp"
+#include "RawDataParser/MicsParser.hpp"
+#include "RawDataParser/NetLabParser.hpp"
 
 
 class ParserHolderWidget : public QWidget
