@@ -16,6 +16,20 @@
             }
         },
         {
+            "Date": "Чт окт 26 00:12:01 2023",
+            "ShopName": "Elko",
+            "clientPriceListID": 1000909,
+            "isSuccess": true,
+            "settingMap": {
+                "0": "vendorCode",
+                "1": "categoryCode",
+                "2": "productName",
+                "3": "productPrice",
+                "4": "inTransitMSK",
+                "5": "ВалютаRUR"
+            }
+        },
+        {
             "Date": "Вс авг 6 19:16:19 2023",
             "ShopName": "Lanit",
             "clientPriceListID": 1000943,
@@ -30,10 +44,52 @@
             }
         },
         {
-            "Date": "Ср сен 13 00:10:27 2023",
+            "Date": "Вт окт 24 20:05:03 2023",
+            "ShopName": "NetLab",
+            "clientPriceListID": 1000953,
+            "isSuccess": true,
+            "settingMap": {
+                "0": "id",
+                "1": "производитель",
+                "2": "название",
+                "3": "цена по категории F",
+                "4": "Общее количество на складах",
+                "5": "ВалютаUSD"
+            }
+        },
+        {
+            "Date": "Вт окт 24 20:41:13 2023",
+            "ShopName": "Ocs",
+            "clientPriceListID": 1000901,
+            "isSuccess": true,
+            "settingMap": {
+                "0": "itemId",
+                "1": "producer",
+                "2": "productName",
+                "3": "priceListvalue",
+                "4": "quantityvalue0",
+                "5": "priceListcurrency"
+            }
+        },
+        {
+            "Date": "Сб окт 28 22:21:47 2023",
+            "ShopName": "SuperWave",
+            "clientPriceListID": 1005165,
+            "isSuccess": true,
+            "settingMap": {
+                "0": "ItemId",
+                "1": "TradeMark",
+                "2": "ItemName",
+                "3": "Price",
+                "4": "Qty",
+                "5": "CurrencyCode"
+            }
+        },
+        {
+            "Date": "Вт окт 24 19:16:32 2023",
             "ShopName": "TradeOnline",
             "clientPriceListID": 1006620,
-            "isSuccess": false,
+            "isSuccess": true,
             "settingMap": {
                 "0": "VendorCode",
                 "1": "BrandName",

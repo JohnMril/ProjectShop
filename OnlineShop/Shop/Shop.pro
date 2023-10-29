@@ -25,6 +25,7 @@ SOURCES += \
     Parser/ParserHolderWidget.cpp \
     Parser/ParsingDialog.cpp \
     Parser/RawDataParser/AsbisParser.cpp \
+    Parser/RawDataParser/ElkoParser.cpp \
     Parser/RawDataParser/InlineParser.cpp \
     Parser/RawDataParser/LanitParser.cpp \
     Parser/RawDataParser/MarvelParser.cpp \
@@ -34,6 +35,8 @@ SOURCES += \
     Parser/RawDataParser/ParserRawDataInteface.cpp \
     Parser/RawDataParser/ProNetParser.cpp \
     Parser/RawDataParser/RRCParser.cpp \
+    Parser/RawDataParser/ResourceMediaParser.cpp \
+    Parser/RawDataParser/SuperWaveParser.cpp \
     Parser/RawDataParser/TradeOnline.cpp \
     Parser/SelectedParserElementWidget.cpp \
     Parser/SelecterParsingFilesDialog.cpp \
@@ -67,6 +70,7 @@ HEADERS += \
     Parser/ParserHolderWidget.hpp \
     Parser/ParsingDialog.hpp \ \
     Parser/RawDataParser/AsbisParser.hpp \
+    Parser/RawDataParser/ElkoParser.hpp \
     Parser/RawDataParser/InlineParser.hpp \
     Parser/RawDataParser/LanitParser.hpp \
     Parser/RawDataParser/MarvelParser.hpp \
@@ -76,6 +80,8 @@ HEADERS += \
     Parser/RawDataParser/ParserRawDataInteface.hpp \
     Parser/RawDataParser/ProNetParser.hpp \
     Parser/RawDataParser/RRCParser.hpp \
+    Parser/RawDataParser/ResourceMediaParser.hpp \
+    Parser/RawDataParser/SuperWaveParser.hpp \
     Parser/RawDataParser/TradeOnline.hpp \
     Parser/SelectedParserElementWidget.hpp \
     Parser/SelecterParsingFilesDialog.hpp \

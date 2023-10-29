@@ -37,9 +37,11 @@ bool OcsParser::VParsing()
     QJsonArray settingArray = jDoc.object().value("result").toArray();
 
     QVariantMap tmpMap;
+    int quantityCounter;
     for(auto setting : settingArray)
     {
       tmpMap.clear();
+      quantityCounter = 0;
 
       QJsonObject mainObj =setting.toObject();
 
@@ -80,10 +82,15 @@ bool OcsParser::VParsing()
       {
          QJsonObject locationObj = locationsArray.at(i).toObject();
 
+         if(locationObj.value("location").toString().contains("МСК") || locationObj.value("location").toString().contains("СПБ"))
+         {
+            quantityCounter += locationObj.value("quantity").toObject().value("value").toInt();
+         }
          for (auto locationElementKey : locationObj.keys())
          {
              if(locationObj.value(locationElementKey).isObject())
              {
+
                  for(auto listElement : locationObj.value(locationElementKey).toObject().toVariantMap().toStdMap())
                  {
                      tmpMap.insert(locationElementKey+listElement.first+QString::number(i), listElement.second);
@@ -98,7 +105,8 @@ bool OcsParser::VParsing()
          }
       }
 
-
+      tmpMap.insert("Общее количество на складах", quantityCounter);
+      m_modelStruct.setAttributs.insert("Общее количество на складах");
       m_modelStruct.modelMap.push_back(tmpMap);
     }
 

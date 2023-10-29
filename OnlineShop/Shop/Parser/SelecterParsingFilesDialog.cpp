@@ -7,6 +7,8 @@ SelecterParsingFilesDialog::SelecterParsingFilesDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    m_eventLoop = new QEventLoop(this);
+
     m_requstHandler = new RequestClassHandler(this);
     m_requstHandler->hide();
 
@@ -30,7 +32,9 @@ SelecterParsingFilesDialog::SelecterParsingFilesDialog(QWidget *parent) :
     m_enumMap.insert(API::OCS, "OcsProducts.txt");
     m_enumMap.insert(API::MICS, "MicsProducts.txt");
     m_enumMap.insert(API::NETLAB,  "NetLabProducts.txt");
-
+    m_enumMap.insert(API::ELKO,  "ElkoProducts.txt");
+    m_enumMap.insert(API::SUPERWAVE, "SuperWaveProducts.txt");
+    m_enumMap.insert(API::RESOURCEMEDIA, "ResourceMediaProducts.txt");
 
 
 
@@ -62,6 +66,10 @@ void SelecterParsingFilesDialog::acceptSignal(QString text)
 
 void SelecterParsingFilesDialog::LoadAllData()
 {
+    m_minute = 0;
+    m_timer = new QTimer(this);
+    connect(m_timer, &QTimer::timeout, this, &SelecterParsingFilesDialog::timeOutTimer);
+    m_timer->start(60*1000);
 
     QFileInfoList fileList = m_currentDir.entryInfoList();
     for(auto fileInfo : fileList)
@@ -116,8 +124,8 @@ void SelecterParsingFilesDialog::LoadAllData()
                 }
             }
         }
-
-        if(state)
+        m_eventLoop->processEvents();
+        if(state || (m_minute >12))
         {
             switchKey = false;
         }
@@ -130,7 +138,9 @@ void SelecterParsingFilesDialog::LoadAllData()
     }
     emit allDataLoaded();
     qDebug() << "AllDataLoaded";
-
+    m_timer->stop();
+    m_timer->deleteLater();
+    delete m_timer;
 }
 
 
@@ -166,4 +176,11 @@ void SelecterParsingFilesDialog::on_pushButton_clicked()
 void SelecterParsingFilesDialog::on_loadPushButton_clicked()
 {
     m_requstHandler->show();
+}
+
+
+
+void SelecterParsingFilesDialog::timeOutTimer()
+{
+    m_minute++;
 }

@@ -67,6 +67,9 @@ void ParserHolderWidget::DataLoaded(const int &apiEnum)
     m_parserMap.insert(API::OCS, new OcsParser("Ocs", "OcsProducts.txt", this));
     m_parserMap.insert(API::MICS, new MicsParser("Mics", "MicsProducts.txt", this));
     m_parserMap.insert(API::NETLAB, new NetLabParser("NetLab", "NetLabProducts.txt", this));
+    m_parserMap.insert(API::ELKO, new ElkoParser("Elko", "ElkoProducts.txt", this));
+    m_parserMap.insert(API::SUPERWAVE, new SuperWaveParser("SuperWave", "SuperWaveProducts.txt", this));
+    m_parserMap.insert(API::RESOURCEMEDIA, new ResourceMediaParser("ResourceMedia", "ResourceMediaProducts.txt", this));
 
 
 
@@ -79,7 +82,6 @@ void ParserHolderWidget::DataLoaded(const int &apiEnum)
 
             ModelStruct m_lastModel = m_parserMap.value(tmpApi)->GetModelStruct();
             m_dataClass->AddModelStruct(m_lastModel);
-            delete m_parserMap.value(tmpApi);
             emit NewModelLoaded(m_lastModel.shop);
 
         }
@@ -89,4 +91,10 @@ void ParserHolderWidget::DataLoaded(const int &apiEnum)
         }
 
     }
+
+    for(auto parser : m_parserMap)
+    {
+        parser->deleteLater();
+    }
+    m_parserMap.clear();
 }

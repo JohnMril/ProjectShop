@@ -20,6 +20,9 @@
 #include "RawDataParser/OcsParser.hpp"
 #include "RawDataParser/MicsParser.hpp"
 #include "RawDataParser/NetLabParser.hpp"
+#include "RawDataParser/ElkoParser.hpp"
+#include "RawDataParser/SuperWaveParser.hpp"
+#include "RawDataParser/ResourceMediaParser.hpp"
 
 
 class ParserHolderWidget : public QWidget

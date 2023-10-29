@@ -48,6 +48,9 @@ enum API : int
     OCS,
     NETLAB,
     MICS,
+    ELKO,
+    SUPERWAVE,
+    RESOURCEMEDIA,
 };
 
 inline const QString  ConvertEnumToString(ElementsType type)

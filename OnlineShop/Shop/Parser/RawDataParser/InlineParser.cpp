@@ -27,7 +27,21 @@ bool InlineParser::VParsing()
                     QVariantMap tmpMap;
                     foreach(const QXmlStreamAttribute &attr, reader.attributes())
                     {
-                        tmpMap.insert(attr.name().toString(), attr.value().toString());
+                        if(attr.name().toString() == "c")
+                        {
+                            if(attr.value().toString().contains("-"))
+                            {
+                                tmpMap.insert(attr.name().toString(), 0);
+                            }
+                            else
+                            {
+                                tmpMap.insert(attr.name().toString(), attr.value().toString());
+                            }
+                        }
+                        else
+                        {
+                            tmpMap.insert(attr.name().toString(), attr.value().toString());
+                        }
                         m_modelStruct.setAttributs.insert(attr.name().toString());
                     }
                     while (reader.name() != "n")

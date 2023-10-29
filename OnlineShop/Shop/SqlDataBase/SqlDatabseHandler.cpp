@@ -163,7 +163,7 @@ void SqlDatabaseHandler::SendAllDataToSqlServer()
             continue;
         }
 
-
+        qDebug() << "Start sent "<< settings.shop << " id in sql: "<< settings.clientPriceListID;
         ClearSqlTable();
 
         QList<QString> keyList = settings.elementTypeMap.values();
@@ -312,7 +312,7 @@ QVector<QVariantList> SqlDatabaseHandler::PrepareListData(ModelStruct& modelStru
             ElementsType tmpType = static_cast<ElementsType>(i);
             if(products.contains(settings.elementTypeMap.value(tmpType)))
             {
-                productList.append( products.value(settings.elementTypeMap.value(tmpType)) );
+                productList.append( products.value(settings.elementTypeMap.value(tmpType)).toString() );
             }
             else
             {
