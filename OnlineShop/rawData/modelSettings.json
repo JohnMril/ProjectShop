@@ -44,6 +44,20 @@
             }
         },
         {
+            "Date": "Сб ноя 11 20:02:40 2023",
+            "ShopName": "Mics",
+            "clientPriceListID": 13413,
+            "isSuccess": false,
+            "settingMap": {
+                "0": "КодБренда",
+                "1": "Бренд",
+                "2": "ПолноеНаименование",
+                "3": "Цена",
+                "4": "Общее количество на складах",
+                "5": "Валюта"
+            }
+        },
+        {
             "Date": "Вт окт 24 20:05:03 2023",
             "ShopName": "NetLab",
             "clientPriceListID": 1000953,
@@ -69,6 +83,20 @@
                 "3": "priceListvalue",
                 "4": "quantityvalue0",
                 "5": "priceListcurrency"
+            }
+        },
+        {
+            "Date": "Сб ноя 11 19:51:37 2023",
+            "ShopName": "RRC",
+            "clientPriceListID": 245112,
+            "isSuccess": false,
+            "settingMap": {
+                "0": "id",
+                "1": "vendor",
+                "2": "name",
+                "3": "price_rub",
+                "4": "quantity",
+                "5": "currency"
             }
         },
         {

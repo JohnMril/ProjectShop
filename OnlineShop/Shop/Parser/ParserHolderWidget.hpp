@@ -23,6 +23,7 @@
 #include "RawDataParser/ElkoParser.hpp"
 #include "RawDataParser/SuperWaveParser.hpp"
 #include "RawDataParser/ResourceMediaParser.hpp"
+#include "RawDataParser/LogicParser.hpp"
 
 
 class ParserHolderWidget : public QWidget

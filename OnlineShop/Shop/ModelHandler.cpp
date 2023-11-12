@@ -271,7 +271,7 @@ QStandardItemModel *ModelHandler::CreateTmpMOdel(QString modelName)
             QModelIndex index = itemModel->index(row, column);
             if(modelStruct.modelMap.at(row).contains(keyName))
             {
-                itemModel->setData(index, modelStruct.modelMap.at(row).value(keyName));
+                itemModel->setData(index, modelStruct.modelMap.at(row).value(keyName).toString());
             }
 
             column++;

@@ -18,6 +18,7 @@
 #include "SqlDataBase/SqlDatabseHandler.hpp"
 #include "SqlDataBase/AuthorizationDialog.hpp"
 #include "SqlDataBase/PushButtonSender.hpp"
+#include "LogDialog.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -85,6 +86,8 @@ private:
     AuthorizationDialog* m_sqlAuthDialog;
 
     QVector<PushButtonSender*> m_senderButtonVector;
+
+    LogDialog* m_logDialog;
 
 
 

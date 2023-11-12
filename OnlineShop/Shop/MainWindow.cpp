@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    m_logDialog = new LogDialog();
+
     m_settingHandler = new SettingHandler(&m_dataClass, this);    
     m_settingHandler->SettingDownload();
 
@@ -16,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(m_sqlDataBaseHandler, &SqlDatabaseHandler::NeedToConnect, this, &MainWindow::EmitAuthSql);
     connect(m_sqlDataBaseHandler, &SqlDatabaseHandler::ShowMainWindow, this, &MainWindow::ShowMainWindow);
+    connect(m_sqlDataBaseHandler, &SqlDatabaseHandler::Started, m_logDialog, &LogDialog::TextChange);
+    connect(m_sqlDataBaseHandler, &SqlDatabaseHandler::Finished, m_logDialog, &LogDialog::Finished);
 
 
     m_selectorFileDialog = new SelecterParsingFilesDialog(this);
@@ -39,6 +43,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     //setting
     connect(&m_dataClass, &DataClass::NewSettingAdded, m_settingHandler, &SettingHandler::SettingSave);
+
+
+    m_sqlDataBaseHandler->MakeConnection();
+
 
     this->resize(525, 350);
 
@@ -128,6 +136,7 @@ void MainWindow::on_loadAllButton_clicked()
     else
     {
         this->hide();
+        m_logDialog->TextChange("Происходит скачка файлов по API (приблизительно 12 минут)");
         m_selectorFileDialog->LoadAllData();
 
     }

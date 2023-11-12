@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     DataClass/DataClass.cpp \
     DataClass/SqlDataBase.cpp \
+    LogDialog.cpp \
     ModelHandler.cpp \
     Parser/ChoseSettingsDialog.cpp \
     Parser/FileSelector.cpp \
@@ -28,6 +29,7 @@ SOURCES += \
     Parser/RawDataParser/ElkoParser.cpp \
     Parser/RawDataParser/InlineParser.cpp \
     Parser/RawDataParser/LanitParser.cpp \
+    Parser/RawDataParser/LogicParser.cpp \
     Parser/RawDataParser/MarvelParser.cpp \
     Parser/RawDataParser/MicsParser.cpp \
     Parser/RawDataParser/NetLabParser.cpp \
@@ -48,6 +50,7 @@ SOURCES += \
     SqlDataBase/AuthorizationDialog.cpp \
     SqlDataBase/PushButtonSender.cpp \
     SqlDataBase/SenderDataDialog.cpp \
+    SqlDataBase/SqlDataClassThread.cpp \
     SqlDataBase/SqlDatabseHandler.cpp \
     SqlDataBase/SqlElement.cpp \
     ViewEditorDialog/ModelViewDialog.cpp \
@@ -62,6 +65,7 @@ HEADERS += \
     Common/ModelStruct.hpp \
     DataClass/DataClass.hpp \
     DataClass/SqlDataBase.hpp \
+    LogDialog.hpp \
     MainWindow.hpp \
     ModelHandler.hpp \
     Parser/ChoseSettingsDialog.hpp \
@@ -73,6 +77,7 @@ HEADERS += \
     Parser/RawDataParser/ElkoParser.hpp \
     Parser/RawDataParser/InlineParser.hpp \
     Parser/RawDataParser/LanitParser.hpp \
+    Parser/RawDataParser/LogicParser.hpp \
     Parser/RawDataParser/MarvelParser.hpp \
     Parser/RawDataParser/MicsParser.hpp \
     Parser/RawDataParser/NetLabParser.hpp \
@@ -93,6 +98,7 @@ HEADERS += \
     SqlDataBase/AuthorizationDialog.hpp \
     SqlDataBase/PushButtonSender.hpp \
     SqlDataBase/SenderDataDialog.hpp \
+    SqlDataBase/SqlDataClassThread.hpp \
     SqlDataBase/SqlDatabseHandler.hpp \
     SqlDataBase/SqlElement.hpp \
     ViewEditorDialog/ModelViewDialog.hpp \
@@ -101,6 +107,7 @@ HEADERS += \
     WaitingDialog.hpp
 
 FORMS += \
+    LogDialog.ui \
     MainWindow.ui \
     Parser/ChoseSettingsDialog.ui \
     Parser/FileSelector.ui \

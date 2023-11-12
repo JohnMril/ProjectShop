@@ -43,7 +43,7 @@ bool ElkoParser::VParsing()
         {
             if(key == "events")
             {
-                continue;
+
             }
             else if(key.contains("inTransit") or key.contains("inStock"))
             {
@@ -52,13 +52,13 @@ bool ElkoParser::VParsing()
                 {
                     QJsonObject elementObj = element.toObject();
 
-                    tmpMap.insert(key+elementObj.value("stock").toString(), elementObj.value("quantity"));
+                    tmpMap.insert(key+elementObj.value("stock").toString(), elementObj.value("quantity").toVariant());
                     m_modelStruct.setAttributs.insert(key+elementObj.value("stock").toString());
                 }
             }
             else
             {
-                tmpMap.insert(key, productObj.value(key));
+                tmpMap.insert(key, productObj.value(key).toVariant());
                 m_modelStruct.setAttributs.insert(key);
             }
         }

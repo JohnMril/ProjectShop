@@ -51,6 +51,7 @@ enum API : int
     ELKO,
     SUPERWAVE,
     RESOURCEMEDIA,
+    Logic
 };
 
 inline const QString  ConvertEnumToString(ElementsType type)

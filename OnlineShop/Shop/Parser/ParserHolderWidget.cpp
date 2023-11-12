@@ -71,6 +71,8 @@ void ParserHolderWidget::DataLoaded(const int &apiEnum)
     m_parserMap.insert(API::SUPERWAVE, new SuperWaveParser("SuperWave", "SuperWaveProducts.txt", this));
     m_parserMap.insert(API::RESOURCEMEDIA, new ResourceMediaParser("ResourceMedia", "ResourceMediaProducts.txt", this));
 
+    m_parserMap.insert(API::Logic, new LogicParser("3Logic", "3LogicProducts.txt", this));
+
 
 
 

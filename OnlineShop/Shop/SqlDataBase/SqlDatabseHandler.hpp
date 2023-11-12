@@ -11,6 +11,7 @@
 #include "DataClass/DataClass.hpp"
 #include "SenderDataDialog.hpp"
 #include "AskToUseSettingsDialog.hpp"
+#include "SqlDataClassThread.hpp"
 
 class SqlDatabaseHandler : public QWidget
 {
@@ -20,6 +21,7 @@ public:
 
     bool isConnected() const;
     bool MakeConection(QString serverAdres, QString dataBaseName, QString userName, QString password);
+    void MakeConnection();
 
     void PrepareToSend(QString shopName);
 
@@ -31,6 +33,9 @@ signals:
     void NeedToConnect();
     void SendData(QString);
     void ShowMainWindow();
+    void Started(QString processName);
+    void Finished(QString processName);
+
 
 public slots:
     void SendDataToSqlServer(const QString& shopName);
@@ -39,11 +44,14 @@ public slots:
 
     void SendAllDataToSqlServer();
 
-    int CheckSqlTableRows();
+//    int CheckSqlTableRows();
     bool EmitSqlScript(QString shopName = "", bool switchKey = true);
     bool EmitSqlRecount();
 
     bool ClearSqlTable();
+
+    void MessageBoxFromThread(bool state);
+    void ConnectionCreated(bool state);
 
 private:
 
@@ -58,6 +66,8 @@ private:
     DataClass* m_dataClass;
 
     AskToUseSettingsDialog* m_askDialog = nullptr;
+
+    SqlDataClassThread* m_sqlThread;
 
     QSqlDatabase m_dataBase;
 

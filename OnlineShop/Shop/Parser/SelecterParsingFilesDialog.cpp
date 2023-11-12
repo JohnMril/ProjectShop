@@ -35,6 +35,7 @@ SelecterParsingFilesDialog::SelecterParsingFilesDialog(QWidget *parent) :
     m_enumMap.insert(API::ELKO,  "ElkoProducts.txt");
     m_enumMap.insert(API::SUPERWAVE, "SuperWaveProducts.txt");
     m_enumMap.insert(API::RESOURCEMEDIA, "ResourceMediaProducts.txt");
+    m_enumMap.insert(API::Logic, "3LogicProducts.txt");
 
 
 

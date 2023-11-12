@@ -4,6 +4,12 @@ SqlDatabaseHandler::SqlDatabaseHandler(DataClass *dataClass, QWidget *parent) :
     QWidget(parent),
     m_dataClass(dataClass)
 {
+    m_sqlThread = new SqlDataClassThread(dataClass);
+
+    connect(m_sqlThread, &SqlDataClassThread::Started, this, &SqlDatabaseHandler::Started);
+    connect(m_sqlThread, &SqlDataClassThread::Finished, this, &SqlDatabaseHandler::Finished);
+    connect(m_sqlThread, &SqlDataClassThread::EmitMessageBox, this, &SqlDatabaseHandler::MessageBoxFromThread);
+    connect(m_sqlThread, &SqlDataClassThread::Connected, this, &SqlDatabaseHandler::ConnectionCreated);
 
 }
 
@@ -14,22 +20,25 @@ bool SqlDatabaseHandler::isConnected() const
 
 bool SqlDatabaseHandler::MakeConection(QString serverAdres, QString dataBaseName, QString userName, QString password)
 {
-    m_dataBase = QSqlDatabase::addDatabase("QODBC");
+//    m_dataBase = QSqlDatabase::addDatabase("QODBC");
 
-    m_dataBase.setDatabaseName("DRIVER={SQL Server};SERVER="+serverAdres+";DATABASE="+dataBaseName+";");
-    m_dataBase.setUserName(userName);
-    m_dataBase.setPassword(password);
+//    m_dataBase.setDatabaseName("DRIVER={SQL Server};SERVER="+serverAdres+";DATABASE="+dataBaseName+";");
+//    m_dataBase.setUserName(userName);
+//    m_dataBase.setPassword(password);
 
-    if(m_dataBase.open())
-    {
-        qDebug() <<" SQL connection SUCCESS";
-        m_isConnected = true;
+    m_sqlThread->ThreadMakeConnection (serverAdres, dataBaseName, userName, password);
+
+
         return true;
-    }
 
-    qDebug() <<" SQL connection ERROR";
-    m_isConnected = false;
-    return false;
+}
+
+void SqlDatabaseHandler::MakeConnection()
+{
+    auto settingMap = m_dataClass->GetSqlConnectionSettings();
+
+    m_sqlThread->ThreadMakeConnection(settingMap.value("serverAdres").toString(),settingMap.value("dataBaseName").toString(),
+                                      settingMap.value("userName").toString(),settingMap.value("password").toString());
 }
 
 
@@ -70,60 +79,7 @@ DataClass *SqlDatabaseHandler::GetDataClassEntity()
 
 void SqlDatabaseHandler::SendDataToSqlServer(const QString &shopName)
 {
-
-
-
-    if(m_askDialog != nullptr)
-    {
-        m_askDialog->close();
-    }
-
-    bool state;
-
-    ModelSettings settings = m_dataClass->GetModelSettingsByName(shopName, state);
-    if(!state)
-    {
-        return;
-    }
-    ModelStruct modelStruct = m_dataClass->GetModelStructByName(shopName, state);
-    if(!state)
-    {
-        return;
-    }
-
-
-    ClearSqlTable();
-
-    QList<QString> keyList = settings.elementTypeMap.values();
-
-    QVector<QVariantList> itemList = PrepareListData(modelStruct, settings);
-
-
-
-    QSqlQuery query;
-        query.prepare("INSERT INTO PRICE_LIST_TMP ( ClientID, ClientProductID, ClientVendorCode, ClientBrandName, ClientProductName, ClientPriceString, ClientPriceRecString, ClientStorageMark, CurrencyNameString)"
-                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
-
-    for (auto item  : itemList)
-    {
-        for (auto property : item)
-        {
-            query.addBindValue(property);
-        }
-        if(!query.exec())
-        {
-            qDebug() <<"Error "<< query.lastError();
-        }
-    }
-
-
-    bool success = EmitSqlScript();
-
-    if(success)
-    {
-        settings.isSuccess = success;
-        m_dataClass->InsertModelSettings(settings);
-    }
+    m_sqlThread->ThreadSoloSend(shopName);
 }
 
 void SqlDatabaseHandler::EmitSenderDialog(const QString &shop)
@@ -141,79 +97,30 @@ void SqlDatabaseHandler::EmitSenderDialog(const QString &shop)
 
 void SqlDatabaseHandler::SendAllDataToSqlServer()
 {
-    QStringList shopList = m_dataClass->GetSettingMap().keys();
-
-    for(auto shopName : shopList )
-    {
-        bool state;
-
-        ModelSettings settings = m_dataClass->GetModelSettingsByName(shopName, state);
-        if(!state)
-        {
-            continue;
-        }
-        if(!settings.isSuccess)
-        {
-            continue;
-        }
-
-        ModelStruct modelStruct = m_dataClass->GetModelStructByName(shopName, state);
-        if(!state)
-        {
-            continue;
-        }
-
-        qDebug() << "Start sent "<< settings.shop << " id in sql: "<< settings.clientPriceListID;
-        ClearSqlTable();
-
-        QList<QString> keyList = settings.elementTypeMap.values();
-
-        QVector<QVariantList> itemList = PrepareListData(modelStruct, settings);
-
-
-        QSqlQuery query;
-        query.prepare("INSERT INTO PRICE_LIST_TMP ( ClientID, ClientProductID, ClientVendorCode, ClientBrandName, ClientProductName, ClientPriceString, ClientPriceRecString, ClientStorageMark, CurrencyNameString)"
-                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
-
-        for (auto item  : itemList)
-        {
-            for (auto property : item)
-            {
-                query.addBindValue(property);
-            }
-            if(!query.exec())
-            {
-                qDebug() <<"Error "<< query.lastError();
-            }
-        }
-            EmitSqlScript(settings.shop, false);
-    }
-    emit ShowMainWindow();
-    QMessageBox::information(this, tr("Sql connection to server"),
-                                     "Data has been sended ");
+   m_sqlThread->ThreadAllSend();
 }
 
 
 
-int SqlDatabaseHandler::CheckSqlTableRows()
-{
-    //TODO переделать
-    QSqlQuery query;
-    query.prepare("SELECT COUNT(*) FROM PRICE_LIST_TMP");
-    qDebug() << "Start row count";
-    bool state = query.exec();
-    if(state)
-    {
-        qDebug() << " HasFinished Success";
-    }
-    else
-    {
-        qDebug() << " HasFinished with Error"<< query.lastError();
-    }
+//int SqlDatabaseHandler::CheckSqlTableRows()
+//{
+//    //TODO переделать
+//    QSqlQuery query;
+//    query.prepare("SELECT COUNT(*) FROM PRICE_LIST_TMP");
+//    qDebug() << "Start row count";
+//    bool state = query.exec();
+//    if(state)
+//    {
+//        qDebug() << " HasFinished Success";
+//    }
+//    else
+//    {
+//        qDebug() << " HasFinished with Error"<< query.lastError();
+//    }
 
-    qDebug() << "Number of Rows: " << query.value(0).toInt();
-    return query.value(0).toInt();
-}
+//    qDebug() << "Number of Rows: " << query.value(0).toInt();
+//    return query.value(0).toInt();
+//}
 
 bool SqlDatabaseHandler::EmitSqlScript(QString shopName, bool switchKey)
 {
@@ -252,29 +159,10 @@ bool SqlDatabaseHandler::EmitSqlScript(QString shopName, bool switchKey)
 
 bool SqlDatabaseHandler::EmitSqlRecount()
 {
-    // dbo.ClientPriceLists_recount_full
-    QSqlQuery query;
-    query.prepare("USE [unicomps]  EXEC [dbo].[ClientPriceLists_recount_full]");
 
-    qDebug() << "Start sql script";
-    bool state = query.exec();
+      m_sqlThread->RecountSend();
 
-
-    if(state)
-    {
-
-        qDebug() << " HasFinished Success";
-        QMessageBox::information(this, tr("Sql connection to server"),
-                                         "ClientPriceLists_recount_full finished success!");
-    }
-    else
-    {
-        qDebug() << " HasFinished with Error"<< query.lastError().text();
-        QMessageBox::warning(this, tr("Sql connection to server"),
-                                         query.lastError().text());
-    }
-    emit ShowMainWindow();
-    return state;
+      return true;
 }
 
 bool SqlDatabaseHandler::ClearSqlTable()
@@ -295,6 +183,50 @@ bool SqlDatabaseHandler::ClearSqlTable()
     return state;
 
 }
+
+
+
+void SqlDatabaseHandler::MessageBoxFromThread(bool state)
+{
+    QString error;
+    if(state)
+    {
+
+        qDebug() << " HasFinished Success";
+        QMessageBox::information(this, tr("Sql connection to server"),
+                                         "Data sended, finished success!");
+    }
+    else
+    {
+        error = m_sqlThread->GetLastError();
+        qDebug() << " HasFinished with Error"<< error;
+        QMessageBox::warning(this, tr("Sql connection to server"),
+                                         error);
+    }
+    emit ShowMainWindow();
+}
+
+void SqlDatabaseHandler::ConnectionCreated(bool state)
+{
+    QString error = "Ошибка соединения!";
+    if(state)
+    {
+
+//        qDebug() << "ed Connect to sql";
+//        QMessageBox::information(this, tr("Sql connection to server"),
+//                                         "Connection finished success!");
+        m_isConnected = true;
+    }
+    else
+    {
+        qDebug() << " HasFinished with Error"<< error;
+        QMessageBox::warning(this, tr("Sql connection to server"),
+                                         error);
+        m_isConnected = false;
+    }
+}
+
+
 
 QVector<QVariantList> SqlDatabaseHandler::PrepareListData(ModelStruct& modelStruct, ModelSettings& settings)
 {
